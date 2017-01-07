@@ -99,6 +99,8 @@
     background-color: #fff; }
     .awp .solid :hover {
       background-color: #fadafd; }
+  .awp .hideSubMenu {
+    display: none; }
   .awp .rheight {
     height: 30px; }
   .awp .inlineblock li {
@@ -106,8 +108,10 @@
   .awp > .options {
     position: relative; }
   .awp .activelist > ul {
-    top: 26px;
+    top: 0px;
     left: 26px; }
+  .awp .activelist .hideSubMenu {
+    display: block; }
   .awp .activeSublist {
     position: relative; }
     .awp .activeSublist > ul {
