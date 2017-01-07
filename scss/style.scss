@@ -1,3 +1,4 @@
+$darktheme:#444; 
 
 $light-color: #fff;
 $light-bgcolor: #fadafd;
@@ -36,18 +37,47 @@ $listAlign: -4px;
 
 
 .hide{display: none !important;}
-
+.dark{
+    color: $light-color;
+    .setLink{
+        .a-btn-lg{
+            width: 100%;
+            padding: 8px 0px;
+            background-color: transparent;
+            border: solid 1px white;
+            color: white;
+            @include border-radius(50px);
+        }
+    }
+}
 .awp{
     float: left;
-    background-color: azure;
-    border-radius: 5px;
-    //width: 100%;
-
-    width: 900px;
-    border: 1px solid #000;
-    padding: 5px 3px 6px 9px;
-
-
+    width: 300px;
+    
+    
+    .arrows{
+        margin: 0 auto;
+    }
+    .arrow-up {
+      width: 0; 
+      height: 0; 
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid $darktheme;
+    }
+    .arrow-down {
+      width: 0; 
+      height: 0; 
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid $darktheme;
+    }
+    .controller{
+        background-color: $darktheme;
+        padding: 5px 3px 12px 9px;
+        @include border-radius(5px);
+    }
+    
     /*navigation*/
     li {
 
@@ -73,7 +103,7 @@ $listAlign: -4px;
     /*Active list */
 
     /*general buttons*/
-    .Abtn-circle{
+    .a-btn-circle{
         height: 22px; width: 22px;
         @include border-radius(50%);
     }
@@ -102,9 +132,9 @@ $listAlign: -4px;
     
     /*Temporal*/
     .hideSubMenu { display: none;}
+    .hardhideSubMenu {display:none !important;}
 
-
-    .rheight{height: 30px;}
+   
 
     .inlineblock li{
         display: inline-block;
@@ -114,6 +144,7 @@ $listAlign: -4px;
         position: relative;
     }
     .activelist {
+         position: relative;
         >ul{
             top: 0px;left: 26px;
         }
@@ -133,7 +164,8 @@ $listAlign: -4px;
     }
 
     .options{
-        word-spacing: -4px;
+       
+        background-color: $darktheme;
         /*width: 100%;*/
         a{
 
@@ -145,7 +177,6 @@ $listAlign: -4px;
             /*padding: 4px;*/
             display: inline-block;
             text-decoration: none;
-            background: #444;
             color: #fff;
         }
 
@@ -246,6 +277,9 @@ $listAlign: -4px;
 
     }
     .set{
+        margin-top: 20px;
+      
+        
         .settings{
              opacity: 1;
 
@@ -270,10 +304,8 @@ $listAlign: -4px;
 .awpDefault{
      .set{
         .setTypo{
-            background: red;
-
+           
             .setAlignment{
-                background: green;
                 width: 50%;
                 li{
                     display: inline-block;
@@ -315,20 +347,20 @@ $listAlign: -4px;
         }
         .setLink{
             .targetOptions {
-                position: relative;
+                .block{
+                    display: inline-block;
+                    width: 49%;
+                    vertical-align: top;
+                }
                 span{
                     line-height: 50px;
                 }
+                .switch{ float:right;margin-top: 14px;}
                 .onoffswitch{
-                    position: absolute;
-                    top: 10px;right: 0px;
+                   
                 }
             }
-            .Abtn-lg{
-                width: 100%;
-                padding: 8px 0px;
-                @include border-radius(50px);
-            }
+            
         }
 
     }

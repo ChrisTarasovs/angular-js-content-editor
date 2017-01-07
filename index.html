@@ -11,8 +11,9 @@
     </head>
     <body >
 
-        <div class="awp awpDefault"  ng-controller="awpCtrl">
-
+        <div class="awp awpDefault dark" ng-controller="awpCtrl">
+          <div class="arrows arrow-up"></div>
+          <div class="controller" >
             <ul class="options">
                 <li class="animate" ng-class="{activelist : activelist}">
                     <a ng-click="activeMenu()" class="nav-icon">
@@ -53,7 +54,7 @@
                                 <a ng-click="activeMenu()" class="nav-icon">
                                     <i class="fa fa-slack" aria-hidden="true" title="Color"></i>
                                 </a>
-                                <div class="colorhex">
+                                <div class="colorhex hardhideSubMenu">
                                     <input type="text" placeholder="#fff" />
                                     <button class="Abtn-circle">OK</button>
                                 </div>
@@ -62,7 +63,7 @@
                                 <a ng-click="activeMenu()" class="nav-icon textButton ">
                                     <span class="button">type</span>
                                 </a>
-                                <ul class="options inlineblock">
+                                <ul class="options inlineblock hideSubMenu">
                                     <li class="activeSublist setBorderBtn">
                                         <input type="radio" />
                                         <ul class="options inlineblock">
@@ -130,21 +131,27 @@
                         REX color
                     </div>
                     <div class="settings setLink animate">
-                        <div class="rheight buttonOptions">
 
-                        </div>
                         <div class="rheight targetOptions">
+                          <div class="block">
                             <span>Show in new tab</span>
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-                                <label class="onoffswitch-label" for="myonoffswitch"></label>
+                          </div>
+                          <div class="block">
+                            <div class="switch">
+                              <div class="onoffswitch">
+                                  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                                  <label class="onoffswitch-label" for="myonoffswitch"></label>
+                              </div>
                             </div>
+                          </div>
                         </div>
                         <div class="rheight">
-                            <button class="Abtn-lg Abtn-def">Convert to button</button>
+                            <button class="a-btn-lg a-btn-def">Convert to button</button>
                         </div>
                     </div>
             </div>
+          </div>
+          <div class="arrows arrow-down"></div>
         </div>
     </body>
 </html>

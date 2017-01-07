@@ -1,5 +1,5 @@
 .onoffswitch {
-    position: relative; width: 74px;
+    position: relative; width: 75px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
 }
 .onoffswitch-checkbox {
@@ -7,17 +7,17 @@
 }
 .onoffswitch-label {
     display: block; overflow: hidden; cursor: pointer;
-    height: 36px; padding: 0; line-height: 36px;
-    border: 2px solid #CCCCCC; border-radius: 36px;
+    height: 22px; padding: 0; line-height: 22px;
+    border: 2px solid #CCCCCC; border-radius: 22px;
     background-color: #FFFFFF;
     transition: background-color 0.3s ease-in;
 }
 .onoffswitch-label:before {
     content: "";
-    display: block; width: 36px; margin: 0px;
+    display: block; width: 22px; margin: 0px;
     background: #FFFFFF;
     position: absolute; top: 0; bottom: 0;
-    right: 36px;
+    right: 22px;
     border: 2px solid #CCCCCC; border-radius: 36px;
     transition: all 0.3s ease-in 0s; 
 }
