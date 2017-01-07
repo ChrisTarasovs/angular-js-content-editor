@@ -114,10 +114,11 @@
     display: table-cell;
     vertical-align: middle; }
     .awp .textButton .button {
-      width: auto;
+      width: auto !important;
       color: #2a2a2a;
       text-transform: uppercase;
       font-size: 9px;
+      line-height: 10px;
       padding: 1px 3px;
       margin: 0px 5px;
       background-color: #fadafd;
@@ -173,12 +174,12 @@
        top: 0;
        left: 0;8*/
       opacity: 1;
-      pointer-events: auto;
+      /*pointer-events: auto;*/
       display: inline-block;
       margin-top: -4px; }
     .awp .options .animate > ul {
       word-wrap: nowrap;
-      pointer-events: none;
+      /*  pointer-events: none;*/
       -webkit-transition: opacity 0.4s;
       -moz-transition: opacity 0.4s;
       -o-transition: opacity 0.4s;
@@ -192,7 +193,7 @@
         font-size: 1em;
         border: none;
         background-color: transparent; }
-    .awp .options .typeOptions span {
+    .awp .options .typographyBtnOptions span {
       width: 16px;
       height: 10px;
       display: block;
@@ -200,16 +201,16 @@
       border-width: 1px;
       border-style: solid;
       border-color: #fff; }
-    .awp .options .typeOptions .setBorderBtn li a {
+    .awp .options .typographyBtnOptions .setBorderBtn li a {
       width: 26px; }
-    .awp .options .typeOptions li a {
+    .awp .options .typographyBtnOptions li a {
       width: 30px; }
-    .awp .options .typeOptions .fullrd {
+    .awp .options .typographyBtnOptions .fullrd {
       -webkit-border-radius: 15px;
       -moz-border-radius: 15px;
       -ms-border-radius: 15px;
       border-radius: 15px; }
-    .awp .options .typeOptions .rd {
+    .awp .options .typographyBtnOptions .rd {
       -webkit-border-radius: 7px;
       -moz-border-radius: 7px;
       -ms-border-radius: 7px;

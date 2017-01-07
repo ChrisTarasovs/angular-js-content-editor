@@ -5,33 +5,35 @@
 
          <link rel="stylesheet" href="scss/style.css">
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-         <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+         <script src="https://code.angularjs.org/1.5.8/angular.js"></script>
 
          <script src="app/app.js"></script>
     </head>
     <body >
-
+<style>
+.activelist .typoOptions{ width: 240px;}
+</style>
         <div class="awp awpDefault dark" ng-controller="awpCtrl">
           <div class="arrows arrow-up"></div>
           <div class="controller" >
             <ul class="options">
-                <li class="animate" ng-class="{activelist : activelist}">
-                    <a ng-click="activeMenu()" class="nav-icon">
+                <li class="animate " ng-class="{'activelist': menu.typography }" >
+                    <a class="nav-icon" ng-click="switchMenu('typography')" ng-show="typography" >
                         <i class="fa fa fa-pencil" aria-hidden="true" title="typo"></i>
                     </a>
-                    <ul class="options typoOptions hideSubMenu" >
-                            <li ng-class="{active  : activeMenu === 'Fonts'}">
-                               <a ng-click="activeMenu()" class="nav-icon">
+                    <ul class="options typoOptions" ng-show="typographySubmenu" >
+                            <li >
+                               <a ng-click="" class="nav-icon">
                                 <i class="fa fa-font" aria-hidden="true" title="Fonts"></i>
                                </a>
                             </li>
                             <li>
-                                <a ng-click="activeMenu()" class="nav-icon">
+                                <a ng-click="activeMenu()" class="nav-icon" ng-show="typographyBold">
                                     <i class="fa fa-bold" aria-hidden="true" title="Bold"></i>
                                 </a>
                             </li>
                             <li>
-                                <a ng-click="activeMenu()" class="nav-icon">
+                                <a ng-click="activeMenu()" class="nav-icon" ng-show="typographyItalic">
                                     <i class="fa fa-italic" aria-hidden="true" title="Italic"></i>
                                 </a>
                             </li>
@@ -45,25 +47,25 @@
                                     <i class="fa fa-link" aria-hidden="true" title="Link"></i>
                                 </a>
                             </li>
-                            <li>
+                            <li ng-show="typographyUppercaseLowecase">
                                 <a ng-click="activeMenu()" class="nav-icon">
                                     <i class="fa fa-font" aria-hidden="true" title="Uppercase / Lowecase"></i>
                                 </a>
                             </li>
-                            <li class="colorOptions activeSublist">
-                                <a ng-click="activeMenu()" class="nav-icon">
+                            <li class="colorOptions activeSublist" ng-class="{'activelist': menu.typographyColorOptions }" ng-show="typographyColorOptions">
+                                <a ng-click="switchMenu('typographyColorOptions')" class="nav-icon">
                                     <i class="fa fa-slack" aria-hidden="true" title="Color"></i>
                                 </a>
-                                <div class="colorhex hardhideSubMenu">
+                                <div class="colorhex " ng-show="typographyColorHex">
                                     <input type="text" placeholder="#fff" />
                                     <button class="Abtn-circle">OK</button>
                                 </div>
                             </li>
-                            <li class="typeOptions activeSublist">
-                                <a ng-click="activeMenu()" class="nav-icon textButton ">
+                            <li class="typographyBtnOptions activeSublist" ng-show="typographyBtnStyleOptions">
+                                <a class="nav-icon textButton" >
                                     <span class="button">type</span>
                                 </a>
-                                <ul class="options inlineblock hideSubMenu">
+                                <ul class="options inlineblock" ng-show="typographyBtns">
                                     <li class="activeSublist setBorderBtn">
                                         <input type="radio" />
                                         <ul class="options inlineblock">
@@ -79,36 +81,31 @@
 
                             </li>
                             <li>
-                                 <a ng-click="activeMenu()" class="nav-icon textButton">
+                                 <a ng-click="activeMenu()" class="nav-icon textButton" ng-show="typographyBtnResize">
                                      <span class="button">res</span>
                                  </a>
                             </li>
-                            <li>
-                                <a ng-click="activeMenu()" class="nav-icon">
-                                    <i class="fa fa-link" aria-hidden="true" title="Link"></i>
-                                </a>
-                            </li>
-                        </ul>
 
+                        </ul>
                 </li>
-                <li ng-class="{active : activeMenu === 'Ajust'}">
-                     <a ng-click="activeMenu = 'Ajust'" class="nav-icon">
-                         <i class="fa fa-sliders" aria-hidden="true" title="Ajust"></i>
+                <li ng-show="settings">
+                     <a  class="nav-icon">
+                         <i class="fa fa-sliders" aria-hidden="true" title="settings"></i>
                      </a>
                 </li>
-                <li>
-                    <a ng-click="activeMenu()" class="nav-icon">
+                <li ng-show="addSections">
+                    <a class="nav-icon">
                         <i class="fa fa-plus" aria-hidden="true" title="Add"></i>
                     </a>
                 </li>
-                <li>
-                    <a ng-click="activeMenu()" class="nav-icon">
+                <li ng-show="addExtra">
+                    <a class="nav-icon">
                         <i class="fa fa-plus" aria-hidden="true" title="Extra"></i>
                     </a>
                 </li>
             </ul>
             <div class="set">
-                    <div class="settings setTypo animate" ng-class="{active  : activate === 'typo'}" >
+                    <div class="settings setTypo animate" >
                         <ul class="setAlignment">
                              <li> <i class="fa fa-align-left" aria-hidden="true" title="Left"></i></li>
                              <li> <i class="fa fa-align-center" aria-hidden="true" title="Center"></i></li>

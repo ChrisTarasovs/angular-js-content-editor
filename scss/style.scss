@@ -112,10 +112,10 @@ $listAlign: -4px;
         display: table-cell;
         vertical-align: middle;
         .button{
-           width: auto;
+           width: auto !important;
             color: #2a2a2a;
             text-transform: uppercase;
-            font-size: 9px;
+            font-size: 9px;line-height:10px;
             padding: 1px 3px;
             margin: 0px 5px;
             background-color: $light-bgcolor;
@@ -191,7 +191,7 @@ $listAlign: -4px;
                 top: 0;
                 left: 0;8*/
                 opacity: 1;
-                pointer-events: auto;
+                /*pointer-events: auto;*/
                 display: inline-block;
                 margin-top: $listAlign;
             }
@@ -199,7 +199,7 @@ $listAlign: -4px;
         .animate>ul{
             word-wrap: nowrap;
 
-            pointer-events: none;
+          /*  pointer-events: none;*/
             -webkit-transition: opacity 0.4s;
             -moz-transition: opacity 0.4s;
             -o-transition: opacity 0.4s;
@@ -219,7 +219,7 @@ $listAlign: -4px;
                 }
             }
         }
-        .typeOptions{
+        .typographyBtnOptions{
             >ul{}
             span{
                 width: 16px;
