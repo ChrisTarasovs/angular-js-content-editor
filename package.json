@@ -1,0 +1,19 @@
+{
+  "name": "autowp",
+  "version": "1.0.0",
+  "description": "editor",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisTarasovs/autowp.git"
+  },
+  "author": "Chris Tarasovs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChrisTarasovs/autowp/issues"
+  },
+  "homepage": "https://github.com/ChrisTarasovs/autowp#readme"
+}

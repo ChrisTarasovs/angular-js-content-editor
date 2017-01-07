@@ -1,76 +1,149 @@
-<html ng-app="awp">
-    <head>
+  <!DOCTYPE html >
+<html lang="en" ng-app="awp">
+    <head >
         <title>nav</title>
-    
+
          <link rel="stylesheet" href="scss/style.css">
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+         <script src="https://code.angularjs.org/1.5.8/angular.min.js"></script>
+
          <script src="app/app.js"></script>
     </head>
     <body >
-        <div class="awp"> 
-            <div class="options flex-parent">
-                <div>
-                    <i class="fa fa-snowflake-o" aria-hidden="true" title="Edit"></i>
-                    <div class="typoOptions hide">
-                        <div class="options flex-parent  ">
-                            <div><i class="fa fa-snowflake-o" aria-hidden="true" title="Fonts"></i></div>
-                            <div><i class="fa fa-snowflake-o" aria-hidden="true" title="Bold"></i></div>
-                            <div><i class="fa fa-snowflake-o" aria-hidden="true" title="Italic"></i></div>
-                            <div><i class="fa fa-snowflake-o" aria-hidden="true" title="Heading"></i></div>
-                            <div><i class="fa fa-snowflake-o" aria-hidden="true" title="Link"></i></div>
-                            <div class="colorOptions">
-                                <i class="fa fa-snowflake-o" aria-hidden="true" title="Color"></i>
-                                <div>
+
+        <div class="awp awpDefault"  ng-controller="awpCtrl">
+
+            <ul class="options">
+                <li class="animate" ng-class="{activelist : activelist}">
+                    <a ng-click="activeMenu()" class="nav-icon">
+                        <i class="fa fa fa-pencil" aria-hidden="true" title="typo"></i>
+                    </a>
+                    <ul class="options typoOptions ">
+                            <li ng-class="{active  : activeMenu === 'Fonts'}">
+                               <a ng-click="activeMenu()" class="nav-icon">
+                                <i class="fa fa-font" aria-hidden="true" title="Fonts"></i>
+                               </a>
+                            </li>
+                            <li>
+                                <a ng-click="activeMenu()" class="nav-icon">
+                                    <i class="fa fa-bold" aria-hidden="true" title="Bold"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a ng-click="activeMenu()" class="nav-icon">
+                                    <i class="fa fa-italic" aria-hidden="true" title="Italic"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a ng-click="activeMenu()" class="nav-icon">
+                                    <i class="fa fa-header" aria-hidden="true" title="Heading"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a ng-click="activeMenu()" class="nav-icon">
+                                    <i class="fa fa-link" aria-hidden="true" title="Link"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a ng-click="activeMenu()" class="nav-icon">
+                                    <i class="fa fa-font" aria-hidden="true" title="Uppercase / Lowecase"></i>
+                                </a>
+                            </li>
+                            <li class="colorOptions activeSublist">
+                                <a ng-click="activeMenu()" class="nav-icon">
+                                    <i class="fa fa-slack" aria-hidden="true" title="Color"></i>
+                                </a>
+                                <div class="colorhex">
                                     <input type="text" placeholder="#fff" />
                                     <button class="Abtn-circle">OK</button>
                                 </div>
-                            </div>
-                            <div>
-                                <i class="fa fa-snowflake-o" aria-hidden="true" title="Uppercase / Lowecase"></i>
-                            </div>
+                            </li>
+                            <li class="typeOptions activeSublist">
+                                <a ng-click="activeMenu()" class="nav-icon textButton ">
+                                    <span class="button">type</span>
+                                </a>
+                                <ul class="options inlineblock">
+                                    <li class="activeSublist setBorderBtn">
+                                        <input type="radio" />
+                                        <ul class="options inlineblock">
+                                            <li><a><span class="fullrd"></span></a></li>
+                                            <li><a><span class="rd"></span></a></li>
+                                            <li><a><span class="sq"></span></a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a><span class="fullrd solid"></span></a></li>
+                                    <li><a><span class="rd solid"></span></a></li>
+                                    <li><a><span class="sq solid"></span></a></li>
+                                </ul>
+
+                            </li>
+                            <li>
+                                 <a ng-click="activeMenu()" class="nav-icon textButton">
+                                     <span class="button">res</span>
+                                 </a>
+                            </li>
+                            <li>
+                                <a ng-click="activeMenu()" class="nav-icon">
+                                    <i class="fa fa-link" aria-hidden="true" title="Link"></i>
+                                </a>
+                            </li>
+                        </ul>
+
+                </li>
+                <li ng-class="{active : activeMenu === 'Ajust'}">
+                     <a ng-click="activeMenu = 'Ajust'" class="nav-icon">
+                         <i class="fa fa-sliders" aria-hidden="true" title="Ajust"></i>
+                     </a>
+                </li>
+                <li>
+                    <a ng-click="activeMenu()" class="nav-icon">
+                        <i class="fa fa-plus" aria-hidden="true" title="Add"></i>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="activeMenu()" class="nav-icon">
+                        <i class="fa fa-plus" aria-hidden="true" title="Extra"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="set">
+                    <div class="settings setTypo animate" ng-class="{active  : activate === 'typo'}" >
+                        <ul class="setAlignment">
+                             <li> <i class="fa fa-align-left" aria-hidden="true" title="Left"></i></li>
+                             <li> <i class="fa fa-align-center" aria-hidden="true" title="Center"></i></li>
+                             <li> <i class="fa fa-align-right" aria-hidden="true" title="Right"></i></li>
+                             <li> <i class="fa fa-align-justify" aria-hidden="true" title="Justify"></i></li>
+                        </ul>
+                        <div class="setLightHeight">
                         </div>
+
                     </div>
-                </div>
-                <div><i class="fa fa-snowflake-o" aria-hidden="true" title="Ajust"></i></div>
-                <div><i class="fa fa-snowflake-o" aria-hidden="true" title="Add"></i></div>
-                <div><i class="fa fa-snowflake-o" aria-hidden="true" title="Extra"></i></div>
-            </div>
-            <div class="set hide"> 
-                <div class="setTypo">
-                    <div class="setAlign flex-parent">
-                         <div> <i class="fa fa-snowflake-o" aria-hidden="true" title="Left"></i></div>
-                         <div> <i class="fa fa-snowflake-o" aria-hidden="true" title="Center"></i></div>
-                         <div> <i class="fa fa-snowflake-o" aria-hidden="true" title="Right"></i></div>
-                         <div> <i class="fa fa-snowflake-o" aria-hidden="true" title="Justify"></i></div>
+                    <div class="settings setFont" ng-show="hide"></div>
+                    <div class="settings setHeading">
+                        <span class="heading1">Heading H1</span>
+                        <span class="heading2">Heading H2</span>
+                        <span class="heading3">Heading H3</span>
+                        <span class="heading4">Heading H4</span>
+                        <span class="heading5">Heading H5</span>
                     </div>
-                    <div class="setFont">
-                 
-                    </div>
-                    <div class="setHeading">
-                        Heading H1<br />
-                        Heading H2<br />
-                        Heading H3<br />
-                        Heading H4<br />
-                        Heading H5<br />
-                    </div>
-                    <div class="setColor">
+                    <div class="settings setColor animate">
                         REX color
                     </div>
-                    <div class="setLink">
-                        <div>
-                            Show in new tab
+                    <div class="settings setLink animate">
+                        <div class="rheight buttonOptions">
+
+                        </div>
+                        <div class="rheight targetOptions">
+                            <span>Show in new tab</span>
                             <div class="onoffswitch">
                                 <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
                                 <label class="onoffswitch-label" for="myonoffswitch"></label>
                             </div>
                         </div>
-                        <button class="Abtn-lg Abtn-def">Convert to button</button>
+                        <div class="rheight">
+                            <button class="Abtn-lg Abtn-def">Convert to button</button>
+                        </div>
                     </div>
-                    
-                          
-                </div>
-                <div class="setColor"></div>
             </div>
         </div>
     </body>
