@@ -15,19 +15,6 @@ $scope.switchMenu = function(selectedMenu) {
 
 
 $scope.selectItem = selectedMenu;
-  console.log($scope.selectItem);
-
-
-  $scope.typographyOptions = false;
-  $scope.typographyFonts = false;
-  $scope.typographyBold = false;
-  $scope.typographyColorOptions = false;
-  $scope.typographyItalic = false;
-  $scope.typographyHeadingOptions = false;
-  $scope.typographyHeading  = false;
-  $scope.typographyLink = false;
-  $scope.typographyLinkURL = false;
-  $scope.typographyUppercaseLowecase = false;
 
 
 
@@ -41,7 +28,7 @@ $scope.selectItem = selectedMenu;
 
 
       //Enable submenu
-      $scope.typographyOptions = true;
+      $scope.typographyOptions = !$scope.typographyOptions;
       $scope.typographyFonts = true;
       $scope.typographyBold = true;
       $scope.typographyColorOptions = true;
@@ -55,7 +42,7 @@ $scope.selectItem = selectedMenu;
       $scope.typographyBtnResize = true;
 
       //Content or Options
-      $scope.set_typography = true;
+      $scope.set_typography = !$scope.set_typography;
 
     }
 

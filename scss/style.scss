@@ -49,9 +49,12 @@ transition: $transition;
 
 .options .options{
   opacity: 0;
+  width: 0;
+  overflow: hidden;
 }
 .options .typographyOptions{
   opacity: 1;
+  width: auto;
 }
 
 
@@ -71,8 +74,8 @@ transition: $transition;
     }
 }
 .awp{
-    float: left;
-    width: 300px;
+    display: inline-block;
+    white-space: nowrap;
 
 
     .arrows{
@@ -166,7 +169,7 @@ transition: $transition;
     .activelist {
          position: relative;
         >ul{
-            top: 0px;left: 26px;
+            top: -26px;left: 26px;
         }
     }
     .activelist .hideSubMenu { display: block;}
@@ -221,7 +224,7 @@ transition: $transition;
         }
         .options{
             /* opacity: 0;*/
-            position: absolute;
+            position: relative;
         }
         .colorOptions{
             >a, .colorhex{
