@@ -1,3 +1,6 @@
+/*
+This stylesheet is for the layout
+*/
 .onoffswitch {
   position: relative;
   width: 75px;
@@ -43,22 +46,12 @@
 .onoffswitch-checkbox:checked + .onoffswitch-label:before {
   right: 0px; }
 
-* {
-  margin: 0;
-  padding: 0; }
-
-.options .options {
-  opacity: 0;
-  width: 0;
-  overflow: hidden; }
-
-.options .typographyOptions {
-  opacity: 1;
-  width: auto; }
-
-.hide {
-  display: none !important; }
-
+/*
+This stylesheet is for all predefined mixin
+*/
+/*
+This stylesheet is for all colors
+*/
 .dark {
   color: #fff; }
   .dark .setLink .a-btn-lg {
@@ -72,13 +65,63 @@
     -ms-border-radius: 50px;
     border-radius: 50px; }
 
+/*
+This stylesheet is for all the animate and effects
+*/
+* {
+  margin: 0;
+  padding: 0; }
+
+.options li,
+.options .options,
+.options .options li {
+  opacity: 0;
+  width: 0;
+  overflow: hidden; }
+
+.options .typography,
+.options .settings,
+.options .addSections,
+.options .addExtra,
+.options .typographyOptions,
+.options .options .typographyBold,
+.options .options .typographyItalic,
+.options .options .typographyHeadingOptions,
+.options .typographyHeading li,
+.options .options .typographyLink,
+.options .typographyLinkURL li,
+.options .options .typographyUppercase,
+.options .options .typographyColorOptions,
+.options .options .typographyColorHex,
+.options .typographyColorHex li,
+.options .options .typographyBtnStyleOptions,
+.options .options .typographyFonts,
+.options .options .typographyHeading,
+.options .options .typographyBtnResize
+.options .settings {
+  opacity: 1;
+  width: auto; }
+
+.set .settings {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  display: none; }
+
+.set .set_typography,
+.set .set_typographyFonts,
+.set .set_typographyColorHex,
+.set .set_typographyLink {
+  opacity: 1;
+  width: auto;
+  display: block; }
+
 .awp {
   display: inline-block;
   white-space: nowrap;
   /*navigation*/
   /*Active list */
-  /*general buttons*/
-  /*Temporal*/ }
+  /*general buttons*/ }
   .awp .arrows {
     margin: 0 auto; }
   .awp .arrow-up {
@@ -139,10 +182,6 @@
     background-color: #fff; }
     .awp .solid :hover {
       background-color: #fadafd; }
-  .awp .hideSubMenu {
-    display: none; }
-  .awp .hardhideSubMenu {
-    display: none !important; }
   .awp .inlineblock li {
     display: inline-block; }
   .awp > .options {
@@ -151,19 +190,19 @@
     position: relative; }
     .awp .activelist > ul {
       top: -26px;
-      left: 26px; }
-  .awp .activelist .hideSubMenu {
-    display: block; }
+      left: 0px; }
   .awp .activeSublist {
     position: relative; }
     .awp .activeSublist > ul {
-      top: 0px;
-      left: 0px; }
+      top: -26px;
+      left: 26px; }
   .awp .activeSubSublist {
-    position: relative; }
+    position: relative;
+    left: -26px; }
+    .awp .activeSubSublist > ul {
+      /* top: 0px;left: 26px;*/ }
   .awp .options {
-    background-color: #444;
-    /*width: 100%;*/ }
+    background-color: #444; }
     .awp .options li {
       height: 26px;
       vertical-align: top;
@@ -177,9 +216,6 @@
     .awp .options .active > ul {
       width: 100%;
       height: 100%;
-      /* position: absolute;
-       top: 0;
-       left: 0;8*/
       opacity: 1;
       /*pointer-events: auto;*/
       display: inline-block;
@@ -192,11 +228,12 @@
       -o-transition: opacity 0.4s;
       transition: opacity 0.4s; }
     .awp .options .options {
-      /* opacity: 0;*/
       position: relative; }
-    .awp .options .colorOptions > a, .awp .options .colorOptions .colorhex {
+    .awp .options .isNotVisible {
+      opacity: 0; }
+    .awp .options .typographyColorOptions > a, .awp .options .typographyColorOptions .typographyColorHex {
       display: inline-block; }
-      .awp .options .colorOptions > a input, .awp .options .colorOptions .colorhex input {
+      .awp .options .typographyColorOptions > a input, .awp .options .typographyColorOptions .typographyColorHex input {
         font-size: 1em;
         border: none;
         background-color: transparent; }
@@ -240,8 +277,6 @@
         vertical-align: middle; }
       .awp .options .setBorderBtn li span:hover {
         border-color: #fadafd; }
-  .awp .set .settings {
-    opacity: 1; }
   .awp .set .active {
     opacity: 1;
     pointer-events: auto; }

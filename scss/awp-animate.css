@@ -1,0 +1,52 @@
+/*
+This stylesheet is for all the animate and effects
+*/
+* {
+  margin: 0;
+  padding: 0; }
+
+.options li,
+.options .options,
+.options .options li {
+  opacity: 0;
+  width: 0;
+  overflow: hidden; }
+
+.options .typography,
+.options .settings,
+.options .addSections,
+.options .addExtra,
+.options .typographyOptions,
+.options .options .typographyBold,
+.options .options .typographyItalic,
+.options .options .typographyHeadingOptions,
+.options .typographyHeading li,
+.options .options .typographyLink,
+.options .typographyLinkURL li,
+.options .options .typographyUppercase,
+.options .options .typographyColorOptions,
+.options .options .typographyColorHex,
+.options .typographyColorHex li,
+.options .options .typographyBtnStyleOptions,
+.options .options .typographyFonts,
+.options .options .typographyHeading,
+.options .options .typographyBtnResize
+.options .settings {
+  opacity: 1;
+  width: auto; }
+
+.set .settings {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  display: none; }
+
+.set .set_typography,
+.set .set_typographyFonts,
+.set .set_typographyColorHex,
+.set .set_typographyLink {
+  opacity: 1;
+  width: auto;
+  display: block; }
+
+/*# sourceMappingURL=awp-animate.css.map */

@@ -16,56 +16,59 @@ $scope.switchMenu = function(selectedMenu) {
 
 $scope.selectItem = selectedMenu;
 
-
-
-
     //if typography is flase than enable
     if(selectedMenu == 'typography'){
-      console.log('typography is enabled');
+        
+      
+         $scope.isNotVisible = true;
+         $scope.settings= false;
+         $scope.addSections= false;
+         $scope.addExtra= false;
+        
+          //Enable submenu
+          $scope.typographyOptions = !$scope.typographyOptions;
+          $scope.typographyBold = !$scope.typographyBold;
+          $scope.typographyItalic = !$scope.typographyItalic;
+          $scope.typographyHeadingOptions = !$scope.typographyHeadingOptions;
+          $scope.typographyLink = !$scope.typographyLink;
+          $scope.typographyUppercase = !$scope.typographyUppercase;
+          $scope.typographyColorOptions = !$scope.typographyColorOptions;
+          $scope.typographyColorHex = false;
+          $scope.typographyBtnStyleOptions = !$scope.typographyBtnStyleOptions;
+          $scope.typographyFonts = !$scope.typographyFonts;
+          $scope.typographyHeading  = false;
+          $scope.typographyLinkURL = !$scope.typographyHeading;
+          $scope.typographyBtnStyleOptions = false;
+          $scope.typographyBtnResize = !$scope.typographyBtnResize;
 
-
-
-
-
-      //Enable submenu
-      $scope.typographyOptions = !$scope.typographyOptions;
-      $scope.typographyFonts = true;
-      $scope.typographyBold = true;
-      $scope.typographyColorOptions = true;
-      $scope.typographyItalic = true;
-      $scope.typographyHeadingOptions = true;
-      $scope.typographyHeading  = false;
-      $scope.typographyLink = true;
-      $scope.typographyLinkURL = false;
-      $scope.typographyUppercaseLowecase = true;
-      $scope.typographyBtnStyleOptions = true;
-      $scope.typographyBtnResize = true;
-
-      //Content or Options
-      $scope.set_typography = !$scope.set_typography;
+          //Content or Options
+          $scope.set_typography = !$scope.set_typography;
 
     }
 
     // if typographyColorOptions is false than enable
     if(selectedMenu == 'typographyColorOptions'){
-        console.log('typographyColorOptions  is enabled');
-        $scope.typographyFonts = false;
-        $scope.typographyBold = false;
-        $scope.typographyHeadingOptions = false;
-        $scope.typographyHeading = false;
-        $scope.typographyColorHex = true;
-        $scope.typographyItalic = false;
-        $scope.typographyLink = false;
-        $scope.typographyLinkURL = false;
-        $scope.typographyUppercaseLowecase = false;
+          $scope.typographyOptions = true;
+          $scope.typographyBold = false
+          $scope.typographyItalic = false;
+          $scope.typographyHeadingOptions = false;
+          $scope.typographyLink = false;
+          $scope.typographyUppercase = false;
+          $scope.typographyColorOptions = true;
+          $scope.typographyColorHex = true;
+          $scope.typographyBtnStyleOptions = false;
+          $scope.typographyFonts = false;
+          $scope.typographyHeading  = false;
+          $scope.typographyLinkURL = false;
+          $scope.typographyBtnStyleOptions = false;
+          $scope.typographyBtnResize = false;
+          $scope.typographyFonts = false;
 
-
-
-        //Content or Options
-        $scope.set_typography = false;
-        $scope.set_typographyFonts = false;
-        $scope.set_typographyColorHex = true;
-        $scope.set_typographyLink = false;
+          //Content or Options
+          $scope.set_typography = false;
+          $scope.set_typographyFonts = false;
+          $scope.set_typographyColorHex = true;
+          $scope.set_typographyLink = false;
 
     }
     if(selectedMenu == 'typographyHeadingOptions'){
@@ -75,11 +78,19 @@ $scope.selectItem = selectedMenu;
         $scope.typographyHeading = true;
         $scope.typographyLink = false;
         $scope.typographyLinkURL = false;
-        $scope.typographyUppercaseLowecase = false;
+        $scope.typographyUppercase = false;
         $scope.typographyColorOptions = false;
+        $scope.typographyFonts = false;
+        
+        
+         //Content or Options
+          $scope.set_typography = false;
+          $scope.set_typographyFonts = false;
+          $scope.set_typographyColorHex = false;
+          $scope.set_typographyLink = false;
+        
     }
     if(selectedMenu == 'typographyLink'){
-      $scope.typographyFonts = false;
       $scope.typographyBold = false;
       $scope.typographyHeadingOptions = false;
       $scope.typographyHeading = false;
@@ -87,9 +98,10 @@ $scope.selectItem = selectedMenu;
       $scope.typographyItalic = false;
       $scope.typographyLink = true;
       $scope.typographyLinkURL = true;
-      $scope.typographyUppercaseLowecase = false;
+      $scope.typographyUppercase = false;
       $scope.typographyColorOptions = false;
-
+      $scope.typographyFonts = false;
+        
       //Content or Options
       $scope.set_typography = false;
       $scope.set_typographyFonts = false;
@@ -98,36 +110,31 @@ $scope.selectItem = selectedMenu;
 
 
     }
+     if(selectedMenu == 'typographyFonts'){
+          
+          $scope.typographyBold = true;
+          $scope.typographyHeadingOptions = true;
+          $scope.typographyHeading = false;
+          $scope.typographyColorHex = false;
+          $scope.typographyItalic = true;
+          $scope.typographyLink = true;
+          $scope.typographyLinkURL = true;
+          $scope.typographyUppercase = true;
+          $scope.typographyColorOptions = true;
+          $scope.typographyFonts = true;
+          
+         //Content or Options
+          $scope.set_typography = false;
+          $scope.set_typographyFonts = true;
+          $scope.set_typographyColorHex = false;
+          $scope.set_typographyLink = false;
+
+     }
+    
+    
       $scope.menu[selectedMenu] = !$scope.menu[selectedMenu];
       console.log($scope.menu[selectedMenu]);
 };
-
-
-//Predefine menu and it variabels
-
-// Main Menu
-  //ng-show="typography"
-  //typography = true;
-  //ng-show="settings"
-  //ng-show="addSections"
-  //ng-show="addExtra"
-
-// Second Level
-  // typography submenu
-    //ng-show="typographySubmenu"
-    //typographySubmenu  = true;
-    //ng-show="typographyBold"
-    //ng-show="typographyHeadingOptions"
-    //ng-show="typographyHeadingOptions"
-    //ng-show="typographyLink"
-    //ng-show="typographyLinkURL"
-
-    //ng-show="typographyUppercaseLowecase"
-    //ng-show="typographyColorOptions"
-    //ng-show="typographyColorHex"
-    //ng-show="typographyBtnStyleOptions"
-    //ng-show="typographyBtns"
-    //ng-show="typographyBtnResize"
 
 
 });

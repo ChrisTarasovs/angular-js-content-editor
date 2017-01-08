@@ -1,0 +1,29 @@
+/*
+This stylesheet is for all predefined mixin
+*/
+
+@mixin displayflex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+@mixin transition($transition) {
+-webkit-transition: $transition;
+-moz-transition: $transition;
+-o-transition: $transition;
+transition: $transition;
+//transition: opacity 0.4s;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+

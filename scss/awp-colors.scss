@@ -1,0 +1,29 @@
+/*
+This stylesheet is for all colors
+*/
+
+$darktheme:#444;
+
+$light-color: #fff;
+$light-bgcolor: #fadafd;
+$light-btncolor: #fff;
+$light-btnColorSolid: #fff;
+$light-btnColorSolidHover: #fadafd;
+$light-btnColorBorder: #fff;
+$light-btnColorBorderHover: #fadafd;
+$light-bordercolor: #fff;
+
+
+.dark{
+    color: $light-color;
+    .setLink{
+        .a-btn-lg{
+            width: 100%;
+            padding: 8px 0px;
+            background-color: transparent;
+            border: solid 1px white;
+            color: white;
+            @include border-radius(50px);
+        }
+    }
+}
