@@ -155,8 +155,6 @@ $listAlign: -4px;
         position: relative;
          >ul{
             top: 0px;left: 0px;
-             background-color: yellow;
-             width: 100%;
         }
     }
     .activeSubSublist{
@@ -318,29 +316,7 @@ $listAlign: -4px;
         .setFont{
             background: orange;
         }
-        .setHeading{
-            span{
-                 margin-bottom: 2%;
-                 width: 100%;
-                 display: block;
-
-            }
-            .heading1{
-                font-size:150%;
-            }
-            .heading2{
-                font-size: 125%;
-            }
-            .heading3{
-                font-size: 100%;
-            }
-            .heading4{
-                font-size: 90%;
-            }
-            .heading5{
-                 font-size: 90%;
-            }
-        }
+       
         .setColor{
             background: green;
 

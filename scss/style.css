@@ -149,9 +149,7 @@
     position: relative; }
     .awp .activeSublist > ul {
       top: 0px;
-      left: 0px;
-      background-color: yellow;
-      width: 100%; }
+      left: 0px; }
   .awp .activeSubSublist {
     position: relative; }
   .awp .options {
@@ -256,20 +254,6 @@
   width: 50%; }
 .awpDefault .set .setFont {
   background: orange; }
-.awpDefault .set .setHeading span {
-  margin-bottom: 2%;
-  width: 100%;
-  display: block; }
-.awpDefault .set .setHeading .heading1 {
-  font-size: 150%; }
-.awpDefault .set .setHeading .heading2 {
-  font-size: 125%; }
-.awpDefault .set .setHeading .heading3 {
-  font-size: 100%; }
-.awpDefault .set .setHeading .heading4 {
-  font-size: 90%; }
-.awpDefault .set .setHeading .heading5 {
-  font-size: 90%; }
 .awpDefault .set .setColor {
   background: green; }
 .awpDefault .set .setLink .targetOptions .block {

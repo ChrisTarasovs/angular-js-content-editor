@@ -11,7 +11,8 @@
     </head>
     <body >
 <style>
-.activelist .typoOptions{ width: 240px;}
+.activelist    .typographyOptions { width: 240px;}
+.activeSublist .typographyHeading { width: 240px;}
 </style>
         <div class="awp awpDefault dark" ng-controller="awpCtrl">
           <div class="arrows arrow-up"></div>
@@ -21,9 +22,9 @@
                     <a class="nav-icon" ng-click="switchMenu('typography')" ng-show="typography" >
                         <i class="fa fa fa-pencil" aria-hidden="true" title="typo"></i>
                     </a>
-                    <ul class="options typoOptions" ng-show="typographySubmenu" >
+                    <ul class="options typographyOptions" ng-show="typographyOptions" >
                             <li >
-                               <a ng-click="" class="nav-icon">
+                               <a ng-click="" class="nav-icon" ng-show="typographyFonts">
                                 <i class="fa fa-font" aria-hidden="true" title="Fonts"></i>
                                </a>
                             </li>
@@ -37,22 +38,35 @@
                                     <i class="fa fa-italic" aria-hidden="true" title="Italic"></i>
                                 </a>
                             </li>
-                            <li>
-                                <a ng-click="activeMenu()" class="nav-icon">
+                            <li ng-class="{'activeSublist': menu.typographyHeadingOptions }" >
+                                <a ng-click="switchMenu('typographyHeadingOptions')" class="nav-icon" ng-show="typographyHeadingOptions">
                                     <i class="fa fa-header" aria-hidden="true" title="Heading"></i>
                                 </a>
+                                  <ul class="options inlineblock typographyHeading" ng-show="typographyHeading">
+                                    <li><a>H<sub>1<sub></a></li>
+                                    <li><a>H<sub>2<sub></a></li>
+                                    <li><a>H<sub>3<sub></a></li>
+                                    <li><a>H<sub>4<sub></a></li>
+                                    <li><a>H<sub>5<sub></a></li>
+                                    <li><a>H<sub>6<sub></a></li>
+                                  </ul>
                             </li>
-                            <li>
-                                <a ng-click="activeMenu()" class="nav-icon">
+                            <li ng-class="{'activeSublist': menu.typographyLink }" >
+                                <a ng-click="switchMenu('typographyLink')" class="nav-icon" ng-show="typographyLink">
                                     <i class="fa fa-link" aria-hidden="true" title="Link"></i>
                                 </a>
+                                <div class=" " ng-show="typographyLinkURL">
+                                    <input type="text" placeholder="#fff" />
+                                    <button class="Abtn-circle">OK</button>
+                                </div>
                             </li>
                             <li ng-show="typographyUppercaseLowecase">
                                 <a ng-click="activeMenu()" class="nav-icon">
                                     <i class="fa fa-font" aria-hidden="true" title="Uppercase / Lowecase"></i>
                                 </a>
+
                             </li>
-                            <li class="colorOptions activeSublist" ng-class="{'activelist': menu.typographyColorOptions }" ng-show="typographyColorOptions">
+                            <li class="colorOptions " ng-class="{'activeSublist': menu.typographyColorOptions }" ng-show="typographyColorOptions">
                                 <a ng-click="switchMenu('typographyColorOptions')" class="nav-icon">
                                     <i class="fa fa-slack" aria-hidden="true" title="Color"></i>
                                 </a>
@@ -61,8 +75,8 @@
                                     <button class="Abtn-circle">OK</button>
                                 </div>
                             </li>
-                            <li class="typographyBtnOptions activeSublist" ng-show="typographyBtnStyleOptions">
-                                <a class="nav-icon textButton" >
+                            <li class="typographyBtnOptions " ng-class="{'activeSublist': menu.typographyBtnStyleOptions }" ng-show="typographyBtnStyleOptions">
+                                <a class="nav-icon textButton" ng-click="switchMenu('typographyBtnStyleOptions')"  >
                                     <span class="button">type</span>
                                 </a>
                                 <ul class="options inlineblock" ng-show="typographyBtns">
@@ -117,13 +131,7 @@
 
                     </div>
                     <div class="settings setFont" ng-show="hide"></div>
-                    <div class="settings setHeading">
-                        <span class="heading1">Heading H1</span>
-                        <span class="heading2">Heading H2</span>
-                        <span class="heading3">Heading H3</span>
-                        <span class="heading4">Heading H4</span>
-                        <span class="heading5">Heading H5</span>
-                    </div>
+                  
                     <div class="settings setColor animate">
                         REX color
                     </div>
