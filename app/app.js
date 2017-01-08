@@ -6,6 +6,9 @@ awp.controller('awpCtrl', function($scope){
 console.log('sss');
 
 $scope.typography = true;
+$scope.settings= true;
+$scope.addSections= true;
+$scope.addExtra= true;
 
 $scope.menu = {};
 $scope.switchMenu = function(selectedMenu) {
@@ -29,9 +32,10 @@ $scope.switchMenu = function(selectedMenu) {
       $scope.typographyLink = true;
       $scope.typographyLinkURL = false;
       $scope.typographyUppercaseLowecase = true;
-      //$scope.typographyBtnStyleOptions = true;
-      //$scope.typographyColorOptions
-        //  $scope.typographyColorHex
+
+      //Content or Options
+      $scope.set_typography = true;
+
     }
     // if typographyColorOptions is false than enable
     if(selectedMenu == 'typographyColorOptions'){
@@ -46,6 +50,11 @@ $scope.switchMenu = function(selectedMenu) {
         $scope.typographyLinkURL = false;
         $scope.typographyUppercaseLowecase = false;
 
+        //Content or Options
+        $scope.set_typography = false;
+        $scope.set_typographyFonts = false;
+        $scope.set_typographyColorHex = true;
+        $scope.set_typographyLink = false;
 
     }
     if(selectedMenu == 'typographyHeadingOptions'){
@@ -69,6 +78,13 @@ $scope.switchMenu = function(selectedMenu) {
       $scope.typographyLinkURL = true;
       $scope.typographyUppercaseLowecase = false;
       $scope.typographyColorOptions = false;
+
+      //Content or Options
+      $scope.set_typography = false;
+      $scope.set_typographyFonts = false;
+      $scope.set_typographyColorHex = false;
+      $scope.set_typographyLink = true;
+
 
     }
       $scope.menu[selectedMenu] = !$scope.menu[selectedMenu];

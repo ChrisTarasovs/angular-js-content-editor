@@ -231,20 +231,18 @@
         vertical-align: middle; }
       .awp .options .setBorderBtn li span:hover {
         border-color: #fadafd; }
-  .awp .set {
-    margin-top: 20px; }
-    .awp .set .settings {
-      opacity: 1; }
-    .awp .set .active {
-      opacity: 1;
-      pointer-events: auto; }
-    .awp .set .animate {
-      word-wrap: nowrap;
-      pointer-events: none;
-      -webkit-transition: opacity 0.4s;
-      -moz-transition: opacity 0.4s;
-      -o-transition: opacity 0.4s;
-      transition: opacity 0.4s; }
+  .awp .set .settings {
+    opacity: 1; }
+  .awp .set .active {
+    opacity: 1;
+    pointer-events: auto; }
+  .awp .set .animate {
+    word-wrap: nowrap;
+    pointer-events: none;
+    -webkit-transition: opacity 0.4s;
+    -moz-transition: opacity 0.4s;
+    -o-transition: opacity 0.4s;
+    transition: opacity 0.4s; }
 
 .awpDefault .set .setTypo .setAlignment {
   width: 50%; }

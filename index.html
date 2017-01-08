@@ -23,11 +23,7 @@
                         <i class="fa fa fa-pencil" aria-hidden="true" title="typo"></i>
                     </a>
                     <ul class="options typographyOptions" ng-show="typographyOptions" >
-                            <li >
-                               <a ng-click="" class="nav-icon" ng-show="typographyFonts">
-                                <i class="fa fa-font" aria-hidden="true" title="Fonts"></i>
-                               </a>
-                            </li>
+
                             <li>
                                 <a ng-click="activeMenu()" class="nav-icon" ng-show="typographyBold">
                                     <i class="fa fa-bold" aria-hidden="true" title="Bold"></i>
@@ -55,7 +51,7 @@
                                 <a ng-click="switchMenu('typographyLink')" class="nav-icon" ng-show="typographyLink">
                                     <i class="fa fa-link" aria-hidden="true" title="Link"></i>
                                 </a>
-                                <div class=" " ng-show="typographyLinkURL">
+                                <div ng-show="typographyLinkURL">
                                     <input type="text" placeholder="#fff" />
                                     <button class="Abtn-circle">OK</button>
                                 </div>
@@ -74,6 +70,11 @@
                                     <input type="text" placeholder="#fff" />
                                     <button class="Abtn-circle">OK</button>
                                 </div>
+                            </li>
+                            <li >
+                               <a ng-click="" class="nav-icon" ng-show="typographyFonts">
+                                <i class="fa " aria-hidden="true" title="Fonts">T</i>
+                               </a>
                             </li>
                             <li class="typographyBtnOptions " ng-class="{'activeSublist': menu.typographyBtnStyleOptions }" ng-show="typographyBtnStyleOptions">
                                 <a class="nav-icon textButton" ng-click="switchMenu('typographyBtnStyleOptions')"  >
@@ -102,24 +103,24 @@
 
                         </ul>
                 </li>
-                <li ng-show="settings">
+                <li ng-show="settings" ng-show="settings">
                      <a  class="nav-icon">
                          <i class="fa fa-sliders" aria-hidden="true" title="settings"></i>
                      </a>
                 </li>
-                <li ng-show="addSections">
+                <li ng-show="addSections" ng-show="addSections">
                     <a class="nav-icon">
                         <i class="fa fa-plus" aria-hidden="true" title="Add"></i>
                     </a>
                 </li>
-                <li ng-show="addExtra">
+                <li ng-show="addExtra" ng-show="addExtra">
                     <a class="nav-icon">
                         <i class="fa fa-plus" aria-hidden="true" title="Extra"></i>
                     </a>
                 </li>
             </ul>
             <div class="set">
-                    <div class="settings setTypo animate" >
+                    <div class="settings setTypo animate" ng-show="set_typography">
                         <ul class="setAlignment">
                              <li> <i class="fa fa-align-left" aria-hidden="true" title="Left"></i></li>
                              <li> <i class="fa fa-align-center" aria-hidden="true" title="Center"></i></li>
@@ -130,12 +131,12 @@
                         </div>
 
                     </div>
-                    <div class="settings setFont" ng-show="hide"></div>
-                  
-                    <div class="settings setColor animate">
+                    <div class="settings setFont" ng-show="set_typographyFonts"></div>
+
+                    <div class="settings setColor animate" ng-show="set_typographyColorHex">
                         REX color
                     </div>
-                    <div class="settings setLink animate">
+                    <div class="settings setLink animate" ng-show="set_typographyLink">
 
                         <div class="rheight targetOptions">
                           <div class="block">
