@@ -14,13 +14,32 @@ $scope.menu = {};
 $scope.switchMenu = function(selectedMenu) {
 
 
-  $scope.selectItem = selectedMenu;
+$scope.selectItem = selectedMenu;
   console.log($scope.selectItem);
+
+
+  $scope.typographyOptions = false;
+  $scope.typographyFonts = false;
+  $scope.typographyBold = false;
+  $scope.typographyColorOptions = false;
+  $scope.typographyItalic = false;
+  $scope.typographyHeadingOptions = false;
+  $scope.typographyHeading  = false;
+  $scope.typographyLink = false;
+  $scope.typographyLinkURL = false;
+  $scope.typographyUppercaseLowecase = false;
+
+
 
 
     //if typography is flase than enable
     if(selectedMenu == 'typography'){
       console.log('typography is enabled');
+
+
+
+
+
       //Enable submenu
       $scope.typographyOptions = true;
       $scope.typographyFonts = true;
@@ -32,11 +51,14 @@ $scope.switchMenu = function(selectedMenu) {
       $scope.typographyLink = true;
       $scope.typographyLinkURL = false;
       $scope.typographyUppercaseLowecase = true;
+      $scope.typographyBtnStyleOptions = true;
+      $scope.typographyBtnResize = true;
 
       //Content or Options
       $scope.set_typography = true;
 
     }
+
     // if typographyColorOptions is false than enable
     if(selectedMenu == 'typographyColorOptions'){
         console.log('typographyColorOptions  is enabled');
@@ -49,6 +71,8 @@ $scope.switchMenu = function(selectedMenu) {
         $scope.typographyLink = false;
         $scope.typographyLinkURL = false;
         $scope.typographyUppercaseLowecase = false;
+
+
 
         //Content or Options
         $scope.set_typography = false;

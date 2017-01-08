@@ -11,8 +11,10 @@
     </head>
     <body >
 <style>
+/*
 .activelist    .typographyOptions { width: 240px;}
 .activeSublist .typographyHeading { width: 240px;}
+*/
 </style>
         <div class="awp awpDefault dark" ng-controller="awpCtrl">
           <div class="arrows arrow-up"></div>
@@ -22,7 +24,7 @@
                     <a class="nav-icon" ng-click="switchMenu('typography')" ng-show="typography" >
                         <i class="fa fa fa-pencil" aria-hidden="true" title="typo"></i>
                     </a>
-                    <ul class="options typographyOptions" ng-show="typographyOptions" >
+                    <ul class="options" ng-class="{typographyOptions : typographyOptions }" >
 
                             <li>
                                 <a ng-click="activeMenu()" class="nav-icon" ng-show="typographyBold">

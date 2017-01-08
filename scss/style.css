@@ -47,6 +47,12 @@
   margin: 0;
   padding: 0; }
 
+.options .options {
+  opacity: 0; }
+
+.options .typographyOptions {
+  opacity: 1; }
+
 .hide {
   display: none !important; }
 
