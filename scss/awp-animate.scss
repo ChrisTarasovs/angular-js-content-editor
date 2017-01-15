@@ -12,10 +12,28 @@ This stylesheet is for all the animate and effects
   width: 0;
   overflow: hidden;
 }
+
+.options .graphicSettings,
+.options .graphicOptions,
+.options .options .graphicVideo,
+.options .options .bgColorOptions,
+.options .options .bgColorHex,
+.options .options .graphicOptionsImage,
+.options .options .graphicOptionsVideo,
+
+.options .bgColorHex,
+.options .bgColorHex li,
+
+.options .addLink,
+.options .addLinkURL,
+.options .addLinkURL li,
+.options .addSections,
+
 .options .typography,
 .options .settings,
 .options .addSections,
 .options .addExtra,
+.options .bgColorOptions,
 .options .typographyOptions,
 .options .options .typographyBold,
 .options .options .typographyItalic,
@@ -47,6 +65,10 @@ This stylesheet is for all the animate and effects
 .set .set_typographyFonts,
 .set .set_typographyColorHex,
 .set .set_typographyLink,
+.set .set_setLinkhref,
+.set .set_graphicImage,
+.set .set_graphicVideo,
+.set .set_sectionOption
 {  
     opacity: 1;  
     width: auto;

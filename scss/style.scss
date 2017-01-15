@@ -11,6 +11,12 @@ This stylesheet is for the layout
 @import 'awp-animate.scss';
 
 
+/* list of settings */
+@import 'awp-options.scss';
+@import 'awp-settings.scss';
+
+
+
 $listAlign: -4px;
 
 .awp{
@@ -96,7 +102,7 @@ $listAlign: -4px;
     .activelist {
          position: relative;
         >ul{
-            top: -26px;left: 0px;
+            top: -26px;left:26px;
         }
     }
     .activeSublist{
@@ -147,46 +153,13 @@ $listAlign: -4px;
         }
         .options{
             position: relative;
+            padding-right: 26px;
         }
         .isNotVisible {
             opacity: 0;
         }
-        .typographyColorOptions{
-            >a, .typographyColorHex{
-                display: inline-block;
-                input{
-                    font-size: 1em;
-                    border: none;
-                    background-color: transparent;
-                }
-            }
-        }
-        .typographyBtnOptions{
-            >ul{}
-            span{
-                width: 16px;
-                height: 10px;
-                display: block;margin: 7px 6px;
-                border-width: 1px;
-                border-style: solid;
-                border-color: $light-btnColorBorder;
-            }
-            .setBorderBtn li a{
-                width: 26px;
-            }
-            li a {
-                 width: 30px;
-            }
-            .fullrd{
-                 @include border-radius(15px);
-            }
-            .rd{
-                 @include border-radius(7px);
-            }
-            .sq{
-
-            }
-        }
+    
+        
         .typeOptions.activeSublist{width: 122px;}
 
         .setBorderBtn{
@@ -229,38 +202,9 @@ $listAlign: -4px;
 
 .awpDefault{
      .set{
-        .setTypo{
-            .setAlignment{
-                width: 50%;
-                li{
-                    display: inline-block;
-                }
-            }
-            .setLightHeight{
-                width: 50%;
-            }
-        }
-        .setFont{
-            background: orange;
-        }
-        .setColor{
-            background: green;
-        }
-        .setLink{
-            .targetOptions {
-                .block{
-                    display: inline-block;
-                    width: 49%;
-                    vertical-align: top;
-                }
-                span{
-                    line-height: 50px;
-                }
-                .switch{ float:right;margin-top: 14px;}
-                .onoffswitch{
-                }
-            }
-        }
+      
+         
+       
     }
 
 }

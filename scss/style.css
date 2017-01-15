@@ -79,10 +79,24 @@ This stylesheet is for all the animate and effects
   width: 0;
   overflow: hidden; }
 
+.options .graphicSettings,
+.options .graphicOptions,
+.options .options .graphicVideo,
+.options .options .bgColorOptions,
+.options .options .bgColorHex,
+.options .options .graphicOptionsImage,
+.options .options .graphicOptionsVideo,
+.options .bgColorHex,
+.options .bgColorHex li,
+.options .addLink,
+.options .addLinkURL,
+.options .addLinkURL li,
+.options .addSections,
 .options .typography,
 .options .settings,
 .options .addSections,
 .options .addExtra,
+.options .bgColorOptions,
 .options .typographyOptions,
 .options .options .typographyBold,
 .options .options .typographyItalic,
@@ -111,10 +125,97 @@ This stylesheet is for all the animate and effects
 .set .set_typography,
 .set .set_typographyFonts,
 .set .set_typographyColorHex,
-.set .set_typographyLink {
+.set .set_typographyLink,
+.set .set_setLinkhref,
+.set .set_graphicImage,
+.set .set_graphicVideo,
+.set .set_sectionOption {
   opacity: 1;
   width: auto;
   display: block; }
+
+/* list of settings */
+/*
+This stylesheet is for all predefined mixin
+*/
+/*
+This stylesheet is for all colors
+*/
+.dark {
+  color: #fff; }
+  .dark .setLink .a-btn-lg {
+    width: 100%;
+    padding: 8px 0px;
+    background-color: transparent;
+    border: solid 1px white;
+    color: white;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    border-radius: 50px; }
+
+.awp .options .typographyBtnOptions span {
+  width: 16px;
+  height: 10px;
+  display: block;
+  margin: 7px 6px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #fff; }
+.awp .options .typographyBtnOptions .setBorderBtn li a {
+  width: 26px; }
+.awp .options .typographyBtnOptions li a {
+  width: 30px; }
+.awp .options .typographyBtnOptions .fullrd {
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  border-radius: 15px; }
+.awp .options .typographyBtnOptions .rd {
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  border-radius: 7px; }
+.awp .options .typographyColorOptions > a, .awp .options .typographyColorOptions .typographyColorHex {
+  display: inline-block; }
+  .awp .options .typographyColorOptions > a input, .awp .options .typographyColorOptions .typographyColorHex input {
+    font-size: 1em;
+    border: none;
+    background-color: transparent; }
+
+.awp .set {
+  /*
+  .setTypo{
+      .setAlignment{
+          width: 50%;
+          li{
+              display: inline-block;
+          }
+      }
+      .setLightHeight{
+          width: 50%;
+      }
+  }
+  */
+  /*
+   .setLink{
+      .targetOptions {
+          .block{
+              display: inline-block;
+              width: 49%;
+              vertical-align: top;
+          }
+          span{
+              line-height: 50px;
+          }
+          .switch{ float:right;margin-top: 14px;}
+          .onoffswitch{
+          }
+      }
+  }
+  */ }
+  .awp .set .set_sectionOption .sectionExamples li img {
+    width: 140px; }
 
 .awp {
   display: inline-block;
@@ -190,7 +291,7 @@ This stylesheet is for all the animate and effects
     position: relative; }
     .awp .activelist > ul {
       top: -26px;
-      left: 0px; }
+      left: 26px; }
   .awp .activeSublist {
     position: relative; }
     .awp .activeSublist > ul {
@@ -228,37 +329,10 @@ This stylesheet is for all the animate and effects
       -o-transition: opacity 0.4s;
       transition: opacity 0.4s; }
     .awp .options .options {
-      position: relative; }
+      position: relative;
+      padding-right: 26px; }
     .awp .options .isNotVisible {
       opacity: 0; }
-    .awp .options .typographyColorOptions > a, .awp .options .typographyColorOptions .typographyColorHex {
-      display: inline-block; }
-      .awp .options .typographyColorOptions > a input, .awp .options .typographyColorOptions .typographyColorHex input {
-        font-size: 1em;
-        border: none;
-        background-color: transparent; }
-    .awp .options .typographyBtnOptions span {
-      width: 16px;
-      height: 10px;
-      display: block;
-      margin: 7px 6px;
-      border-width: 1px;
-      border-style: solid;
-      border-color: #fff; }
-    .awp .options .typographyBtnOptions .setBorderBtn li a {
-      width: 26px; }
-    .awp .options .typographyBtnOptions li a {
-      width: 30px; }
-    .awp .options .typographyBtnOptions .fullrd {
-      -webkit-border-radius: 15px;
-      -moz-border-radius: 15px;
-      -ms-border-radius: 15px;
-      border-radius: 15px; }
-    .awp .options .typographyBtnOptions .rd {
-      -webkit-border-radius: 7px;
-      -moz-border-radius: 7px;
-      -ms-border-radius: 7px;
-      border-radius: 7px; }
     .awp .options .typeOptions.activeSublist {
       width: 122px; }
     .awp .options .setBorderBtn {
@@ -287,25 +361,5 @@ This stylesheet is for all the animate and effects
     -moz-transition: opacity 0.4s;
     -o-transition: opacity 0.4s;
     transition: opacity 0.4s; }
-
-.awpDefault .set .setTypo .setAlignment {
-  width: 50%; }
-  .awpDefault .set .setTypo .setAlignment li {
-    display: inline-block; }
-.awpDefault .set .setTypo .setLightHeight {
-  width: 50%; }
-.awpDefault .set .setFont {
-  background: orange; }
-.awpDefault .set .setColor {
-  background: green; }
-.awpDefault .set .setLink .targetOptions .block {
-  display: inline-block;
-  width: 49%;
-  vertical-align: top; }
-.awpDefault .set .setLink .targetOptions span {
-  line-height: 50px; }
-.awpDefault .set .setLink .targetOptions .switch {
-  float: right;
-  margin-top: 14px; }
 
 /*# sourceMappingURL=style.css.map */

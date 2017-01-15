@@ -1,0 +1,51 @@
+@import 'awp-mixin.scss';
+@import 'awp-colors.scss';
+
+.awp{
+    .options{
+        
+        .typographyBtnOptions{
+            >ul{}
+            span{
+                width: 16px;
+                height: 10px;
+                display: block;margin: 7px 6px;
+                border-width: 1px;
+                border-style: solid;
+                border-color: $light-btnColorBorder;
+            }
+            .setBorderBtn li a{
+                width: 26px;
+            }
+            li a {
+                 width: 30px;
+            }
+            .fullrd{
+                 @include border-radius(15px);
+            }
+            .rd{
+                 @include border-radius(7px);
+            }
+            .sq{
+
+            }
+        }
+        .typographyColorOptions{
+            >a, .typographyColorHex{
+                display: inline-block;
+                input{
+                    font-size: 1em;
+                    border: none;
+                    background-color: transparent;
+                }
+            }
+        }
+        .bgColorHex{
+
+            .enterColor{
+                
+            }
+            
+        }
+    }
+}

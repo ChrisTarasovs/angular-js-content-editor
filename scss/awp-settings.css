@@ -1,0 +1,35 @@
+.awp .set {
+  /*
+  .setTypo{
+      .setAlignment{
+          width: 50%;
+          li{
+              display: inline-block;
+          }
+      }
+      .setLightHeight{
+          width: 50%;
+      }
+  }
+  */
+  /*
+   .setLink{
+      .targetOptions {
+          .block{
+              display: inline-block;
+              width: 49%;
+              vertical-align: top;
+          }
+          span{
+              line-height: 50px;
+          }
+          .switch{ float:right;margin-top: 14px;}
+          .onoffswitch{
+          }
+      }
+  }
+  */ }
+  .awp .set .set_sectionOption .sectionExamples li img {
+    width: 140px; }
+
+/*# sourceMappingURL=awp-settings.css.map */

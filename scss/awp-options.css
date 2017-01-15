@@ -1,0 +1,49 @@
+/*
+This stylesheet is for all predefined mixin
+*/
+/*
+This stylesheet is for all colors
+*/
+.dark {
+  color: #fff; }
+  .dark .setLink .a-btn-lg {
+    width: 100%;
+    padding: 8px 0px;
+    background-color: transparent;
+    border: solid 1px white;
+    color: white;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    border-radius: 50px; }
+
+.awp .options .typographyBtnOptions span {
+  width: 16px;
+  height: 10px;
+  display: block;
+  margin: 7px 6px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #fff; }
+.awp .options .typographyBtnOptions .setBorderBtn li a {
+  width: 26px; }
+.awp .options .typographyBtnOptions li a {
+  width: 30px; }
+.awp .options .typographyBtnOptions .fullrd {
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  border-radius: 15px; }
+.awp .options .typographyBtnOptions .rd {
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  border-radius: 7px; }
+.awp .options .typographyColorOptions > a, .awp .options .typographyColorOptions .typographyColorHex {
+  display: inline-block; }
+  .awp .options .typographyColorOptions > a input, .awp .options .typographyColorOptions .typographyColorHex input {
+    font-size: 1em;
+    border: none;
+    background-color: transparent; }
+
+/*# sourceMappingURL=awp-options.css.map */
