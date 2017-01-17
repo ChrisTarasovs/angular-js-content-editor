@@ -2,14 +2,16 @@
 This stylesheet is for the layout
 */
 
-
+*{
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
 
 
 @import 'switch.scss';
 @import 'awp-mixin.scss';
 @import 'awp-colors.scss';
 @import 'awp-animate.scss';
-
+@import 'awp-ngdrag.scss';
 
 /* list of settings */
 @import 'awp-options.scss';

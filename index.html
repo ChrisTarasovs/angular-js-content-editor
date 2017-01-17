@@ -8,298 +8,358 @@
     <script src="https://code.angularjs.org/1.5.8/angular.js"></script>
 
     <script src="app/app.js"></script>
-  </head>
-  <body ng-controller="awpCtrl">
-  
-      <div ng-mouseup="mouseUpEvent()"   ng-keyup="keyUpEvent()" contenteditable >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus aliquam sodales ipsum quis tincidunt. In scelerisque lorem a metus volutpat volutpat. Nunc imperdiet urna et orci mattis, pellentesque posuere enim pellentesque. Aenean id orci et nunc venenatis vestibulum et et ligula. Morbi mollis ornare purus non blandit. Phasellus egestas, ipsum sit amet finibus pellentesque, tellus urna lobortis tellus, id tincidunt mauris nibh eget lectus. Proin pulvinar enim non mi vestibulum interdum. Sed nisl enim, sagittis non vestibulum eget, congue pellentesque ipsum. Nullam nec interdum elit. Curabitur magna velit, feugiat et dolor quis, feugiat ornare massa. Donec vel consequat quam, et dictum diam. Pellentesque vulputate nunc quis turpis bibendum, eget auctor metus consectetur. Donec efficitur urna vitae scelerisque lobortis. Curabitur sit amet egestas sem. Mauris nec cursus nisl.
-      </div>
-      <div style="font-weight: bold;" ng-bind="selectedText"></div>
-       <textarea placeholder="Enter some text!!" ng-model="editableContent"></textarea>
+    <script src="app/app.awp-ui.js"></script>
+    <script src="app/app.awp-grid.js"></script>
+    <script src="app/app.awp-ngdragFunc.js"></script>
+    <script src="app/app.awp-ngdrag.js"></script>
       
-<div class="awp awpDefault dark" >
-  <div class="arrows arrow-up"></div>
-  <div class="controller" >
-    <ul class="options">
-      <li class="animate " ng-class="{'activelist': menu.typography, typography : typography }" >
-        <a class="nav-icon" ng-click="switchMenu('typography')"   >
-          <i class="fa fa fa-pencil" aria-hidden="true" title="typo"></i>
-        </a>
-            <ul class="options" ng-class="{typographyOptions : typographyOptions }" >
-              <li ng-class="{typographyBold: typographyBold}">
-                <a ng-click="userClickedBold()" class="nav-icon">
-                  <i class="fa fa-bold" aria-hidden="true" title="Bold"></i>
-                </a>
-              </li>
-              <li ng-class="{typographyItalic : typographyItalic}">
-              <a ng-click="activeMenu()" class="nav-icon" >
-                <i class="fa fa-italic" aria-hidden="true" title="Italic"></i>
-              </a>
-            </li>
-              <li ng-class="{'activeSublist': menu.typographyHeadingOptions,typographyHeadingOptions: typographyHeadingOptions  }" >
-                  <a ng-click="switchMenu('typographyHeadingOptions')" class="nav-icon" >
-                    <i class="fa fa-header" aria-hidden="true" title="Heading"></i>
-                  </a>
-                  <ul class="options inlineblock " ng-class="{ typographyHeading : typographyHeading }">
-                    <li><a>H<sub>1<sub></a></li>
-                    <li><a>H<sub>2<sub></a></li>
-                    <li><a>H<sub>3<sub></a></li>
-                    <li><a>H<sub>4<sub></a></li>
-                    <li><a>H<sub>5<sub></a></li>
-                    <li><a>H<sub>6<sub></a></li>
-                  </ul>
-                </li>
-              <li ng-class="{'activeSublist': menu.typographyLink,typographyLink : typographyLink  }" >
-                  <a ng-click="switchMenu('typographyLink')" class="nav-icon" >
-                    <i class="fa fa-link" aria-hidden="true" title="Link"></i>
-                  </a>
-                    <ul class="options" ng-class="{typographyLinkURL:typographyLinkURL}">
-                      <li>
-                          <div style="background-color:red;">
-                            <input type="text" placeholder="#fff" />
-                            <button class="Abtn-circle">OK</button>
-                          </div>
-                       </li>
-                    </ul>
-                </li>
-              <li ng-class="{typographyUppercase : typographyUppercase }">
-                  <a ng-click="activeMenu()" class="nav-icon">
-                    <i class="fa fa-font" aria-hidden="true" title="Uppercase / Lowecase"></i>
-                  </a>
-
-                </li>
-              <li ng-class="{'activeSubSublist': menu.typographyColorOptions,typographyColorOptions:typographyColorOptions  }" >
-                  <a ng-click="switchMenu('typographyColorOptions')" class="nav-icon">
-                    <i class="fa fa-slack" aria-hidden="true" title="Color"></i>
-                  </a>
-                    <ul class="options" ng-class="{typographyColorHex:typographyColorHex}">
-                      <li>
-                          <div style="background-color:red;">
-                            <input type="text" placeholder="#fff" />
-                            <button class="Abtn-circle">OK</button>
-                          </div>
-                      </li>
-                    </ul>
-                </li>
-              <li ng-class="{typographyFonts : typographyFonts}">
-                 <a ng-click="switchMenu('typographyFonts')"  class="nav-icon">
-                  <i class="fa " aria-hidden="true" title="Fonts">T</i>
-                </a>
-              </li>
-              <li ng-class="{'activeSublist': menu.typographyBtnStyleOptions, typographyBtnStyleOptions:typographyBtnStyleOptions }" >
-                <a class="nav-icon textButton" ng-click="switchMenu('typographyBtnStyleOptions')"  >
-                  <span class="button">type</span>
-                </a>
-                <ul class="options inlineblock" ng-show="typographyBtns">
-                  <li class="activeSublist setBorderBtn">
-                    <input type="radio" />
-                    <ul class="options inlineblock">
-                      <li><a><span class="fullrd"></span></a></li>
-                      <li><a><span class="rd"></span></a></li>
-                      <li><a><span class="sq"></span></a></li>
-                    </ul>
-                  </li>
-                  <li><a><span class="fullrd solid"></span></a></li>
-                  <li><a><span class="rd solid"></span></a></li>
-                  <li><a><span class="sq solid"></span></a></li>
-                </ul>
-
-              </li>
-              <li ng-class="{typographyBtnResize : typographyBtnResize}">
-               <a ng-click="activeMenu()" class="nav-icon textButton" >
-                 <span class="button">res</span>
-               </a>
-             </li>
-           </ul>
-         </li>
-       
-         <li ng-class="{settings : settings }">
-           <a  class="nav-icon">
-             <i class="fa fa-sliders" aria-hidden="true" title="settings"></i>
-           </a>
-         </li>
-         <li ng-class="{sectionOption : sectionOption }">
-           <a  class="nav-icon">
-             <i class="fa fa-sliders" aria-hidden="true" title="settings"></i>
-           </a>
-         </li>                
-         <li ng-class="{settingsImage:settingsImage}">
-           <a  class="nav-icon">
-             <i class="fa fa-sliders" aria-hidden="true" title="settings"></i>
-           </a>
-         </li>
-     
-         <li ng-class="{'activelist': menu.addSections, addSections:addSections}">
-          <a ng-click="switchMenu('addSections')" class="nav-icon">
-            EX
-          </a>
-        </li>
-         <li ng-class="{'activelist': menu.bgColorOptions, bgColorOptions:bgColorOptions}" >
-                  <a ng-click="switchMenu('bgColorOptions')" class="nav-icon">
-                    <i class="fa fa-slack" aria-hidden="true" title="Color"></i>
-                  </a>
-                    <ul class="options" ng-class="{bgColorHex:bgColorHex}">
-                      <li>
-                          <div class="enterColor">
-                            <input type="text" placeholder="#fff" />
-                            <button class="Abtn-circle">OK</button>
-                          </div>
-                      </li>
-                    </ul>
-        </li>   
-        <li ng-class="{'activelist': menu.graphicSettings, graphicSettings: graphicSettings }" > 
-            <a class="nav-icon" ng-click="switchMenu('graphicSettings')" >
-              <i class="fa fa-picture-o" aria-hidden="true" title="Image / Video"></i>
-            </a>
-            <ul class="options" ng-class="{graphicOptions : graphicOptions }" >
-              <li ng-class="{graphicOptionsImage: graphicOptionsImage}">
-                <a ng-click="switchMenu('graphicOptionsImage')" class="nav-icon">
-                  <i class="fa fa-file-image-o" aria-hidden="true" title="Image"></i>
-                </a>
-              </li>
-              <li ng-class="{graphicOptionsVideo: graphicOptionsVideo}">
-                <a ng-click="switchMenu('graphicOptionsVideo')" class="nav-icon">
-                  <i class="fa fa-film" aria-hidden="true" title="Video"></i>
-                </a>
-              </li>    
-            </ul>
-         </li>
+  </head>
+  <body >
+  
+<style>
+    .gridRow{ background-color:aquamarine;}
     
-         <li ng-class="{'activelist': menu.addLink,addLink : addLink  }" >
-              <a ng-click="switchMenu('addLink')" class="nav-icon" >
-                <i class="fa fa-link" aria-hidden="true" title="Link"></i>
-              </a>
-                <ul class="options" ng-class="{addLinkURL:addLinkURL}">
-                  <li>
-                      <div style="background-color:red;">
-                        <input type="text" placeholder="#fff" />
-                        <button class="Abtn-circle">OK</button>
-                      </div>
-                   </li>
-                </ul>
-         </li>
-                        
-         <li ng-class="{addExtra: addExtra}">
-          <a class="nav-icon">
-            <i class="fa fa-plus" aria-hidden="true" title="Extra"></i>
-          </a>
-         </li>
-</ul>
-<div class="set">
-  <div class="settings" ng-class="{set_typography:set_typography}">
-    <ul class="setAlignment">
-     <li> <i class="fa fa-align-left" aria-hidden="true" title="Left"></i></li>
-     <li> <i class="fa fa-align-center" aria-hidden="true" title="Center"></i></li>
-     <li> <i class="fa fa-align-right" aria-hidden="true" title="Right"></i></li>
-     <li> <i class="fa fa-align-justify" aria-hidden="true" title="Justify"></i></li>
-   </ul>
-   <div class="setLightHeight"></div>
+</style>
+      
+<div class="container" ng-controller="MainCtrl">
 
- </div>
-  <div class="settings" ng-class="{set_typographyFonts:set_typographyFonts}">
-    <span> WIll load all fonts in scroll</span>   
-  </div>
-  <div class="settings" ng-class="{set_typographyColorHex:set_typographyColorHex}">
-      REX color
-  </div>
-  <div class="settings" ng-class="{set_setLinkhref:setLinkhref}">
-          <div class="rheight">
-            <button class="a-btn-lg a-btn-def">Convert to link</button>
+       
+     <div  ng-repeat="obj in draggableObjects" >
+         <div class="objWrapper" ng-drag="true" ng-drag-data="obj" data-allow-transform="true"> 
+             <div class="ssss">
+                {{obj.name}}  <div>asdasda</div>
+             </div>
+         </div>
+     </div>
+       
+
+      <hr/>
+      <div ng-drop="true" ng-drop-success="onDropComplete1($data,$event)">
+          <span class="title">Drop area #1</span>
+
+          <div ng-repeat="obj in droppedObjects1" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess1($data,$event)" ng-center-anchor="{{centerAnchor}}">
+              {{obj.name}}
           </div>
-    </div>
-  <div class="settings" ng-class="{set_typographyLink:set_typographyLink}">
-      <div>
-            <span>Select a page</span>
-            <select>
-                <option>Home</option>
-                <option>About us</option>
-                <option>Tours</option>
-                    <option>-Italy</option>
-                    <option>-France</option>
-                    <option>-Latvia</option>
-                    <option>-London</option>
-                <option>Contact us</option>
-            </select>
+
       </div>
-      <div class="rheight targetOptions">
-        <div class="block">
-          <span>Show in new tab</span>
+
+      <div ng-drop="true" ng-drop-success="onDropComplete2($data,$event)">
+          <span class="title">Drop area #2</span>
+
+          <div ng-repeat="obj in droppedObjects2" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess2($data,$event)" ng-center-anchor="{{centerAnchor}}">
+              {{obj.name}}
+          </div>
+
+      </div>
+
+    <hr>
+
+
+
+  </div>
+
+      
+<div ng-controller="awpGridCtrl" style="height: 500px; width: 100%; float: left;border:solid 1px">
+      <div class="gridRow">
+            <div></div>
+      </div>
+      The grid
+</div>
+      
+<div ng-controller="awpCtrl">   
+        <div ng-mouseup="mouseUpEvent()"   ng-keyup="keyUpEvent()" contenteditable >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus aliquam sodales ipsum quis tincidunt. In scelerisque lorem a metus volutpat volutpat. Nunc imperdiet urna et orci mattis, pellentesque posuere enim pellentesque. Aenean id orci et nunc venenatis vestibulum et et ligula. Morbi mollis ornare purus non blandit. Phasellus egestas, ipsum sit amet finibus pellentesque, tellus urna lobortis tellus, id tincidunt mauris nibh eget lectus. Proin pulvinar enim non mi vestibulum interdum. Sed nisl enim, sagittis non vestibulum eget, congue pellentesque ipsum. Nullam nec interdum elit. Curabitur magna velit, feugiat et dolor quis, feugiat ornare massa. Donec vel consequat quam, et dictum diam. Pellentesque vulputate nunc quis turpis bibendum, eget auctor metus consectetur. Donec efficitur urna vitae scelerisque lobortis. Curabitur sit amet egestas sem. Mauris nec cursus nisl.
         </div>
-        <div class="block">
-          <div class="switch">
-            <div class="onoffswitch">
-              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-              <label class="onoffswitch-label" for="myonoffswitch"></label>
+        <div style="font-weight: bold;" ng-bind="selectedText"></div>
+        <div class="awp awpDefault dark" >
+          <div class="arrows arrow-up"></div>
+          <div class="controller" >
+            <ul class="options">
+              <li class="animate " ng-class="{'activelist': menu.typography, typography : typography }" >
+                    <a class="nav-icon" ng-click="switchMenu('typography')"   >
+                      <i class="fa fa fa-pencil" aria-hidden="true" title="typo"></i>
+                    </a>
+                    <ul class="options" ng-class="{typographyOptions : typographyOptions }" >
+                      <li ng-class="{typographyBold: typographyBold}">
+                        <a ng-click="userClickedBold()" class="nav-icon">
+                          <i class="fa fa-bold" aria-hidden="true" title="Bold"></i>
+                        </a>
+                      </li>
+                      <li ng-class="{typographyItalic : typographyItalic}">
+                      <a ng-click="activeMenu()" class="nav-icon" >
+                        <i class="fa fa-italic" aria-hidden="true" title="Italic"></i>
+                      </a>
+                    </li>
+                      <li ng-class="{'activeSublist': menu.typographyHeadingOptions,typographyHeadingOptions: typographyHeadingOptions  }" >
+                          <a ng-click="switchMenu('typographyHeadingOptions')" class="nav-icon" >
+                            <i class="fa fa-header" aria-hidden="true" title="Heading"></i>
+                          </a>
+                          <ul class="options inlineblock " ng-class="{ typographyHeading : typographyHeading }">
+                            <li><a>H<sub>1<sub></a></li>
+                            <li><a>H<sub>2<sub></a></li>
+                            <li><a>H<sub>3<sub></a></li>
+                            <li><a>H<sub>4<sub></a></li>
+                            <li><a>H<sub>5<sub></a></li>
+                            <li><a>H<sub>6<sub></a></li>
+                          </ul>
+                        </li>
+                      <li ng-class="{'activeSublist': menu.typographyLink,typographyLink : typographyLink  }" >
+                          <a ng-click="switchMenu('typographyLink')" class="nav-icon" >
+                            <i class="fa fa-link" aria-hidden="true" title="Link"></i>
+                          </a>
+                            <ul class="options" ng-class="{typographyLinkURL:typographyLinkURL}">
+                              <li>
+                                  <div style="background-color:red;">
+                                    <input type="text" placeholder="#fff" />
+                                    <button class="Abtn-circle">OK</button>
+                                  </div>
+                               </li>
+                            </ul>
+                        </li>
+                      <li ng-class="{typographyUppercase : typographyUppercase }">
+                          <a ng-click="activeMenu()" class="nav-icon">
+                            <i class="fa fa-font" aria-hidden="true" title="Uppercase / Lowecase"></i>
+                          </a>
+
+                        </li>
+                      <li ng-class="{'activeSubSublist': menu.typographyColorOptions,typographyColorOptions:typographyColorOptions  }" >
+                          <a ng-click="switchMenu('typographyColorOptions')" class="nav-icon">
+                            <i class="fa fa-slack" aria-hidden="true" title="Color"></i>
+                          </a>
+                            <ul class="options" ng-class="{typographyColorHex:typographyColorHex}">
+                              <li>
+                                  <div style="background-color:red;">
+                                    <input type="text" placeholder="#fff" />
+                                    <button class="Abtn-circle">OK</button>
+                                  </div>
+                              </li>
+                            </ul>
+                        </li>
+                      <li ng-class="{typographyFonts : typographyFonts}">
+                         <a ng-click="switchMenu('typographyFonts')"  class="nav-icon">
+                          <i class="fa " aria-hidden="true" title="Fonts">T</i>
+                        </a>
+                      </li>
+                      <li ng-class="{'activeSublist': menu.typographyBtnStyleOptions, typographyBtnStyleOptions:typographyBtnStyleOptions }" >
+                        <a class="nav-icon textButton" ng-click="switchMenu('typographyBtnStyleOptions')"  >
+                          <span class="button">type</span>
+                        </a>
+                        <ul class="options inlineblock" ng-show="typographyBtns">
+                          <li class="activeSublist setBorderBtn">
+                            <input type="radio" />
+                            <ul class="options inlineblock">
+                              <li><a><span class="fullrd"></span></a></li>
+                              <li><a><span class="rd"></span></a></li>
+                              <li><a><span class="sq"></span></a></li>
+                            </ul>
+                          </li>
+                          <li><a><span class="fullrd solid"></span></a></li>
+                          <li><a><span class="rd solid"></span></a></li>
+                          <li><a><span class="sq solid"></span></a></li>
+                        </ul>
+
+                      </li>
+                      <li ng-class="{typographyBtnResize : typographyBtnResize}">
+                       <a ng-click="activeMenu()" class="nav-icon textButton" >
+                         <span class="button">res</span>
+                       </a>
+                     </li>
+                   </ul>
+            </li>
+              <li ng-class="{settings : settings }">
+                   <a  class="nav-icon">
+                     <i class="fa fa-sliders" aria-hidden="true" title="settings"></i>
+                   </a>
+                 </li>
+                 <li ng-class="{sectionOption : sectionOption }">
+                   <a  class="nav-icon">
+                     <i class="fa fa-sliders" aria-hidden="true" title="settings"></i>
+                   </a>
+                 </li>                
+                 <li ng-class="{settingsImage:settingsImage}">
+                   <a  class="nav-icon">
+                     <i class="fa fa-sliders" aria-hidden="true" title="settings"></i>
+                   </a>
+                 </li>
+                 <li ng-class="{'activelist': menu.addSections, addSections:addSections}">
+                  <a ng-click="switchMenu('addSections')" class="nav-icon">
+                    EX
+                  </a>
+                </li>
+                 <li ng-class="{'activelist': menu.bgColorOptions, bgColorOptions:bgColorOptions}" >
+                          <a ng-click="switchMenu('bgColorOptions')" class="nav-icon">
+                            <i class="fa fa-slack" aria-hidden="true" title="Color"></i>
+                          </a>
+                            <ul class="options" ng-class="{bgColorHex:bgColorHex}">
+                              <li>
+                                  <div class="enterColor">
+                                    <input type="text" placeholder="#fff" />
+                                    <button class="Abtn-circle">OK</button>
+                                  </div>
+                              </li>
+                            </ul>
+                </li>   
+                 <li ng-class="{'activelist': menu.graphicSettings, graphicSettings: graphicSettings }" > 
+                    <a class="nav-icon" ng-click="switchMenu('graphicSettings')" >
+                      <i class="fa fa-picture-o" aria-hidden="true" title="Image / Video"></i>
+                    </a>
+                    <ul class="options" ng-class="{graphicOptions : graphicOptions }" >
+                      <li ng-class="{graphicOptionsImage: graphicOptionsImage}">
+                        <a ng-click="switchMenu('graphicOptionsImage')" class="nav-icon">
+                          <i class="fa fa-file-image-o" aria-hidden="true" title="Image"></i>
+                        </a>
+                      </li>
+                      <li ng-class="{graphicOptionsVideo: graphicOptionsVideo}">
+                        <a ng-click="switchMenu('graphicOptionsVideo')" class="nav-icon">
+                          <i class="fa fa-film" aria-hidden="true" title="Video"></i>
+                        </a>
+                      </li>    
+                    </ul>
+                 </li>
+                 <li ng-class="{'activelist': menu.addLink,addLink : addLink  }" >
+                      <a ng-click="switchMenu('addLink')" class="nav-icon" >
+                        <i class="fa fa-link" aria-hidden="true" title="Link"></i>
+                      </a>
+                        <ul class="options" ng-class="{addLinkURL:addLinkURL}">
+                          <li>
+                              <div style="background-color:red;">
+                                <input type="text" placeholder="#fff" />
+                                <button class="Abtn-circle">OK</button>
+                              </div>
+                           </li>
+                        </ul>
+                 </li>
+                 <li ng-class="{addExtra: addExtra}">
+                  <a class="nav-icon">
+                    <i class="fa fa-plus" aria-hidden="true" title="Extra"></i>
+                  </a>
+                 </li>
+            </ul>
+            <div class="set">
+              <div class="settings" ng-class="{set_typography:set_typography}">
+                <ul class="setAlignment">
+                 <li> <i class="fa fa-align-left" aria-hidden="true" title="Left"></i></li>
+                 <li> <i class="fa fa-align-center" aria-hidden="true" title="Center"></i></li>
+                 <li> <i class="fa fa-align-right" aria-hidden="true" title="Right"></i></li>
+                 <li> <i class="fa fa-align-justify" aria-hidden="true" title="Justify"></i></li>
+               </ul>
+               <div class="setLightHeight"></div>
+
+             </div>
+              <div class="settings" ng-class="{set_typographyFonts:set_typographyFonts}">
+                <span> WIll load all fonts in scroll</span>   
+              </div>
+              <div class="settings" ng-class="{set_typographyColorHex:set_typographyColorHex}">
+                  REX color
+              </div>
+              <div class="settings" ng-class="{set_setLinkhref:setLinkhref}">
+                      <div class="rheight">
+                        <button class="a-btn-lg a-btn-def">Convert to link</button>
+                      </div>
+                </div>
+              <div class="settings" ng-class="{set_typographyLink:set_typographyLink}">
+                  <div>
+                        <span>Select a page</span>
+                        <select>
+                            <option>Home</option>
+                            <option>About us</option>
+                            <option>Tours</option>
+                                <option>-Italy</option>
+                                <option>-France</option>
+                                <option>-Latvia</option>
+                                <option>-London</option>
+                            <option>Contact us</option>
+                        </select>
+                  </div>
+                  <div class="rheight targetOptions">
+                    <div class="block">
+                      <span>Show in new tab</span>
+                    </div>
+                    <div class="block">
+                      <div class="switch">
+                        <div class="onoffswitch">
+                          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                          <label class="onoffswitch-label" for="myonoffswitch"></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="rheight">
+                    <button class="a-btn-lg a-btn-def">Convert to button</button>
+                  </div>
+            </div>
+              <div class="settings" ng-class="{set_graphicImage:set_graphicImage}">
+                  <div class="imageURL">
+                    <span>http://</span>
+                    <input type="text" />
+                  </div>
+                  <style>
+                      .imagePosition ul li{display: inline-block;width:26px;}
+                       .imagePosition ul li img{width:26px;}
+                  </style>
+                  <div class="imagePosition"> 
+                    <ul>
+                        <li><img src="demo/demo-icons.png"></li>
+                        <li><img src="demo/demo-icons2.png"></li>
+                        <li><img src="demo/demo-icons3.png"></li>
+                        <li><img src="demo/demo-icons4.png"></li>
+                        <li><img src="demo/demo-icons5.png"></li>
+                    </ul>
+                  </div>
+              </div>
+              <div class="settings" ng-class="{set_graphicVideo:set_graphicVideo}">
+                  <div class="videoURL">
+                    <span>URL or ID</span>
+                    <input type="text" />
+                  </div>
+                  <div>
+                      <span>Autoplay</span>
+                      BTN
+                  <div>
+
+              </div>
+              <div class="settings extra">
+                <ul>
+                  <li>Move</li>
+                  <li>Duplicate</li>
+                  <li>Custom CSS</li>
+                  <li>Remove Grid</li>
+                </ul>
+              </div>
+            </div>
+            </div>
+              <div class="settings" ng-class="{set_bgColor:set_bgColor}">
+                 HEX to set bg colors
+                </div>
+              <div class="settings" ng-class="{set_sectionOption:set_sectionOption}">
+                <ul class="sectionExamples">
+                  <li><img src="demo/demo1.png"></li>
+                  <li><img src="demo/demo2.png"></li>
+                  <li><img src="demo/demo3.png"></li>
+                  <li><img src="demo/demo4.png"></li>  
+                </ul>
+                <button class="btn ">View more</button>
+              </div>
+              <div class="settings" ng-class="{set_addElement:set_addElement}">
+                    <ul class="">
+                     <li>Testimonials</li>
+                     <li>Single Image</li>
+                     <li>Image Gallery</li>
+                     <li>Carousel Slider</li>
+                     <li>Contact Form</li>
+                     <li>Google Map</li>
+                     <li>Accordion</li>
+                     <li>Tabs</li>
+                     <li>Icon</li>
+                     <li>Social</li>        
+                    </ul>
+              </div>
+             
             </div>
           </div>
+          <div class="arrows arrow-down"></div>
         </div>
-      </div>
-      <div class="rheight">
-        <button class="a-btn-lg a-btn-def">Convert to button</button>
-      </div>
-</div>
-  <div class="settings" ng-class="{set_graphicImage:set_graphicImage}">
-      <div class="imageURL">
-        <span>http://</span>
-        <input type="text" />
-      </div>
-      <div class="imagePosition"> 
-        <ul>
-            <li>Pos 1</li>
-            <li>Pos 2</li>
-            <li>Pos 3</li>
-            <li>Pos 4</li>
-        </ul>
-      </div>
-  </div>
-  <div class="settings" ng-class="{set_graphicVideo:set_graphicVideo}">
-      <div class="videoURL">
-        <span>URL or ID</span>
-        <input type="text" />
-      </div>
-      <div>
-          <span>Autoplay</span>
-          BTN
-      <div>
-          
-  </div>
-  <div class="settings extra">
-    <ul>
-      <li>Move</li>
-      <li>Duplicate</li>
-      <li>Custom CSS</li>
-      <li>Remove Grid</li>
-    </ul>
-  </div>
-</div>
-</div>
-  <div class="settings" ng-class="{set_bgColor:set_bgColor}">
-     HEX to set bg colors
-    </div>
-  <div class="settings" ng-class="{set_sectionOption:set_sectionOption}">
-    <ul class="sectionExamples">
-      <li><img src="demo/demo1.png"></li>
-      <li><img src="demo/demo2.png"></li>
-      <li><img src="demo/demo3.png"></li>
-      <li><img src="demo/demo4.png"></li>  
-    </ul>
-    <button class="btn ">View more</button>
-  </div>
-  <div class="settings" ng-class="{set_addElement:set_addElement}">
-        <ul class="">
-         <li>Testimonials</li>
-         <li>Single Image</li>
-         <li>Image Gallery</li>
-         <li>Carousel Slider</li>
-         <li>Contact Form</li>
-         <li>Google Map</li>
-         <li>Accordion</li>
-         <li>Tabs</li>
-         <li>Icon</li>
-         <li>Social</li>        
-        </ul>
-  </div>
-  <div class="arrows arrow-down"></div>
-</div>
+ </div>
+                        
 </body>
 </html>
