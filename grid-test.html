@@ -19,7 +19,7 @@
 #bgGridTemporal div:nth-child(even) {
     background-color:beige;
 }       
-.gridContainer {
+#gridContainer {
     max-width: 1024px; 
     margin: 0px auto;
     background-color: rgba(0,0,0, .1);height: 100%;
@@ -217,8 +217,8 @@
 </head>
 <body>
 
-<div class="gridContainer" >
-    <!-- row 1 -->
+<div id="gridContainer" >
+   
     <div class="grid-row">
         <div class="grid-wrapper">
             <div class="grid-block">
@@ -231,7 +231,7 @@
             </div>
         </div>
     </div>
-     <!-- row 2 -->
+    
      <div class="grid-row">
         <div class="grid-wrapper">
             <div class="grid-block">
@@ -249,7 +249,7 @@
             </div>
         </div>
     </div>  
-     <!-- row 3 -->
+    
     <div class="grid-row">
         <div class="grid-wrapper">
             <div class="grid-block">
@@ -263,7 +263,7 @@
         </div>
         
     </div>
-    <!-- row 4 -->
+
     <div class="grid-row">
         <div class="grid-wrapper">
             <div class="grid-block">
@@ -272,7 +272,7 @@
         </div>
         
     </div>
-    <!-- row 5 -->
+    
     <div class="grid-row">
         <div class="grid-wrapper">
             <div class="grid-block">
@@ -288,7 +288,7 @@
             </div>
         </div>
     </div>
-    <!-- row 6  Grouped Elements -->
+    
     <div class="grid-row">
         <div class="grid-wrapper">
             <div class="grid-row-sub">
@@ -320,7 +320,7 @@
             </div>
         </div>
     </div>
-    <!-- row 7 Boxed layout -->
+    
     <div class="grid-row">
         <div class="grid-wrapper">
              <div class="grid-row-sub">
@@ -366,12 +366,7 @@
     
     function columnW(browserwidth, gridCount){
         var browserW = browserwidth, gridC = gridCount;
-        
         var columnwidth = browserW / gridC;
-        
-        
-       
-    
         for ( i = 0; i < gridCount; i++) { 
             var gridContainer = document.getElementById("bgGridTemporal");
             var creatColumn = document.createElement('div');
@@ -383,15 +378,83 @@
             //creatColumn.innerHTML= ""
            
         }
+        return columnwidth;
+        
+    }
+    function removeTextNode(nodes){
+        return [].filter.call(nodes, function(o){
+            return o.nodeType == Node.ELEMENT_NODE;
+        });
+    }
+    
+    function blockResize(){
+        
+        var container = document.getElementById('gridContainer');
+        var row =  container.childNodes;
+         //row =  removeTextNode(row); // if enabled loop does not work.
+        
+        var gridrowlenght =  container.childNodes.length;
+        
+        
+        
+        var wrapperArray = new Array();
+        
+        // Collect all grid-row
+         for (var a=0; a < gridrowlenght ; a++) { 
+        
+             
+             
+             // Only collect that one that are HTML 
+             if (row[a].nodeType == 1){
+                 
+                 //console.log( row[a]);   
+
+                 
+                 // Collect all grid-row childred grid-wrapper
+                 var wrapper = row[a].childNodes;
+                 var WrappersChildrenlenght = row[a].childNodes.length;
+               
+                // console.log( WrappersChildren);   
+                //  console.log( WrappersChildrenlenght);
+                 
+                        // Each grid-wrapper
+                         for (var b = 0; b < WrappersChildrenlenght ; b++) {
+                             
+                             // Only collect grid-wrapper that one that are HTML
+                             if (wrapper[b].nodeType == 1){
+                                 
+                                
+                                
+                                 console.log( wrapper[b]);   
+                            }
+                         }
+
+                 
+             
+                }
+            // gridWrapper.push(wrapperchild[i]);
+            // console.log( gridWrapper);
+        }
+        //return gridWrapper;
         
         
     }
     
- 
-    
-    //var OneColumn = columnW();
-    console.log(columnW(1024,36 ));
+    function calwidth(vals, fixedIndices, newSum) {
+      var initSum = vals.reduce(function (prev, cur) {return prev + cur;}, 0);
+      var fixedSum = fixedIndices.reduce(function (prev, cur, index) {return prev + vals[cur];}, 0);
+      var initRemainingSum = initSum - fixedSum;
+      var endRemainingSum = newSum - fixedSum;
+      return vals.map(function(cur, index) {return fixedIndices.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;})
+    }
 
+  // var test = $scope.newwidths([100, 225, 500], [1,2], 400);
+ 
+     
+    //var OneColumn = columnW();
+   // console.log(columnW(1024,36 ));
+    
+    blockResize();
     
 </script>
     
