@@ -13,7 +13,7 @@
 .bar:not(last-child){
   border: 0.5px solid black;
 }
-#blueBlock{
+#elementBlock{
   position: relative;
   display: inline-block;
   height: 150px;
