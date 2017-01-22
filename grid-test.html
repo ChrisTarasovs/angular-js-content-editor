@@ -225,7 +225,7 @@
 
             </div>
         </div>
-        <div class="grid-wrapper">
+        <div class="grid-wrapper" data-position="fixed">
             <div class="grid-block">
 
             </div>
@@ -238,7 +238,7 @@
 
             </div>
         </div>
-        <div class="grid-wrapper">
+        <div class="grid-wrapper" data-position="fixed">
             <div class="grid-block">
 
             </div>
@@ -274,12 +274,12 @@
     </div>
     
     <div class="grid-row">
-        <div class="grid-wrapper">
+        <div class="grid-wrapper" data-position="fixed">
             <div class="grid-block">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin metus nisl, pulvinar id pharetra et, varius at ipsum. Integer sagittis magna vitae turpis consectetur, quis laoreet nulla laoreet. In mi urna, tempus in nibh quis, blandit scelerisque tellus. Proin mattis turpis nec pretium placerat. Morbi nec laoreet urna. Nulla gravida ac sapien vitae pulvinar. 
             </div>
         </div>
-        <div class="grid-wrapper">
+        <div class="grid-wrapper" data-position="fixed">
             <div class="grid-block">
                 <div class="tmp-Element-Form">
                       Contact form
@@ -292,7 +292,7 @@
     <div class="grid-row">
         <div class="grid-wrapper">
             <div class="grid-row-sub">
-                <div class="grid-wrapper">
+                <div class="grid-wrapper" data-position="fixed">
                      <div class="grid-block">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                      </div>
@@ -363,7 +363,7 @@
 </div>
 <script>
    
-    
+    // Create a temp grid
     function columnW(browserwidth, gridCount){
         var browserW = browserwidth, gridC = gridCount;
         var columnwidth = browserW / gridC;
@@ -375,80 +375,179 @@
             creatColumn.style.height= "100%";
             
             gridContainer.appendChild(creatColumn);   
-            //creatColumn.innerHTML= ""
+           
            
         }
         return columnwidth;
         
     }
+    
+    // Clean up nodes
     function removeTextNode(nodes){
         return [].filter.call(nodes, function(o){
             return o.nodeType == Node.ELEMENT_NODE;
         });
     }
     
+    // Get wrapper dymation and set in array
+    function getWrapperDymantions(wrapperID, wraper){
+        
+        var wrapperDymations, style, wrapW, wrapH, wrapMTop, wrapMRight, wrapMBottom, wrapMLeft;
+        
+        wrapperDymations =[];
+        style = wraper.currentStyle || window.getComputedStyle(wraper);
+        wrapW = wraper.offsetWidth;
+        wrapH = wraper.offsetHeight;
+    
+        wrapMTop = parseInt(style.marginTop, 10);
+        wrapMRight = parseInt(style.marginRight);
+        wrapMBottom = parseInt(style.marginBottom);
+        wrapMLeft = parseInt(style.marginLeft);
+        
+        wrapPos = wraper.getAttribute('data-position');
+        if(wrapPos){
+           wrapPos = wrapperID;
+          wrapperDymations.push.apply(wrapperDymations, [{dimensions: [wrapW,wrapH], margins: [wrapMTop,wrapMRight,wrapMBottom,wrapMLeft], positions: [parseInt(wrapPos)]}])
+        }else{
+          wrapperDymations.push.apply(wrapperDymations, [
+                                                           {
+                                                               dimensions: [wrapW,wrapH], 
+                                                               margins: [wrapMTop,wrapMRight,wrapMBottom,wrapMLeft],
+                                                               positions: []
+                                                           }
+                                                        ])
+        }
+ 
+        return wrapperDymations;
+       
+    }
+    
+    function getWrapperProperties(myObject){
+       var properties =  myObject.reduce(function(newObj, item) 
+                         {
+                          newObj.dimensions.push(item.dimensions[0]);
+                          newObj.margins.push(item.margins[1], item.margins[3]);
+                          
+                          newObj.positions.push(item.positions[0]);
+                          return newObj;
+                        }, 
+                        { dimensions: [], margins: [], positions: []  });
+     return properties;
+    }
+    // remove undiefied from array
+      function cleanUpArray(data){
+
+          data = data.filter(function( element ) {
+               return element !== undefined;
+          });
+          return data;
+      }
+    
+    // Get rows and wrappers
     function blockResize(){
         
         var container = document.getElementById('gridContainer');
         var row =  container.childNodes;
-         //row =  removeTextNode(row); // if enabled loop does not work.
+            row =  removeTextNode(row); // now is an array
         
-        var gridrowlenght =  container.childNodes.length;
+       
+        var rowArray = new Array();
         
-        
-        
-        var wrapperArray = new Array();
-        
-        // Collect all grid-row
-         for (var a=0; a < gridrowlenght ; a++) { 
-        
+        for (var a in row) {
+              var wrapper = row[a].childNodes;
+                  wrapper = removeTextNode(wrapper); // now is an array
+                  
+                var  rowrInt = [b];
+                var rowdimensions = getWrapperDymantions(rowrInt, row[a]);
+                rowArray.push.apply(rowArray,rowdimensions );
              
-             
-             // Only collect that one that are HTML 
-             if (row[a].nodeType == 1){
+            
+                var wrapperArray = new Array();
+                for (var b in wrapper) {
+                    
+                    // get wrapper dymantions
+                    wrapperInt = [b];
+                    wrapDymations = getWrapperDymantions(wrapperInt, wrapper[b]);
+                    
+                    //wrapperArray.push.apply(wrapperArray, [wrapDymations[0], wrapDymations[3], wrapDymations[5]]);
+                    wrapperArray.push.apply(wrapperArray,wrapDymations );
+                    console.log('wrapper array');
+                    
+                    console.log(wrapperArray);
+                    
                  
-                 //console.log( row[a]);   
-
-                 
-                 // Collect all grid-row childred grid-wrapper
-                 var wrapper = row[a].childNodes;
-                 var WrappersChildrenlenght = row[a].childNodes.length;
-               
-                // console.log( WrappersChildren);   
-                //  console.log( WrappersChildrenlenght);
-                 
-                        // Each grid-wrapper
-                         for (var b = 0; b < WrappersChildrenlenght ; b++) {
-                             
-                             // Only collect grid-wrapper that one that are HTML
-                             if (wrapper[b].nodeType == 1){
-                                 
-                                
-                                
-                                 console.log( wrapper[b]);   
-                            }
-                         }
-
-                 
-             
-                }
-            // gridWrapper.push(wrapperchild[i]);
-            // console.log( gridWrapper);
+                 }
+            
+                 // Calculate new widths
+                 var calcNewWrapDymations = calwidth( rowArray, wrapperArray  );
         }
-        //return gridWrapper;
         
+        
+       
         
     }
-    
-    function calwidth(vals, fixedIndices, newSum) {
+    function calMargin(){
+        
+    }
+    // Calculates div sizes
+    function calwidth( row, wrappers ) {
+       //  vals, fixedIndices, newSum
+       
+       var wrapperProperties = getWrapperProperties(wrappers);
+        
+       var rowProperties = getWrapperProperties(row);
+       var rowWidth = rowProperties.dimensions[0];
+        
+       var valsWrapper = wrapperProperties.dimensions;
+       var valsMargin = wrapperProperties.margins;
+       var objectfixedIndices = cleanUpArray(wrapperProperties.positions);
+        
+       var remainder = rowWidth - (valsWrapper.reduce((a, b) => a + b, 0) + valsMargin.reduce((a, b) => a + b, 0)); // the space of last element
+        
+     
+        var containerWidth = valsWrapper.reduce((a, b) => a + b, 0) + valsMargin.reduce((a, b) => a + b, 0);
+       
+        
+        console.log(valsWrapper); 
+        console.log(valsMargin);
+        console.log(objectfixedIndices);
+        console.log(remainder);
+        
+        
+        // FUNCTIONS TO WRITE
+        // Check if there is a remainder 
+        
+            // than need to check if not all elements are fixed, 
+                // if are, than reduce all propotion
+                 
+                    // if not than 
+                        // Check if margin sum is more than 0 
+                                //if it is than  reduce margin
+                                    // Check if wrappers are not too small 
+                                        // if theyh are not too small than reduce them 
+                                        
+                
+            
+        
+        
+        /*
+        wrappers.prototype.filterObjects = function(id, value) {
+            return this.filter(function(x) { return x[id] === value; })
+        }
+        
+       // if all elements sum = to browser and fixed than all reduced equaly
+       if(vals.reduce((a, b) => a + b, 0) && vals.length  == fixedIndices.length ){
+           var fixedIndices =[];
+       }
       var initSum = vals.reduce(function (prev, cur) {return prev + cur;}, 0);
       var fixedSum = fixedIndices.reduce(function (prev, cur, index) {return prev + vals[cur];}, 0);
       var initRemainingSum = initSum - fixedSum;
       var endRemainingSum = newSum - fixedSum;
       return vals.map(function(cur, index) {return fixedIndices.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;})
+      */
     }
 
-  // var test = $scope.newwidths([100, 225, 500], [1,2], 400);
+ 
  
      
     //var OneColumn = columnW();
