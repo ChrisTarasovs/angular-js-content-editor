@@ -444,7 +444,7 @@
       }
     
     // Get rows and wrappers
-    function blockResize(){
+    function readDom(){
         
         var container = document.getElementById('gridContainer');
         var row =  container.childNodes;
@@ -553,7 +553,8 @@
     //var OneColumn = columnW();
    // console.log(columnW(1024,36 ));
     
-    blockResize();
+    readDom();
+     columnW(1024,36 );
     
 </script>
     
