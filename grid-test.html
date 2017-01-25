@@ -360,6 +360,17 @@ letter-spacing: -4px;
 </div>
 <script>
    
+     
+    readDom();
+
+    window.addEventListener('resize', function(){
+      readDom();
+    });
+    
+    columnW(1024,36 );
+    
+    
+    
     // Create a temp grid
     function columnW(browserwidth, gridCount){
         var browserW = browserwidth, gridC = gridCount;
@@ -414,11 +425,11 @@ letter-spacing: -4px;
                                                            }
                                                         ])
         }
- 
+        
         return wrapperDymations;
        
     }
-    
+    // func that loop and only get you each wrapper width,and margin left and right
     function getWrapperProperties(myObject){
        var properties =  myObject.reduce(function(newObj, item) 
                          {
@@ -443,7 +454,7 @@ letter-spacing: -4px;
     // Get rows and wrappers
     function readDom(){
         
-      console.clear();
+    
         var container = document.getElementById('gridContainer');
         var row =  container.childNodes;
             row =  removeTextNode(row); // now is an array
@@ -467,81 +478,50 @@ letter-spacing: -4px;
                     // get wrapper dymantions
                     wrapperInt = [b];
                     wrapDymations = getWrapperDymantions(wrapperInt, wrapper[b]);
-                    
-                    //wrapperArray.push.apply(wrapperArray, [wrapDymations[0], wrapDymations[3], wrapDymations[5]]);
                     wrapperArray.push.apply(wrapperArray,wrapDymations );
-                    //console.log('wrapper array');
-                    
-                    //console.log(wrapperArray);
-                    
-                 
-                 }
+                  
+                }
+                   
+              wrappersArrays =  getWrapperProperties(wrapperArray); // filter only widths and margins
+              var objectfixedIndices = cleanUpArray(wrappersArrays.positions);   
+          //   console.log(rowdimensions[0]);
+           //  console.log(rowdimensions[0].dimensions[0]); 
+        var    wrappersUpdate = calcWidths(rowdimensions[0].dimensions[0],wrappersArrays.dimensions,wrappersArrays.margins, objectfixedIndices, [], 900)
+             
+               
+       
+              newWidth = wrappersUpdate[0]; [244,33]
+              newMargins = wrappersUpdate[1]; [0,0 ,0,0]
             
-                 // Calculate new widths
-                // var calcNewWrapDymations = calwidth( row[a], wrapperArray, container.offsetWidth );
+            
+             console.log(newWidth);
+             console.log(newMargins);
+             console.log('test');
+            console.log(wrapperArray); 
+            
+             wrapperArray.forEach(function(item, i) {})
+            
+            /*
+            
+                //update the wrappers
+               wrapperArray.forEach(function(item, i) {
+                        item.dimensions[0] = newWidth[i];
+                        item.margins[1] = newMargins[i + i];
+                        item.margins[3] = newMargins[i + i + 1];
+              })
+              */
+             //  console.log('After update: ', myObject);
+                
         }
         
         
        
         
     }
-    function calMargin(){
-        
-    }
-
-    var dev = null;
-
-/*
-    // Calculates div sizes
-    function calwidth( row, wrappers, width ) {
-      var rowWidth = 0,
-      ratio = 1;
-
-      wrappers.forEach(function(element, index){
-        rowWidth += element.margins[1] +  element.margins[3] + element.dimensions[0];
-        ratio = rowWidth / width;
-
-        if(element.margins[1]) {
-          removeTextNode(row.childNodes)[index].style.marginRight = (element.margins[1]  * 100) /  width + '%';
-        }
-        if(element.margins[3]) {
-          removeTextNode(row.childNodes)[index].style.marginLeft = (element.margins[3] * 100) /  width + '%';
-        }
-
-        removeTextNode(row.childNodes)[index].style.width = (element.dimensions[0] * 100) /  width + '%'
-      });
-    }
-*/
- 
- 
-     
-    //var OneColumn = columnW();
-   // console.log(columnW(1024,36 ));
-    
-    readDom();
-
-    window.addEventListener('resize', function(){
-      readDom();
-    });
 
 
-     columnW(1024,36 );
-   
-    console.log(calc2([600, 500, 100], [1], 900));
+    function calcWidths(rowWidth, wrapperWidths, wrapperMargins, fixedIndexes,fixedMargin, resizedBrowser) {
 
-    function calc2(vals, fixedIndices, newSum) {
-      var initSum = vals.reduce(function (prev, cur) {return prev + cur;}, 0);
-      var fixedSum = fixedIndices.reduce(function (prev, cur, index) {return prev + vals[cur];}, 0);
-      var initRemainingSum = initSum - fixedSum;
-      var endRemainingSum = newSum - fixedSum;
-      return vals.map(function(cur, index) {return fixedIndices.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;})
-    }
-    
-    calc4(1200,[200, 300, 100],[0,40,0,50], [1,2],[], 900);
-    console.log(calc4(1200,[200, 300, 100],[0,40,0,50], [1,2], 900));
-    function calc4 (rowWidth, wrapperWidths, wrapperMargins, fixedIndexes,fixedMargin, resizedBrowser) {
-  
-        
         //filter side margins
         margins = wrapperMargins.filter(function( element, index ) {
               return index % 2 == 1;
@@ -554,17 +534,18 @@ letter-spacing: -4px;
         var initSum = initMarginSum + initWidthSum + remainder;
         var fixedSum = fixedIndexes.reduce(function (prev, cur, index) {return prev + wrapperWidths[cur];}, 0);
         var initRemainingSum = initSum - fixedSum;
-         var endRemainingSum = resizedBrowser - fixedSum;
+        var endRemainingSum = resizedBrowser - fixedSum;
               
-         newWidth =  wrapperWidths.map(function(cur, index) {
+        newWidth =  wrapperWidths.map(function(cur, index) {
                      return fixedIndexes.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;
                  })
                  
-           newMargin =  margins.map(function(cur, index) {
+        newMargin =  margins.map(function(cur, index) {
                      return fixedMargin.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;
                  })       
         
-   console.log(newWidth,newMargin );
+        
+       return [newWidth , newMargin ];
 
     }
 
