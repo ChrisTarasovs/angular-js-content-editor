@@ -478,7 +478,7 @@ letter-spacing: -4px;
                  }
             
                  // Calculate new widths
-                 var calcNewWrapDymations = calwidth( row[a], wrapperArray, container.offsetWidth );
+                // var calcNewWrapDymations = calwidth( row[a], wrapperArray, container.offsetWidth );
         }
         
         
@@ -491,6 +491,7 @@ letter-spacing: -4px;
 
     var dev = null;
 
+/*
     // Calculates div sizes
     function calwidth( row, wrappers, width ) {
       var rowWidth = 0,
@@ -510,7 +511,7 @@ letter-spacing: -4px;
         removeTextNode(row.childNodes)[index].style.width = (element.dimensions[0] * 100) /  width + '%'
       });
     }
-
+*/
  
  
      
@@ -525,8 +526,8 @@ letter-spacing: -4px;
 
 
      columnW(1024,36 );
-    
-
+   
+    console.log(calc2([600, 500, 100], [1], 900));
 
     function calc2(vals, fixedIndices, newSum) {
       var initSum = vals.reduce(function (prev, cur) {return prev + cur;}, 0);
@@ -535,16 +536,39 @@ letter-spacing: -4px;
       var endRemainingSum = newSum - fixedSum;
       return vals.map(function(cur, index) {return fixedIndices.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;})
     }
-
-    function calc4 (widths, margins, fixedIndexes, width) {
-      var totalWidths = widths.reduce(function (prev, cur) {return prev + cur;}, 0);
-      var totalmargins = margins.reduce(function (prev, cur) {return prev + cur;}, 0);
-
-      var remainder = width - totalWidths  - totalmargins;
+    
+    calc4(1200,[200, 300, 100],[0,40,0,50], [1,2],[], 900);
+    console.log(calc4(1200,[200, 300, 100],[0,40,0,50], [1,2], 900));
+    function calc4 (rowWidth, wrapperWidths, wrapperMargins, fixedIndexes,fixedMargin, resizedBrowser) {
+  
+        
+        //filter side margins
+        margins = wrapperMargins.filter(function( element, index ) {
+              return index % 2 == 1;
+        });
+        
+        var initMarginSum = margins.reduce(function (prev, cur) {return prev + cur;}, 0);
+        var initWidthSum  = wrapperWidths.reduce(function (prev, cur) {return prev + cur;}, 0) ;
+        var remainder     = rowWidth - initMarginSum  - initWidthSum;
+        //Sum of all elemens
+        var initSum = initMarginSum + initWidthSum + remainder;
+        var fixedSum = fixedIndexes.reduce(function (prev, cur, index) {return prev + wrapperWidths[cur];}, 0);
+        var initRemainingSum = initSum - fixedSum;
+         var endRemainingSum = resizedBrowser - fixedSum;
+              
+         newWidth =  wrapperWidths.map(function(cur, index) {
+                     return fixedIndexes.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;
+                 })
+                 
+           newMargin =  margins.map(function(cur, index) {
+                     return fixedMargin.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;
+                 })       
+        
+   console.log(newWidth,newMargin );
 
     }
 
-    calc2([200, 300, 100], [1,2], 900);
+   
 </script>
     
     
