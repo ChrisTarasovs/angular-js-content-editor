@@ -29,12 +29,12 @@ var dimensions = results.dimensions;
 var margins = results.margins;
 
 /** Update myObject */
-dimensions = ['a','b','c'];
-margins = ['a','b','c', 'd', 'e', 'f'];
+dimensions = [222,333,444];
+margins = [1,2,3, 4, 6, 8];
 
 var updateMyObject = function() {
   myObject.forEach(function(item, i) {
-      consol.log(item);
+    
     item.dimensions[0] = dimensions[i];
     item.margins[1] = margins[i + i];
     item.margins[3] = margins[i + i + 1];

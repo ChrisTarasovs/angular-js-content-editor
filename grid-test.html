@@ -494,23 +494,25 @@ letter-spacing: -4px;
               newMargins = wrappersUpdate[1]; [0,0 ,0,0]
             
             
-             console.log(newWidth);
-             console.log(newMargins);
-             console.log('test');
-            console.log(wrapperArray); 
+           //  console.log(newWidth);
+            // console.log(newMargins);
+            // console.log('test');
+               console.log(wrapperArray); 
+              console.log(wrappersUpdate); 
+            
             
              wrapperArray.forEach(function(item, i) {})
             
-            /*
+           
             
                 //update the wrappers
                wrapperArray.forEach(function(item, i) {
                         item.dimensions[0] = newWidth[i];
-                        item.margins[1] = newMargins[i + i];
-                        item.margins[3] = newMargins[i + i + 1];
+                       item.margins[1] = newMargins[i + i]; // right
+                       item.margins[3] = newMargins[i + i + 1]; // left margin
               })
-              */
-             //  console.log('After update: ', myObject);
+             
+           console.log('After update: ', wrapperArray);
                 
         }
         
@@ -522,12 +524,12 @@ letter-spacing: -4px;
 
     function calcWidths(rowWidth, wrapperWidths, wrapperMargins, fixedIndexes,fixedMargin, resizedBrowser) {
 
-        //filter side margins
+      /*  //filter side margins
         margins = wrapperMargins.filter(function( element, index ) {
               return index % 2 == 1;
-        });
+        });*/
         
-        var initMarginSum = margins.reduce(function (prev, cur) {return prev + cur;}, 0);
+        var initMarginSum = wrapperMargins.reduce(function (prev, cur) {return prev + cur;}, 0);
         var initWidthSum  = wrapperWidths.reduce(function (prev, cur) {return prev + cur;}, 0) ;
         var remainder     = rowWidth - initMarginSum  - initWidthSum;
         //Sum of all elemens
@@ -540,7 +542,7 @@ letter-spacing: -4px;
                      return fixedIndexes.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;
                  })
                  
-        newMargin =  margins.map(function(cur, index) {
+        newMargin =  wrapperMargins.map(function(cur, index) {
                      return fixedMargin.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;
                  })       
         
