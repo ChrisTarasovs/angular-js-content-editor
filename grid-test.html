@@ -360,170 +360,179 @@ letter-spacing: -4px;
 </div>
 <script>
    
-     
-    readDom();
-
-    window.addEventListener('resize', function(){
-      readDom();
+   columnW(1024,36 );
+   resizeGrid();
+    
+    window.addEventListener('resize', function(){ 
+       console.clear();
+       resizeGrid();
     });
     
-    columnW(1024,36 );
+   
+// **** Clean func file list **** //
+
+// load bg grid
+// func create bg grid - temporal
+function columnW(browserwidth, gridCount){
+    var browserW = browserwidth, gridC = gridCount;
+    var columnwidth = browserW / gridC;
+    for ( i = 0; i < gridCount; i++) { 
+        var gridContainer = document.getElementById("bgGridTemporal");
+        var creatColumn = document.createElement('div');
+
+        creatColumn.style.width= columnwidth;
+        creatColumn.style.height= "100%";
+
+        gridContainer.appendChild(creatColumn);   
+
+
+    }
+    return columnwidth;
+
+}
+                               
+                     
+
+// **** Helper Func **** //
+
+// Clean up nodes
+function removeTextNode(nodes){
+    return [].filter.call(nodes, function(o){
+        return o.nodeType == Node.ELEMENT_NODE;
+    });
+}
+// Remove undiefied vars from array
+function cleanUpArray(data){
+  data = data.filter(function( element ) {
+       return element !== undefined;
+  });
+  return data;
+}
+// Map Old wrapper array to new array
+function mapWrapperFields(wrappers, wrappersUpdate){
     
     
+    wrappers.forEach(function(item, i) {
+                item.dimensions[0] = wrappersUpdate[0][i];
+               item.margins[1] = wrappersUpdate[1][i + i]; // right
+               item.margins[3] = wrappersUpdate[1][i + i + 1]; // left margin
+    })
+    return wrappers;
+}
     
-    // Create a temp grid
-    function columnW(browserwidth, gridCount){
-        var browserW = browserwidth, gridC = gridCount;
-        var columnwidth = browserW / gridC;
-        for ( i = 0; i < gridCount; i++) { 
-            var gridContainer = document.getElementById("bgGridTemporal");
-            var creatColumn = document.createElement('div');
-            
-            creatColumn.style.width= columnwidth;
-            creatColumn.style.height= "100%";
-            
-            gridContainer.appendChild(creatColumn);   
-           
-           
+// Get Object dimensions and set in seperate array dimension;margin;positon
+function getObjectDimensions(wrapperID, wraper){
+
+    var wrapperDymations, style, wrapW, wrapH, wrapMTop, wrapMRight, wrapMBottom, wrapMLeft;
+
+    wrapperDymations =[];
+    style = wraper.currentStyle || window.getComputedStyle(wraper);
+    wrapW = wraper.offsetWidth;
+    wrapH = wraper.offsetHeight;
+
+    wrapMTop = parseInt(style.marginTop, 10);
+    wrapMRight = parseInt(style.marginRight);
+    wrapMBottom = parseInt(style.marginBottom);
+    wrapMLeft = parseInt(style.marginLeft);
+    
+    wrapPos = wraper.getAttribute('data-position');
+    if(wrapPos){
+       wrapPos = wrapperID;
+      wrapperDymations.push.apply(wrapperDymations, [{dimensions: [wrapW,wrapH], margins: [wrapMTop,wrapMRight,wrapMBottom,wrapMLeft], positions: [parseInt(wrapPos)]}])
+    }else{
+      wrapperDymations.push.apply(wrapperDymations, [{
+          dimensions: [wrapW,wrapH], margins: [wrapMTop,wrapMRight,wrapMBottom,wrapMLeft],positions: [] }
+            ])}
+
+    return wrapperDymations;
+
+}
+
+// Update Object dimension    
+function updateObjectDimensions(wrapperArray, wraper ,wrapperInt){
+   console.log(wrapperInt);
+   console.log(wrapperArray);
+   console.log( wraper);
+
+    console.log(wrapperArray[wrapperInt].margins[0]);
+    console.log(wrapperArray[wrapperInt].margins[3]);
+   var w = wraper.style;
+   w.width = wrapperArray[wrapperInt].dimensions[0];
+   w.height = wrapperArray[wrapperInt].dimensions[1];
+   w.marginRight  = wrapperArray[wrapperInt].margins[0];
+   w.marginLeft  = wrapperArray[wrapperInt].margins[3];
+
+}
+// Seperate each rows Object in one dimension object, one margin object, one position object
+function getObjectProperties(myObject){
+   var properties =  myObject.reduce(function(newObj, item) 
+                     {
+                      newObj.dimensions.push(item.dimensions[0]);
+                      newObj.margins.push(item.margins[1], item.margins[3]);
+
+                      newObj.positions.push(item.positions[0]);
+                      return newObj;
+                    }, 
+                    { dimensions: [], margins: [], positions: []  });
+ return properties;
+}
+
+    
+// Grid Resize 
+function resizeGrid(){
+    var container = document.getElementById('gridContainer');
+    var row =  container.childNodes;
+        row =  removeTextNode(row); // now is an array
+
+    var rows = [];
+
+    for (var a in row) {
+         var wrapper = row[a].childNodes;
+             wrapper = removeTextNode(wrapper); // now is an array
+        
+            var  rowrInt = [a];
+            var rowdimensions = getObjectDimensions(rowrInt, row[a]);
+            rows.push.apply(rows,rowdimensions );
+
+            var wrapperArray = [];
+            for (var b in wrapper) {
+               var  wrapperInt = [b]; // wrapper integer
+                wrapDymations = getObjectDimensions(wrapperInt, wrapper[b]);
+                wrapperArray.push.apply(wrapperArray,wrapDymations );
+
+            }
+          wrappersArrays =  getObjectProperties(wrapperArray); // filter only widths and margins
+          var objectfixedIndices = cleanUpArray(wrappersArrays.positions);   
+
+
+        var resizedBrowser = document.getElementById("bgGridTemporal").offsetWidth;
+        //Calculate widths
+        var wrappersUpdate = calcWidths(
+                                        rowdimensions[0].dimensions[0], // row width
+                                        wrappersArrays.dimensions,      // wrappers widths
+                                        wrappersArrays.margins,         // wrappers margins
+                                        objectfixedIndices,             // Fixed wrapper widths
+                                        [],                             // Fixed margins
+                                        resizedBrowser                  // New browser width reset
+        )
+
+        //Map the updated array with the old array
+        mapWrapperFields(wrapperArray, wrappersUpdate);
+
+        //updated the DOM wrappers in that row
+        for (var b in wrapper) {
+            var  wrapperInt = [b];
+             updateObjectDimensions(wrapperArray, wrapper[b],wrapperInt);
         }
-        return columnwidth;
-        
     }
-    
-    // Clean up nodes
-    function removeTextNode(nodes){
-        return [].filter.call(nodes, function(o){
-            return o.nodeType == Node.ELEMENT_NODE;
-        });
-    }
-    
-    // Get wrapper dymation and set in array
-    function getWrapperDymantions(wrapperID, wraper){
-        
-        var wrapperDymations, style, wrapW, wrapH, wrapMTop, wrapMRight, wrapMBottom, wrapMLeft;
-        
-        wrapperDymations =[];
-        style = wraper.currentStyle || window.getComputedStyle(wraper);
-        wrapW = wraper.offsetWidth;
-        wrapH = wraper.offsetHeight;
-    
-        wrapMTop = parseInt(style.marginTop, 10);
-        wrapMRight = parseInt(style.marginRight);
-        wrapMBottom = parseInt(style.marginBottom);
-        wrapMLeft = parseInt(style.marginLeft);
-        
-        wrapPos = wraper.getAttribute('data-position');
-        if(wrapPos){
-           wrapPos = wrapperID;
-          wrapperDymations.push.apply(wrapperDymations, [{dimensions: [wrapW,wrapH], margins: [wrapMTop,wrapMRight,wrapMBottom,wrapMLeft], positions: [parseInt(wrapPos)]}])
-        }else{
-          wrapperDymations.push.apply(wrapperDymations, [
-                                                           {
-                                                               dimensions: [wrapW,wrapH], 
-                                                               margins: [wrapMTop,wrapMRight,wrapMBottom,wrapMLeft],
-                                                               positions: []
-                                                           }
-                                                        ])
-        }
-        
-        return wrapperDymations;
-       
-    }
-    // func that loop and only get you each wrapper width,and margin left and right
-    function getWrapperProperties(myObject){
-       var properties =  myObject.reduce(function(newObj, item) 
-                         {
-                          newObj.dimensions.push(item.dimensions[0]);
-                          newObj.margins.push(item.margins[1], item.margins[3]);
-                          
-                          newObj.positions.push(item.positions[0]);
-                          return newObj;
-                        }, 
-                        { dimensions: [], margins: [], positions: []  });
-     return properties;
-    }
-    // remove undiefied from array
-      function cleanUpArray(data){
-
-          data = data.filter(function( element ) {
-               return element !== undefined;
-          });
-          return data;
-      }
-    
-    // Get rows and wrappers
-    function readDom(){
-        
-    
-        var container = document.getElementById('gridContainer');
-        var row =  container.childNodes;
-            row =  removeTextNode(row); // now is an array
-        
-       
-        var rowArray = [];
-        
-        for (var a in row) {
-              var wrapper = row[a].childNodes;
-                  wrapper = removeTextNode(wrapper); // now is an array
-
-                  
-                var  rowrInt = [b];
-                var rowdimensions = getWrapperDymantions(rowrInt, row[a]);
-                rowArray.push.apply(rowArray,rowdimensions );
-             
-            
-                var wrapperArray = new Array();
-                for (var b in wrapper) {
-                    
-                    // get wrapper dymantions
-                    wrapperInt = [b];
-                    wrapDymations = getWrapperDymantions(wrapperInt, wrapper[b]);
-                    wrapperArray.push.apply(wrapperArray,wrapDymations );
-                  
-                }
-                   
-              wrappersArrays =  getWrapperProperties(wrapperArray); // filter only widths and margins
-              var objectfixedIndices = cleanUpArray(wrappersArrays.positions);   
-          //   console.log(rowdimensions[0]);
-           //  console.log(rowdimensions[0].dimensions[0]); 
-        var    wrappersUpdate = calcWidths(rowdimensions[0].dimensions[0],wrappersArrays.dimensions,wrappersArrays.margins, objectfixedIndices, [], 900)
-             
-               
-       
-              newWidth = wrappersUpdate[0]; [244,33]
-              newMargins = wrappersUpdate[1]; [0,0 ,0,0]
-            
-            
-           //  console.log(newWidth);
-            // console.log(newMargins);
-            // console.log('test');
-               console.log(wrapperArray); 
-              console.log(wrappersUpdate); 
-            
-            
-             wrapperArray.forEach(function(item, i) {})
-            
-           
-            
-                //update the wrappers
-               wrapperArray.forEach(function(item, i) {
-                        item.dimensions[0] = newWidth[i];
-                       item.margins[1] = newMargins[i + i]; // right
-                       item.margins[3] = newMargins[i + i + 1]; // left margin
-              })
-             
-           console.log('After update: ', wrapperArray);
-                
-        }
-        
-        
-       
-        
-    }
+}
 
 
-    function calcWidths(rowWidth, wrapperWidths, wrapperMargins, fixedIndexes,fixedMargin, resizedBrowser) {
-
+function calcWidths(rowWidth, wrapperWidths, wrapperMargins, fixedIndexes,fixedMargin, resizedBrowser) {
+         console.log('recieved margins', wrapperMargins);
+         console.log('recieved widths', wrapperWidths);
+         console.error(resizedBrowser);
+    
       /*  //filter side margins
         margins = wrapperMargins.filter(function( element, index ) {
               return index % 2 == 1;
@@ -532,26 +541,25 @@ letter-spacing: -4px;
         var initMarginSum = wrapperMargins.reduce(function (prev, cur) {return prev + cur;}, 0);
         var initWidthSum  = wrapperWidths.reduce(function (prev, cur) {return prev + cur;}, 0) ;
         var remainder     = rowWidth - initMarginSum  - initWidthSum;
-        //Sum of all elemens
-        var initSum = initMarginSum + initWidthSum + remainder;
+        
+        //var initSum = initMarginSum + initWidthSum + remainder;
+        var initSum = 1024; // NEED TO GEt tHE BEFORE RESIZE BROWSER WIDTH.
         var fixedSum = fixedIndexes.reduce(function (prev, cur, index) {return prev + wrapperWidths[cur];}, 0);
         var initRemainingSum = initSum - fixedSum;
         var endRemainingSum = resizedBrowser - fixedSum;
               
-        newWidth =  wrapperWidths.map(function(cur, index) {
+        newWidths =  wrapperWidths.map(function(cur, index) {
                      return fixedIndexes.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;
                  })
                  
-        newMargin =  wrapperMargins.map(function(cur, index) {
+        newMargins =  wrapperMargins.map(function(cur, index) {
                      return fixedMargin.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;
                  })       
-        
-        
-       return [newWidth , newMargin ];
+        console.log('calculated widths', newWidths);
+       console.log('calculated margins', newMargins);
+       return [newWidths , newMargins ];
+}    
 
-    }
-
-   
 </script>
     
     
