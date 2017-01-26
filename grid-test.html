@@ -1,4 +1,6 @@
 <html>
+    
+   
 <head>
     <style>
         *{margin: 0px; padding: 0px;}       
@@ -359,15 +361,44 @@ letter-spacing: -4px;
     </div>  
 </div>
 <script>
-   
+ 	
+window.addEventListener('load', function () {
+	    window.gridWidthOld = document.getElementById("bgGridTemporal").offsetWidth;
+	 resizeGrid( gridWidthOld );
+}, false);
+	
+
    columnW(1024,36 );
-   resizeGrid();
+   
     
+	/*
     window.addEventListener('resize', function(){ 
        console.clear();
        resizeGrid();
     });
-    
+	*/
+	//var resizedBrowser = document.getElementById("bgGridTemporal").offsetWidth;
+	//resizeGrid(resizedBrowser);
+	
+	
+	var gridWidthOld;
+	var doit;
+	function resizedw(){
+		console.clear();
+		  var gridWidthNew = document.getElementById("bgGridTemporal").offsetWidth;		
+		  resizeGrid(window.gridWidthOld, gridWidthNew);
+	}
+	
+    window.onresize = function() {
+		clearTimeout(doit);
+		doit = setTimeout(function() {
+			resizedw();
+		}, 500);
+	};
+
+   
+	
+	
    
 // **** Clean func file list **** //
 
@@ -478,7 +509,12 @@ function getObjectProperties(myObject){
 
     
 // Grid Resize 
-function resizeGrid(){
+function resizeGrid(gridWidthOld, gridWidthNew){
+	if(gridWidthNew == undefined){
+		gridWidthNew = gridWidthOld;
+	}
+		console.warn(gridWidthNew)
+	console.warn(gridWidthOld)
     var container = document.getElementById('gridContainer');
     var row =  container.childNodes;
         row =  removeTextNode(row); // now is an array
@@ -504,15 +540,17 @@ function resizeGrid(){
           var objectfixedIndices = cleanUpArray(wrappersArrays.positions);   
 
 
-        var resizedBrowser = document.getElementById("bgGridTemporal").offsetWidth;
+        
         //Calculate widths
         var wrappersUpdate = calcWidths(
-                                        rowdimensions[0].dimensions[0], // row width
-                                        wrappersArrays.dimensions,      // wrappers widths
+                                        //rowdimensions[0].dimensions[0], // row width
+                                        gridWidthOld,
+										wrappersArrays.dimensions,      // wrappers widths
                                         wrappersArrays.margins,         // wrappers margins
                                         objectfixedIndices,             // Fixed wrapper widths
                                         [],                             // Fixed margins
-                                        resizedBrowser                  // New browser width reset
+										gridWidthNew
+                                        //resizedBrowser                  // New browser width reset
         )
 
         //Map the updated array with the old array
@@ -523,40 +561,69 @@ function resizeGrid(){
             var  wrapperInt = [b];
              updateObjectDimensions(wrapperArray, wrapper[b],wrapperInt);
         }
+		 window.gridWidthOld = document.getElementById("bgGridTemporal").offsetWidth;
+		 console.error(gridWidthOld);
     }
 }
 
 
-function calcWidths(rowWidth, wrapperWidths, wrapperMargins, fixedIndexes,fixedMargin, resizedBrowser) {
-         console.log('recieved margins', wrapperMargins);
-         console.log('recieved widths', wrapperWidths);
-         console.error(resizedBrowser);
+ 
+function calcWidths(
+            rowWidth,             // The old sum of vals, valsTwo and remainder
+            wrapperWidths,               // An array of widths
+            wrapperMargins,            // An array of margins
+            fixedIndexes,       // An array that referces to what element in Vals is fixed and can't change
+            fixedMargin,    // An array that referces to what element in valsTwo is fixed and can't change
+         
+            resizedBrowser              // The new sum
+            ) {   
+/*
+console.log(rowWidth,            
+            wrapperWidths,              
+            wrapperMargins,         
+            fixedIndexes,      
+            fixedMargin, 
+            resizedBrowser             
+)
+*/				
+                
+var initMargins = wrapperMargins.reduce(function (prev, cur) {return prev + cur;}, 0);
+var initWidths  = wrapperWidths.reduce(function (prev, cur) {return prev + cur;}, 0) ;
+var remainder  = rowWidth - initWidths  - initMargins; // 
+var initSum = wrapperWidths.reduce((a, b) => a + b, 0)  +  wrapperMargins.reduce((a, b) => a + b, 0) + remainder; 
+		
     
-      /*  //filter side margins
-        margins = wrapperMargins.filter(function( element, index ) {
-              return index % 2 == 1;
-        });*/
+
+// This func as I understand what elements in vals is fixed ?
+var fixedSumWidth = fixedIndexes.reduce(function (prev, cur, index) {return prev + wrapperWidths[cur];}, 0); // 225
+
+				// This func as I understand what elements in vals is fixed ?
+var fixedSumMargin = fixedMargin.reduce(function (prev, cur, index) {return prev + wrapperMargins[cur];}, 0); // 225
+
+				
+//I need a func here to check if any elements in valstwo are fixed?
+var initRemainingSum = initSum - fixedSumWidth - fixedSumMargin;
+console.log('init reminaing sum', initRemainingSum);
+				
+var endRemainingSum = resizedBrowser - fixedSumWidth - fixedSumMargin;
+console.log('End reminaing sum', endRemainingSum);
+				
+				
+// This func goes through vals and updates the all the vals array value to the new propotions and stores it in valsUpdated
+newWidths =  wrapperWidths.map(function(cur, index) {
+			 return fixedIndexes.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;
+		
+		})
         
-        var initMarginSum = wrapperMargins.reduce(function (prev, cur) {return prev + cur;}, 0);
-        var initWidthSum  = wrapperWidths.reduce(function (prev, cur) {return prev + cur;}, 0) ;
-        var remainder     = rowWidth - initMarginSum  - initWidthSum;
-        
-        //var initSum = initMarginSum + initWidthSum + remainder;
-        var initSum = 1024; // NEED TO GEt tHE BEFORE RESIZE BROWSER WIDTH.
-        var fixedSum = fixedIndexes.reduce(function (prev, cur, index) {return prev + wrapperWidths[cur];}, 0);
-        var initRemainingSum = initSum - fixedSum;
-        var endRemainingSum = resizedBrowser - fixedSum;
-              
-        newWidths =  wrapperWidths.map(function(cur, index) {
-                     return fixedIndexes.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;
-                 })
-                 
-        newMargins =  wrapperMargins.map(function(cur, index) {
-                     return fixedMargin.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;
-                 })       
-        console.log('calculated widths', newWidths);
-       console.log('calculated margins', newMargins);
-       return [newWidths , newMargins ];
+				
+// This func goes through valsTwo and updates the all the vals array value to the ne propotions and stores it in valsTwoUpdated         
+newMargins =  wrapperMargins.map(function(cur, index) {
+                         return fixedMargin.indexOf(index) === -1 ? endRemainingSum*(cur/initRemainingSum) : cur;
+                     }) 
+			
+	
+	  return [newWidths , newMargins ];
+				
 }    
 
 </script>
