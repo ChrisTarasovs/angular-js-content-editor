@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <script src="https://code.angularjs.org/1.5.8/angular.js"></script>
 
-    <script src="temporalBgGrid.js"></script>
-      
+     
     <script src="app/app.js"></script>
     <script src="app/app.awp-ui.js"></script>
       
@@ -20,7 +19,8 @@
     <script src="app/dragdrop/app.dragdropCtrl.js"></script>
     <script src="app/dragdrop/app.awp-ngdragFunc.js"></script>
     
-      
+    <script src="app/grid/app.gridTemporalBgGrid.js"></script>
+    
     <style></style>
   </head>
   <body >
@@ -368,6 +368,14 @@
           <div class="arrows arrow-down"></div>
         </div>
  </div>
-                        
+                                
+                                
+ <div class="hideinBG">
+    <div  id="bgGridTemporal" ng-controller="bgGrid" style="height: 100%">
+        <div style="width: {{width}};height: 100%" ng-repeat="i in counter(number) track by $index"> 
+    </div>
+    </div>  
+</div>                               
+                           
 </body>
 </html>
