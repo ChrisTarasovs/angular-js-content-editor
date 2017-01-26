@@ -1,5 +1,4 @@
- angular.module('awp', ['ngDraggable']).
-          controller('MainCtrl', function ($scope) {
+awp.controller('sidebarCtrl', function ($scope) {
             $scope.centerAnchor = true;
             $scope.toggleCenterAnchor = function () {$scope.centerAnchor = !$scope.centerAnchor}
             

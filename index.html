@@ -7,12 +7,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <script src="https://code.angularjs.org/1.5.8/angular.js"></script>
 
+    <script src="temporalBgGrid.js"></script>
+      
     <script src="app/app.js"></script>
     <script src="app/app.awp-ui.js"></script>
-    <script src="app/app.awp-grid.js"></script>
-    <script src="app/app.awp-ngdragFunc.js"></script>
-    <script src="app/app.awp-ngdrag.js"></script>
       
+    <script src="app/editor/app.editorCtrl.js"></script>
+    
+    <script src="app/grid/app.gridCtrl.js"></script>
+    <link rel="stylesheet" href="app/grid/app.gridCSS.css">
+      
+    <script src="app/dragdrop/app.dragdropCtrl.js"></script>
+    <script src="app/dragdrop/app.awp-ngdragFunc.js"></script>
+    
+      
+    <style></style>
   </head>
   <body >
   
@@ -21,7 +30,7 @@
     
 </style>
       
-<div class="container" ng-controller="MainCtrl">
+<div class="container" ng-controller="sidebarCtrl">
 
        
      <div  ng-repeat="obj in draggableObjects" >
@@ -55,8 +64,7 @@
     <hr>
 
 
-
-  </div>
+</div>
 
       
 <div ng-controller="awpGridCtrl" style="height: 500px; width: 100%; float: left;border:solid 1px">

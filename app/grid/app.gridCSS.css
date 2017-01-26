@@ -1,0 +1,209 @@
+*{margin: 0px; padding: 0px;}       
+/* temporal */
+.hideinBG{
+    position: absolute;z-index: -1;top:0; left:0;
+    height: 2200px;width:100%;}
+#bgGridTemporal{
+    position:relative;
+    max-width: 1024px;  margin: 0px auto;
+}
+#bgGridTemporal div{ 
+    display: inline-block; opacity: 0.3;
+}
+#bgGridTemporal div:nth-child(odd) {
+    background-color: brown
+}
+#bgGridTemporal div:nth-child(even) {
+    background-color:beige;
+}       
+#gridContainer {
+    max-width: 1024px; 
+    margin: 0px auto;
+    background-color: rgba(0,0,0, .1);height: 100%;
+}
+        
+/*Temporal elements*/
+.tmp-Element-Form{height: 300px;}
+        
+/**/
+.grid-row    { 
+    letter-spacing: -4px;
+    background-color: aliceblue; display: inline-block;}
+.grid-row-sub  {
+letter-spacing: -4px;    
+    background-color: rgb(199, 206, 212);display: inline-block;
+}
+.grid-wrapper{ 
+    background-color: #ff0;display: inline-block;vertical-align: top;
+    letter-spacing: normal;
+}
+.grid-wrapper .grid-wrapper{
+    background-color: #d7d700;
+}
+.grid-block  { 
+    background-color:aquamarine;display: inline-block;
+}
+.grid-row, .grid-row-sub{
+   width: 100%; 
+}
+.grid-row-sub {
+    height: auto;
+}   
+        
+/*Row 1*/ 
+.grid-row:nth-child(1){
+  
+    margin-top: 50px;
+    height: 100px;
+}
+.grid-row:nth-child(1)>.grid-wrapper{
+    height: auto;
+    width: 50%;
+}
+.grid-row:nth-child(1) .grid-block {
+    height: 100%;
+    width:  90%;
+    margin: 0px 5%;
+}
+
+        
+/*Row 2*/        
+.grid-row:nth-child(2){
+
+    margin-top: 50px;
+    height: 100px;
+}
+.grid-row:nth-child(2)>.grid-wrapper{
+    height: 100%;
+    width: 25%;
+    margin-left: 84px;
+}
+.grid-row:nth-child(2) .grid-block {
+    height: 100%;
+    width:  90%;
+    margin: 0px 5%;
+}
+.grid-row:nth-child(2)>.grid-wrapper:nth-child(3){
+    margin-left: 25px;
+}
+
+        
+/*Row 3*/        
+.grid-row:nth-child(3){
+   
+    margin-top: 50px;
+    height: 100px;
+}
+.grid-row:nth-child(3)>.grid-wrapper{
+    height: 100%;
+    width: 25%;
+    margin-left: 84px;
+}
+.grid-row:nth-child(3) .grid-block {
+    height: 100%;
+    width:  90%;
+    margin: 0px 5%;
+}
+.grid-row:nth-child(3)>.grid-wrapper:nth-child(2){
+    margin-left: 325px;
+}
+        
+/*Row 4 */        
+.grid-row:nth-child(4){
+    height: auto;
+    margin-top: 50px;
+  
+}
+.grid-row:nth-child(4)>.grid-wrapper{
+    height: auto;
+    width: 44%;
+    margin-left: 84px;
+}
+.grid-row:nth-child(4) .grid-block {
+    height: auto;
+    width:  90%;
+    margin: 10% 5%;
+}
+.grid-row:nth-child(4)>.grid-wrapper:nth-child(1){
+    margin-left: 84px;
+} 
+/*Row 5 */        
+.grid-row:nth-child(5){
+    height: auto;
+    margin-top: 50px;
+  
+}
+.grid-row:nth-child(5)>.grid-wrapper{
+    height: auto;
+    width: 44%;
+    margin-left: 84px;
+}
+.grid-row:nth-child(5) .grid-block {
+    height: auto;
+    width:  90%;
+    margin: 10% 5%;
+}
+.grid-row:nth-child(5)>.grid-wrapper:nth-child(1){
+    margin-left: 29px;
+} 
+.grid-row:nth-child(5)>.grid-wrapper:nth-child(2){
+   margin-left: 37px;
+}  
+        
+/*Row 6 */        
+.grid-row:nth-child(6){
+    height: auto;
+    margin-top: 50px;
+  
+}
+.grid-row:nth-child(6)>.grid-wrapper{
+    height: auto;
+    width: 44%;
+    margin-left: 84px;
+}
+.grid-row:nth-child(6) .grid-block {
+    height: auto;
+    width:  90%;
+    margin: 10% 5%;
+}
+.grid-row:nth-child(6)>.grid-wrapper:nth-child(1){
+    margin-left: 29px;
+} 
+.grid-row:nth-child(6)>.grid-wrapper:nth-child(2){
+   margin-left: 37px;
+} 
+
+.grid-row:nth-child(6) .grid-wrapper .grid-row-sub{
+    height: auto;
+    width:  90%;
+    margin: 10% 5% 0% 5%;
+}   
+.grid-row:nth-child(6) .grid-row-sub:nth-child(2) .grid-wrapper{
+    width: 50%;
+}  
+        
+ /*Row 7 */        
+.grid-row:nth-child(7){
+    height: auto;
+    margin-top: 50px;
+  
+}   
+.grid-row:nth-child(7)>.grid-wrapper{
+    height: auto;
+    width: 50%;
+}
+.grid-row:nth-child(7) .grid-block {
+    height: auto;
+    width:  98%;
+    margin: 0% 1%;
+}
+.grid-row:nth-child(7) .grid-row-sub .grid-wrapper {
+    width: 50%;
+}
+        /*temp*/
+.grid-row:nth-child(7) .grid-wrapper:nth-child(1) .grid-row-sub{
+    height: 148px;
+}
+.grid-row:nth-child(7) .grid-wrapper:nth-child(1) .grid-row-sub:nth-child(2){
+    margin: 1% 0% 0% 0%;
+}
