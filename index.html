@@ -14,6 +14,9 @@
     <script src="app/editor/app.editorCtrl.js"></script>
     
     <script src="app/grid/app.gridCtrl.js"></script>
+      <script src="app/grid/app.gridService.js"></script>
+    
+     
     <link rel="stylesheet" href="app/grid/app.gridCSS.css">
       
     <script src="app/dragdrop/app.dragdropCtrl.js"></script>
@@ -68,16 +71,13 @@
 
       
 <div ng-controller="awpGridCtrl" style="height: 500px; width: 100%; float: left;border:solid 1px">
-      <div class="gridRow">
-            <div></div>
-      </div>
-      The grid
+
 </div>
       
 <div ng-controller="awpCtrl">   
-        <div ng-mouseup="mouseUpEvent()"   ng-keyup="keyUpEvent()" contenteditable >
+          <div ng-mouseup="mouseUpEvent()"   ng-keyup="keyUpEvent()" contenteditable >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus aliquam sodales ipsum quis tincidunt. In scelerisque lorem a metus volutpat volutpat. Nunc imperdiet urna et orci mattis, pellentesque posuere enim pellentesque. Aenean id orci et nunc venenatis vestibulum et et ligula. Morbi mollis ornare purus non blandit. Phasellus egestas, ipsum sit amet finibus pellentesque, tellus urna lobortis tellus, id tincidunt mauris nibh eget lectus. Proin pulvinar enim non mi vestibulum interdum. Sed nisl enim, sagittis non vestibulum eget, congue pellentesque ipsum. Nullam nec interdum elit. Curabitur magna velit, feugiat et dolor quis, feugiat ornare massa. Donec vel consequat quam, et dictum diam. Pellentesque vulputate nunc quis turpis bibendum, eget auctor metus consectetur. Donec efficitur urna vitae scelerisque lobortis. Curabitur sit amet egestas sem. Mauris nec cursus nisl.
-        </div>
+    </div>
         <div style="font-weight: bold;" ng-bind="selectedText"></div>
         <div class="awp awpDefault dark" >
           <div class="arrows arrow-up"></div>

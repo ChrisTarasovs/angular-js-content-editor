@@ -1,4 +1,6 @@
-awp.controller('awpCtrl', function($scope){
+awp.controller('awpCtrl', function($scope, editor ){
+    
+    
         $scope.typography = true;
         $scope.settings= true;
         $scope.addSections= true;
@@ -229,11 +231,14 @@ $scope.userClickedBold = function(){
     // $scope.currentlySelected = $scope.getSelectionText();
     return $scope.getSelectionText()
 }
-    
+
+
+
 $scope.mouseUpEvent = function () {
     var createBold = 'b';
-    $scope.getSelectionText(createBold);
-  
+   // $scope.getSelectionText(createBold);
+    editor.selectionRange = $scope.getSelectionText(createBold);
+ } 
    /*
      if (window.getSelection) {
          sel = window.getSelection().createElement("b");
@@ -247,7 +252,7 @@ $scope.mouseUpEvent = function () {
      */
     
     
-}
+
 
 $scope.getSelectionText = function(htmlVarTag){
     var createTagVar = htmlVarTag;
