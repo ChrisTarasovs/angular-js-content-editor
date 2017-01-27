@@ -94,7 +94,7 @@
                         </a>
                       </li>
                       <li ng-class="{typographyItalic : typographyItalic}">
-                      <a ng-click="activeMenu()" class="nav-icon" >
+                      <a ng-click="textToHtml('i')" class="nav-icon" >
                         <i class="fa fa-italic" aria-hidden="true" title="Italic"></i>
                       </a>
                     </li>
@@ -103,12 +103,12 @@
                             <i class="fa fa-header" aria-hidden="true" title="Heading"></i>
                           </a>
                           <ul class="options inlineblock " ng-class="{ typographyHeading : typographyHeading }">
-                            <li><a>H<sub>1<sub></a></li>
-                            <li><a>H<sub>2<sub></a></li>
-                            <li><a>H<sub>3<sub></a></li>
-                            <li><a>H<sub>4<sub></a></li>
-                            <li><a>H<sub>5<sub></a></li>
-                            <li><a>H<sub>6<sub></a></li>
+                            <li><a ng-click="textToHtml('h1')">H<sub>1<sub></a></li>
+                            <li><a ng-click="textToHtml('h2')">H<sub>2<sub></a></li>
+                            <li><a ng-click="textToHtml('h3')">H<sub>3<sub></a></li>
+                            <li><a ng-click="textToHtml('h4')">H<sub>4<sub></a></li>
+                            <li><a ng-click="textToHtml('h5')">H<sub>5<sub></a></li>
+                            <li><a ng-click="textToHtml('h6')">H<sub>6<sub></a></li>
                           </ul>
                         </li>
                       <li ng-class="{'activeSublist': menu.typographyLink,typographyLink : typographyLink  }" >

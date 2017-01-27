@@ -11,28 +11,17 @@ awp.controller('awpGridCtrl', function($scope, editor){
     }
    
     $scope.mouseUpEvent = function () {
-      
         editor.selectedContent = $scope.getSelectionText();
-        
-        //$scope.getSelectionText(createBold);
-       // editor.getSelectionText();
-
-       // var htmlVarTag = 'b';
-       // var createEl = $scope.createElement(range,htmlVarTag);
-
-        //editor.selectionRange = $scope.getSelectionText(createBold);
      } 
     
     
     
     $scope.getSelectionText = function(){
-
         var sel, range;
         if (typeof window.getSelection != "undefined") {
             sel = window.getSelection();
             if (sel.rangeCount) {
                 range = sel.getRangeAt(0);
-                //console.log('first', range);
                 //range.deleteContents();
                 //range.insertNode(document.createTextNode(userSelectedText));
                 //range.insertNode(document.createElement(userSelectedText));
