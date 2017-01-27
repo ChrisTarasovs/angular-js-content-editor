@@ -10,11 +10,11 @@ function columnW(
                 gridCount
                 ){
                     
-        console.log('sss');
+       
     var browserW = browserwidth; var gridC = gridCount;
     var columnwidth = browserW / gridC;
     for ( i = 0; i < gridCount; i++) { 
-var gridContainer = document.getElementById( '#bgGridTemporal' );
+var gridContainer = document.getElementById( 'bgGridTemporal' );
 var creatColumn = document.createElement('div');
 
         creatColumn.style.width= columnwidth;
@@ -29,4 +29,3 @@ var creatColumn = document.createElement('div');
 
 
      
-})
