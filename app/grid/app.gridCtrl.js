@@ -1,12 +1,55 @@
 'use strict';
 
 
-awp.controller('awpGridCtrl', function($scope){
+awp.controller('awpGridCtrl', function($scope, editor){
+    
+    
+    //User click bold
+    $scope.userClickedBold = function(){
+        // $scope.currentlySelected = $scope.getSelectionText();
+        //return $scope.getSelectionText()
+    }
+   
+    $scope.mouseUpEvent = function () {
+      
+        editor.selectedContent = $scope.getSelectionText();
+        
+        //$scope.getSelectionText(createBold);
+       // editor.getSelectionText();
+
+       // var htmlVarTag = 'b';
+       // var createEl = $scope.createElement(range,htmlVarTag);
+
+        //editor.selectionRange = $scope.getSelectionText(createBold);
+     } 
     
     
     
+    $scope.getSelectionText = function(){
+
+        var sel, range;
+        if (typeof window.getSelection != "undefined") {
+            sel = window.getSelection();
+            if (sel.rangeCount) {
+                range = sel.getRangeAt(0);
+                //console.log('first', range);
+                //range.deleteContents();
+                //range.insertNode(document.createTextNode(userSelectedText));
+                //range.insertNode(document.createElement(userSelectedText));
+
+            }
+        } else if (document.selection && document.selection.createRange) {
+            range = document.selection.createRange();
+             // console.log('second', range);
+            //range.text = replacementText;
+        }
+        
+        return range;
+        
+    }  
     
     
+  
     
 
     /*

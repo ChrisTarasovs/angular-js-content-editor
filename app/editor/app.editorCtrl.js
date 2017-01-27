@@ -1,23 +1,23 @@
 awp.controller('awpCtrl', function($scope, editor ){
     
-    
-        $scope.typography = true;
-        $scope.settings= true;
-        $scope.addSections= true;
-        $scope.addExtra= true;
-        $scope.addLink= true;
-        $scope.addSections = true;
 
-        // Temporal menu show
-        $scope.graphicSettings = true;
-        $scope.graphicVideo = true;
-        $scope.bgColorOptions = true;
+$scope.typography = true;
+$scope.settings= true;
+$scope.addSections= true;
+$scope.addExtra= true;
+$scope.addLink= true;
+$scope.addSections = true;
 
-        $scope.menu = {};
-        $scope.switchMenu = function(selectedMenu) {
+// Temporal menu show
+$scope.graphicSettings = true;
+$scope.graphicVideo = true;
+$scope.bgColorOptions = true;
+
+$scope.menu = {};
+$scope.switchMenu = function(selectedMenu) {
 
 
-        $scope.selectItem = selectedMenu;
+$scope.selectItem = selectedMenu;
             //if typography is flase than enable
             if(selectedMenu == 'typography'){
 
@@ -215,100 +215,32 @@ awp.controller('awpCtrl', function($scope, editor ){
             }
               $scope.menu[selectedMenu] = !$scope.menu[selectedMenu];
               console.log($scope.menu[selectedMenu]);
-        };
+};
 
-/*
-//Get Selected Content
-$scope.mouseUpEvent = function() {
-    
-    $scope.selectedText =  $scope.getSelectionText();
-   
-    console.log('sdasd');
-};  
-*/
-//User click bold
-$scope.userClickedBold = function(){
+
+//onclick func that pass the selected tag to create HTML wrappers
+$scope.textToHtml = function(tag){
+    if(tag){
+          $scope.createElement(editor.selectedContent,tag);
+          editor.selectedContent = '';
+    }
     // $scope.currentlySelected = $scope.getSelectionText();
-    return $scope.getSelectionText()
+    //return $scope.getSelectionText()  
 }
-
-
-
-$scope.mouseUpEvent = function () {
-    var createBold = 'b';
-   // $scope.getSelectionText(createBold);
-    editor.selectionRange = $scope.getSelectionText(createBold);
- } 
-   /*
-     if (window.getSelection) {
-         sel = window.getSelection().createElement("b");
-         sel.innerHTML = "Bold text";
-         return sel;
-         
-     } else if (document.selection && document.selection.createRange) {
-        range = document.selection.createRange();
-        range.text = replacementText;
-    }
-     */
-    
-    
-
-
-$scope.getSelectionText = function(htmlVarTag){
+//Create the HTML wrapper around the selected content
+$scope.createElement = function(range,htmlVarTag ){
     var createTagVar = htmlVarTag;
-    var sel, range;
-    if (typeof window.getSelection != "undefined") {
-        sel = window.getSelection();
-        if (sel.rangeCount) {
-           var range = sel.getRangeAt(0),
-            content = range.cloneContents(),
-            createTag = document.createElement(createTagVar);
-            createTag.appendChild(content);
-            
-            var htmlContent = createTag.innerHTML;
-            range.insertNode(createTag);
-            
-            //range.deleteContents();
-            //range.insertNode(document.createTextNode(userSelectedText));
-            //range.insertNode(document.createElement(userSelectedText));
-            
-        }
-    } else if (document.selection && document.selection.createRange) {
-        range = document.selection.createRange();
-        range.text = replacementText;
-    }
-    
+
+    var selectedContent = range.cloneContents(),
+    createTag = document.createElement(createTagVar);
+    createTag.appendChild(selectedContent);
+
+    var htmlContent = createTag.innerHTML;
+    range.insertNode(createTag);
+
 }
 
-/*
-//Get selection range    
-$scope.getSelectionText = function(){
-  var userSelectedText = "";
-  if (window.getSelection) {
-      
-      
-      
-    
-      $scope.currentlySelect = window.getSelection().toString();
-      userSelectedText = 'Hello' + $scope.currentlySelect;
-      console.log();
-     
-     // userSelectedText = window.getSelection().toString();
-      
-    //  $scope.myselectText = window.getSelection().toString();
-      
-    //  console.log($scope.myselectText);
-     
-      console.log('firs');
-  } else if (document.selection && document.selection.type != "Control") {
-      userSelectedText = document.selection.createRange().text;
-      console.log('second');
-  }
-    
 
-  return userSelectedText;
-}  
-*/
 
 
 // on keyup
@@ -316,8 +248,6 @@ $scope.getSelectionText = function(){
         console.log('use typing in');
         
     } 
-    
-    
 })
 /*
 .directive("contenteditable", function () {
