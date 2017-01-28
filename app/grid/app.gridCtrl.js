@@ -11,8 +11,18 @@ awp.controller('awpGridCtrl', function($scope, editor){
     }
    
     $scope.mouseUpEvent = function () {
+       
        // editor.selectedContent = $scope.getSelectionText();
-         editor.selectedContent = $scope.getSelectedMarkdownNodes();
+       //  editor.selectedContent = $scope.getSelectedMarkdownNodes();
+        
+        // check if HTML are
+       
+        $scope.checkSelection = $scope.getSelectedMarkdownNodes()
+        if ($scope.checkSelection = []){
+            editor.selectedContent = $scope.getSelectionText();
+        }
+        
+        
         console.log(editor.selectedContent);
      } 
     
@@ -31,21 +41,27 @@ awp.controller('awpGridCtrl', function($scope, editor){
       var location2 = $scope.markdown_node_location(selection.focusNode); // - Returns the Node in which the selection ends.
      // console.log('location two', location2);
         
-    
+
+
+    /*
+    This will only be Valid if there is HTML tags in between.
+    */
       if (location1.inside && location2.inside) {
           console.log('gone inside');
            console.log('location 1', location1.node);
            console.log('location 2', location2.node);
           
-          var selectionAncestor = $scope.get_common_ancestor(location1.node, location2.node);
-        
-          console.log('result of anchestor',selectionAncestor);
+         // var selectionAncestor = $scope.get_common_ancestor(location1.node, location2.node);
+         var selectionAncestor = $scope.commonAncestor(location1.node, location2.node); // This works!
           
+        // Need to pass to the service the parent with the salected content and user selection  
+          
+    
+        // If there are no HTML tags than run the selection
         if (selectionAncestor == null) { 
-            return []; 
+            return []; // no tags found in selection
         }
-          
-          console.log(' run the shit below');
+        console.log('run that far?');
         return  $scope.getNodesBetween(selectionAncestor, location1.node, location2.node);
           
       } else if ((location1.before && location2.after) || (location2.before && location1.after)) {
@@ -55,6 +71,8 @@ awp.controller('awpGridCtrl', function($scope, editor){
         return $scope.toArray(markdownbody().childNodes);
           
       } else if (location1.outside && location2.outside) {
+           console.log('location 1 outside', location1.outside);
+           console.log('location2.outside', location2.outside);
            console.log('statement 3')
         return [];
           
@@ -154,11 +172,78 @@ awp.controller('awpGridCtrl', function($scope, editor){
     $scope.markdownbody = function() {
          //var markdownbody = document.getElementById('markdown-body')[0]
         //console.log(document.getElementById('markdown-body'));
+        
+        //.getAttribute('data-element') 
+        
+        
         return document.getElementById('markdown-body');
         
     }
      
-     
+    
+    
+ $scope.parents = function(node) {
+      // Place the first node into an array
+  var nodes = [node];
+      // Place the first node into an array
+  for (; node; node = node.parentNode) {
+       // Place that node at the beginning of the array
+        // This unravels the tree into an array with child/parents only
+    nodes.unshift(node)
+  }
+      // Return the array
+  return nodes
+}
+// Clean up nodes
+$scope.removeTextNode = function(nodes){
+    return [].filter.call(nodes, function(o){
+        return o.nodeType == Node.ELEMENT_NODE;
+    });
+}
+    
+$scope.commonAncestor = function(node1, node2) {
+    console.log(node1);
+  var parents1 = $scope.parents(node1);
+  var parents2 = $scope.parents(node2);
+    
+    var onlyHTMLparent1 = $scope.removeTextNode(parents1);
+    var onlyHTMLparent2 = $scope.removeTextNode(parents2);
+    
+    var reverseParents1 = onlyHTMLparent1.reverse();
+    var reverseParents2 = onlyHTMLparent2.reverse();
+
+  if (reverseParents1[0] != reverseParents2[0]) {
+      console.log("No common ancestor!")
+  }
+ var found = null;
+  for (var i = 0; i < reverseParents1.length; i++) {
+    if (reverseParents1[i] != reverseParents2[i]) {
+        console.log('this is it', reverseParents1[i - 1]);
+        return reverseParents1[i - 1]
+    }else{
+       found = reverseParents1[i];
+       var mainParnet = $scope.markdownbody();
+        console.log(typeof found.tagName );
+          console.log(typeof '<b>' );
+        
+    
+        if(found == mainParnet){
+           return found; // should only return if there is no tag closet.
+        }else if(found.tagName == 'B'){
+              return found;
+            console.log('tags is parent'); // Tag is parent than return tag.
+        }else{
+            console.log('upps');
+        }
+        
+    }
+  }
+   
+}
+    
+    
+    
+     /*
     // Get closet tags
     $scope.get_common_ancestor = function(a, b) {
         console.warn('get common ancestor');
@@ -177,26 +262,29 @@ awp.controller('awpGridCtrl', function($scope, editor){
              
             parentsa.forEach(function(item, i) {
                 var thisa = item; 
-               // console.log(thisa);
+               console.log(thisa);
                 parentsb.forEach(function(el, b) {
                   //  console.log('a el', typeof thisa)
                  //     console.log('b el', typeof el)
                    
-                    if (thisa == el)
-                    {
-                       // console.warn('equal');
-                        found = el;
+                    if (thisa == el ){
                        
-                        return false;
+                        found = el;
+                       console.warn('hurrary');
+                        return found;
+                        // return found;
                     }
                 });
 
-                if (found) return false;
-                
+                if (found) {
+                    return false;
+                }
+                 return found;
             });
             
+           
         
-            /*
+           
             $parentsa.each(function() {
                 var thisa = this;
 
@@ -210,12 +298,16 @@ awp.controller('awpGridCtrl', function($scope, editor){
 
                 if (found) return false;
             });
-            */
+          
 
-            return found;
+           
         }
+               */
+               
+       /*        
     // Custom JS for Javascript to find parent
-     $scope.getParents = function(el, parentSelector /* optional */) {
+     $scope.getParents = function(el, 
+     parentSelector // optional ) {
 
             // If no parentSelector defined will bubble up all the way to *document*
             if (parentSelector === undefined) {
@@ -234,30 +326,38 @@ awp.controller('awpGridCtrl', function($scope, editor){
 
             return parents;
         }
-    
+    */
     
     // get all HTML between the selection
     $scope.getNodesBetween = function(rootNode, node1, node2) {
+        console.log('Now lets understand what inside');
           var resultNodes = [];
           var isBetweenNodes = false;
+        
           for (var i = 0; i < rootNode.childNodes.length; i+= 1) {
+            
             if ($scope.isDescendant(rootNode.childNodes[i], node1) || $scope.isDescendant(rootNode.childNodes[i], node2)) {
-              if (resultNodes.length == 0) {
-                isBetweenNodes = true;
-              } else {
-                isBetweenNodes = false;
-              }
-              resultNodes.push(rootNode.childNodes[i]);
+                  if (resultNodes.length == 0) {
+                    isBetweenNodes = true;
+                  } else {
+                    isBetweenNodes = false;
+                  }
+                  resultNodes.push(rootNode.childNodes[i]);
 
-            } else if (resultNodes.length == 0) {
-            } else if (isBetweenNodes) {
-              resultNodes.push(rootNode.childNodes[i]);
-            } else {
-              return resultNodes;
+              } else if (resultNodes.length == 0) {
+            
+              } else if (isBetweenNodes) {
+              
+                  resultNodes.push(rootNode.childNodes[i]);
+            
+              } else {
+              
+                  return resultNodes;
             }
           };
           if (resultNodes.length == 0) {
             return [rootNode];
+              
           } else if ($scope.isDescendant(resultNodes[resultNodes.length - 1], node1) || $scope.isDescendant(resultNodes[resultNodes.length - 1], node2)) {
             return resultNodes;
           } else {
@@ -303,7 +403,7 @@ awp.controller('awpGridCtrl', function($scope, editor){
           return [];
         }
     
-    /*
+   // Get the Clean selected content
     $scope.getSelectionText = function(){
         var sel, range;
         if (typeof window.getSelection != "undefined") {
@@ -332,7 +432,7 @@ awp.controller('awpGridCtrl', function($scope, editor){
         return range;
         
     }  
-    */
+   
     
   
     

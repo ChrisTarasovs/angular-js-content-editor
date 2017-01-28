@@ -221,11 +221,12 @@ $scope.selectItem = selectedMenu;
 //onclick func that pass the selected tag to create HTML wrappers
 $scope.textToHtml = function(tag){
     
-    console.log('this is what in range', editor.selectedContent);
+    console.warn('this is what in range', editor.selectedContent);
     if(tag){
           $scope.createElement(editor.selectedContent,tag);
         
           editor.selectedContent = '';
+        console.warn(editor.selectedContent);
     }
     // $scope.currentlySelected = $scope.getSelectionText();
     //return $scope.getSelectionText()  
@@ -237,10 +238,12 @@ $scope.createElement = function(range,htmlVarTag ){
     var selectedContent = range.cloneContents(),
     createTag = document.createElement(createTagVar);
     
-   
+   /*
     if(htmlVarTag = 'a'){
+        
         createTag.setAttribute('href', 'http://www.google.com');
     }
+    */
     
     createTag.appendChild(selectedContent);
 
