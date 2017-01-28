@@ -27,4 +27,7 @@ function embedStyle(fn) {
 		body {
 			background: green;
 		}
+        .custom{
+            color: green;
+        }
 	*/});
