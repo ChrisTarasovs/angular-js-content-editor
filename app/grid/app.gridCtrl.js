@@ -3,64 +3,41 @@
 
 awp.controller('awpGridCtrl', function($scope, editor){
     
+$scope.mouseUpEvent = function () {
+
+    $scope.returnSelection = $scope.getSelectedMarkdownNodes()
+
+    editor.actualRange = $scope.returnSelection[0] // correct range
+    editor.selectedContent = $scope.returnSelection[1] // user selected range
+    editor.selectedParentNodes = $scope.returnSelection[2] // selected Content Hthml Nodes
+    editor.selectionAncestor = $scope.returnSelection[3] // parent wrapper
+
+
+ } 
     
-    //User click bold
-    $scope.userClickedBold = function(){
-        // $scope.currentlySelected = $scope.getSelectionText();
-        //return $scope.getSelectionText()
-    }
-   
-    $scope.mouseUpEvent = function () {
-       
-       // editor.selectedContent = $scope.getSelectionText();
-       //  editor.selectedContent = $scope.getSelectedMarkdownNodes();
-        
-        // check if HTML are
-       
-        $scope.returnSelection = $scope.getSelectedMarkdownNodes()
-        
-        //return  $scope.selectedContent  $scope.nodesInsideAncestro,; 
-        editor.selectedContent = $scope.returnSelection[0] // user selected range
-        editor.selectedParentNodes = $scope.returnSelection[1] // selected Content Hthml Nodes
-        editor.selectionAncestor = $scope.returnSelection[2] // parent wrapper
-        
-        /*
-        console.log( 'range',
-        $scope.returnSelection[0]
-        )
-         console.log(
-         'wraper',
-             $scope.returnSelection[1]
-         )
-         */
-         
-        /*
-        if ($scope.checkSelection = []){
-            editor.selectedContent = $scope.getSelectionText();
-           // console.log('selected content',$scope.getSelectionText());
-        }
-        */
-        //editor.selectedContent = $scope.getSelectionText();
-        //editor.selectedContentWrap = $scope.selectedContentWrap;
-        
-        //console.log(editor.selectedContent);
-     } 
-    
-    
-    
-    $scope.getSelectedMarkdownNodes = function() {
-      // from https://developer.mozilla.org/en-US/docs/Web/API/Selection
-        
-      var sel, range, off, tags; 
-      sel = window.getSelection();
-        
-        
-      if (sel == undefined || sel.isCollabsed || sel.toString() == '') {
-        return [];
-      };
-     
-        if (sel.rangeCount) {
+
+// alows me to set the rang start and end   
+$scope.getBodyTextOffset = function(sel, node, offset) {
+
+    var range = document.createRange();
+    range.selectNodeContents(document.getElementById('markdown-body'));
+    range.setEnd(node, offset);
+    sel.removeAllRanges();
+    sel.addRange(range);
+    return sel.toString().length;
+}
+  
+// Get selection
+  $scope.getSelectionOffsets =  function(sel) {
+     var range, off,  start = 0, end = 0;
+       if (sel.rangeCount) {
             range = sel.getRangeAt(0);
+            start = $scope.getBodyTextOffset(sel, range.startContainer, range.startOffset);
+            end = $scope.getBodyTextOffset(sel, range.endContainer, range.endOffset);
+            sel.removeAllRanges();
+            sel.addRange(range);
+            alert(start + ", " + end);
+            
             var off = sel.anchorOffset;
            // range.deleteContents();
          }
@@ -69,17 +46,32 @@ awp.controller('awpGridCtrl', function($scope, editor){
             var off = document.selection.anchorOffset;
            //  range.deleteContents();
         }
+        return {
+                range: range,
+		        start: start,
+		        end: end
+		    };
+  }
     
-       
-        $scope.selectedContent = range;
+    
+    $scope.getSelectedMarkdownNodes = function() {
+      // from https://developer.mozilla.org/en-US/docs/Web/API/Selection
+        
+      var sel, tags,
+      sel = window.getSelection();
       
         
-        
+      if (sel == undefined || sel.isCollabsed || sel.toString() == '') {return [];};
+     
+       // Let's get the correct range starting points]
+        $scope.actualRange = $scope.getSelectionOffsets(sel);
+      
+    
+    // Let me know the start of the Anchor node and End of the Anchor Node.
       var startAnchorNode = $scope.markdown_node_location(sel.anchorNode); //  - Returns the Node in which the selection begins.
-     // console.log('location one', location1);
-
+      
       var endfocusNode = $scope.markdown_node_location(sel.focusNode); // - Returns the Node in which the selection ends.
-     // console.log('location two', location2);
+ 
         
 
 
@@ -109,7 +101,12 @@ awp.controller('awpGridCtrl', function($scope, editor){
         $scope.nodesInsideAncestro = $scope.getNodesBetween($scope.selectionAncestor, startAnchorNode.node, endfocusNode.node);
        
         // Returing user selected and nearest pare with HTML tags
-        return  [ $scope.selectedContent ,$scope.nodesInsideAncestro, $scope.selectionAncestor]; 
+        return  [ 
+            $scope.actualRange, 
+            $scope.selectedContent ,
+            $scope.nodesInsideAncestro, 
+            $scope.selectionAncestor
+        ]; 
           
           
       } else if ((startAnchorNode.before && endfocusNode.after) || (endfocusNode.before && startAnchorNode.after)) {

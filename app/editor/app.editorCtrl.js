@@ -1,31 +1,23 @@
 awp.controller('awpCtrl', function($scope, editor ){
     
 
-$scope.typography = true;
-$scope.settings= true;
-$scope.addSections= true;
-$scope.addExtra= true;
-$scope.addLink= true;
-$scope.addSections = true;
+$scope.typography = true; $scope.settings= true;
+$scope.addSections= true;$scope.addExtra= true;
+$scope.addLink= true;$scope.addSections = true;
 
 // Temporal menu show
-$scope.graphicSettings = true;
-$scope.graphicVideo = true;
-$scope.bgColorOptions = true;
+$scope.graphicSettings = true;$scope.graphicVideo = true;$scope.bgColorOptions = true;
 
 $scope.menu = {};
 $scope.switchMenu = function(selectedMenu) {
-
 
 $scope.selectItem = selectedMenu;
             //if typography is flase than enable
             if(selectedMenu == 'typography'){
 
 
-                 $scope.isNotVisible = true;
-                 $scope.settings= false;
-                 $scope.addSections= false;
-                 $scope.addExtra= false;
+                 $scope.isNotVisible = true;$scope.settings= false;
+                 $scope.addSections= false;$scope.addExtra= false;
 
                   //Enable submenu
                   $scope.typographyOptions = !$scope.typographyOptions;
@@ -220,21 +212,22 @@ $scope.selectItem = selectedMenu;
 
 //onclick func that pass the selected tag to create HTML wrappers
 $scope.textToHtml = function(htmlVarTag){
-    
-    console.log('this is what in range', editor.selectedContent ); // user selected range
-    console.log('select item parent nodes', editor.selectedParentNodes ); // not needed
-    //console.log('this is parents ',  editor.selectionAncestor );// parent wrapper
-    
+   
     
     if(htmlVarTag){
         // passing the content selected and it parents
-          $scope.createElement(editor.selectedContent,editor.selectionAncestor, editor.selectedParentNodes, htmlVarTag);
+          $scope.createElement(
+              editor.actualRange,           // Setup the range object
+              editor.selectedContent,       // selection
+              editor.selectionAncestor,     // selection parents
+              editor.selectedParentNodes,   // selection parent child nodes
+              htmlVarTag                    // HTML tag
+          );
         
           editor.selectedContent = '';
-         // console.warn(editor.selectedContent);
+         
     }
-    // $scope.currentlySelected = $scope.getSelectionText();
-    //return $scope.getSelectionText()  
+
 }
 
 $scope.isElement =  function(obj) {
@@ -252,6 +245,7 @@ $scope.isElement =  function(obj) {
   }
 }
 
+/* Does not WORK
 $scope.unwrap =  function (wrapper) {
     // place childNodes in document fragment
     var docFrag = document.createDocumentFragment();
@@ -263,78 +257,82 @@ $scope.unwrap =  function (wrapper) {
     // replace wrapper with document fragment
     wrapper.parentNode.replaceChild(docFrag, wrapper);
 }
-    
-//Create the HTML wrapper around the selected content
-$scope.createElement = function( range, selectedContentParents,selectedParentNodes,  htmlVarTag ){
-    
-       var selectedContent = editor.selectedContent;
-    //$scope.unwrap(selectedContentParents);
-    
-    console.log('selected before wrap', selectedContent);
-    console.log('', $scope.unwrap(selectedContentParents));
-    console.log('selected after wrap', selectedContent);
-    
-    
-    /*
-       var selectedContent = range.cloneContents();
-       var newNode = document.createElement(htmlVarTag);
-       newNode.appendChild(selectedContent);
-       var htmlContent = newNode.innerHTML;
-       range.deleteContents()
-       range.insertNode(newNode);
-    */
-    
-    
-    
-    /*
-    console.log('what the range', range);
-    console.log('what the range', selectedContentParents);
-    console.log('newNode' ,newNode );
-    console.log('selectedContentParents' ,selectedContentParents );
-    */
-    if( newNode.tagName ==  selectedContentParents.tagName){
-        
-        console.log(typeof newNode );
-        
-        console.log(typeof selectedContentParents );
+*/
 
-    }
+
+//Create the HTML wrapper around the selected content
+$scope.createElement = function( 
+              range,                        // Setup the range object
+              selectedContentParents,       // selection
+              selectionAncestor,            // selection common parents
+              selectedParentNodes,          // selection parent child nodes
+              htmlVarTag                    // HTML tag
+){
     
     
-     //  var orginalNode = $scope.checkIfHTMLinside(selectedContentParents,selectedParentNodes, htmlVarTag );
-    // need to check if parent and child are not wrapped in the same thing. 
-    // for B, i,link, 
     
     
+    var actualRangeObj = range.range;
+    var cloneinnerHTML = actualRangeObj.cloneContents();
+   
+    var newNode = document.createElement(htmlVarTag);
+   
+    // Check if the New created node doe not conflick with parents
+     if(newNode.tagName == selectionAncestor.tagName){
+             var ele = document.getElementById('markdown-body');
+             var myText = selectionAncestor.innerHTML;
+         
+         console.log(typeof selectionAncestor);
+         
+             var selectionStart =    actualRangeObj.startOffset; // get selection start from parent
+             var selectionEnd =    actualRangeObj.endOffset; // get selection end from parent
+          
+             var start = range.start; // start count depending on main container.
+             var end = range.end; // End count depending on main container.
+         
+               // var newText = myText.substring(0, start) + '<b> whast up' + myText.substring(start, end) + '</span>' + myText.substring(end);
+             selectionAncestor.removeChild[0];
+             var newText = myText.substring(0, selectionStart) + '<b>' + myText.substring(start, selectionStart) + '<b>' + myText.substring(selectionEnd);
+           
+         alert(newText);
+         removeContainers(selectionAncestor);
+         
+         selectionAncestor.removeChild;
+         var newNode = document.createElement("span");
+         
+  // http://stackoverflow.com/questions/3352871/using-javascript-insertbefore-to-insert-before-a-textnode
+  // This is where I am stuck, I am able to create the next Node above in newText, and remove the old node but can't insert it.
+         // I can insert an span, that is on line 301 but not text 
+         
+         ele.insertBefore(newNode, selectionAncestor)
+         //ele.insertBefore(newText, selectionAncestor)
+         
+        // I can remove the kids but not the tagname 
+      
+         
+
+         
+         // range.start.insertNode(newText); 
+           //ele.innerHTML = newText;
+         
+         function removeContainers(selectionAncestor){
+            var j=0, len = selectionAncestor.childNodes.length;
+            for(i= 0;  i<len  ;i++){
+                selectionAncestor.removeChild(selectionAncestor.childNodes[j]);
+
+            }
+        }
+
+       
+            alert('you are creating inside a  bold');
+        }
+    
+    console.log('selectedparent',selectedContentParents);
+     
 
 }
 
  $scope.checkIfHTMLinside = function(selectedContentParents,selectedParentNodes, htmlVarTag){
-     
-     /* shit does not work
-        var nodeOrgin = selectedContentParents.firstChild;
-        var child = selectedContentParents.firstChild;
-       console.log('child', child);
-        while (child) {
-          selectedContentParents.parentElement.insertBefore(child, selectedContentParents);
-              console.log('child', child);
-          child = child.nextSibling;
-        }
-    
-        selectedContentParents.parentElement.removeChild(selectedContentParents);
-       console.log('orginal node',nodeOrgin);
-     return nodeOrgin;
-     */
-     /*
-       for (item of selectedContentWrap) {
-           console.log('itme index of',item.innerHtml.indexOf(htmlVarTag));
-        if (item.innerHtml.indexOf(htmlVarTag)) {
-            console.log('true buddy');
-          return true;
-        }
-      }
-      return false;
-   */
      
      
      if(selectedContentParents.nodeName == htmlVarTag){
@@ -371,53 +369,10 @@ $scope.createElement = function( range, selectedContentParents,selectedParentNod
  }
 
 
-//Updated an existing html element
-$scope.updateElement = function(){
-    
-}
-
-
-
 // on keyup
     $scope.keyUpEvent = function () {
         console.log('use typing in');
         
     } 
 })
-/*
-.directive("contenteditable", function () {
-    return {
-        restrict: "A",
-        require: "ngModel",
-        link: linkFunc
-    }
-
-    //Update the editable view
-    function linkFunc($scope, element, attributes, ngModelController){
-         console.log('dasdasds');
-      
-        element.on("keyup blur change", function () {
-              scope.$apply(updateViewModel)
-         })
-
-        $scope.keyUpEvent = function () {
-              scope.$apply(updateViewModel)
-         }
-        
-        
-        function updateViewModel() {
-          var htmlValue = element.text()
-          ngModelController.$setViewValue(htmlValue)
-        }
-
-        ngModelController.$render = updateHtml
-
-        function updateHtml(){
-            var viewModelValue = ngModelController.$viewValue
-            element.text(viewModelValue)
-        }
-
-    }    
-})
-*/
 ;

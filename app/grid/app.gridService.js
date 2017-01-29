@@ -1,10 +1,9 @@
 awp.service('editor', function(){
     return {
-            selectedContent: '',
-            selectedParentNodes: '',
-            selectionAncestor: ''
+            actualRange: '',  // I am getting the start and end of parent node
+            selectedContent: '', // Getting selected content
+            selectedParentNodes: '', // Getting selected Parent Nodes
+            selectionAncestor: '' // Getting common parents.
     }
-   
-    
- 
+
 });
