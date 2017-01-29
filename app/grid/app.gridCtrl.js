@@ -17,28 +17,68 @@ awp.controller('awpGridCtrl', function($scope, editor){
         
         // check if HTML are
        
-        $scope.checkSelection = $scope.getSelectedMarkdownNodes()
+        $scope.returnSelection = $scope.getSelectedMarkdownNodes()
+        
+        //return  $scope.selectedContent  $scope.nodesInsideAncestro,; 
+        editor.selectedContent = $scope.returnSelection[0] // user selected range
+        editor.selectedParentNodes = $scope.returnSelection[1] // selected Content Hthml Nodes
+        editor.selectionAncestor = $scope.returnSelection[2] // parent wrapper
+        
+        /*
+        console.log( 'range',
+        $scope.returnSelection[0]
+        )
+         console.log(
+         'wraper',
+             $scope.returnSelection[1]
+         )
+         */
+         
+        /*
         if ($scope.checkSelection = []){
             editor.selectedContent = $scope.getSelectionText();
+           // console.log('selected content',$scope.getSelectionText());
         }
+        */
+        //editor.selectedContent = $scope.getSelectionText();
+        //editor.selectedContentWrap = $scope.selectedContentWrap;
         
-        
-        console.log(editor.selectedContent);
+        //console.log(editor.selectedContent);
      } 
     
     
     
     $scope.getSelectedMarkdownNodes = function() {
       // from https://developer.mozilla.org/en-US/docs/Web/API/Selection
-      var selection = window.getSelection();
-      if (selection == undefined || selection.isCollabsed || selection.toString() == '') {
+        
+      var sel, range, off, tags; 
+      sel = window.getSelection();
+        
+        
+      if (sel == undefined || sel.isCollabsed || sel.toString() == '') {
         return [];
       };
-         
-      var location1 = $scope.markdown_node_location(selection.anchorNode); //  - Returns the Node in which the selection begins.
+     
+        if (sel.rangeCount) {
+            range = sel.getRangeAt(0);
+            var off = sel.anchorOffset;
+           // range.deleteContents();
+         }
+         else if (document.selection && document.selection.createRange) {
+            range = document.selection.createRange();
+            var off = document.selection.anchorOffset;
+           //  range.deleteContents();
+        }
+    
+       
+        $scope.selectedContent = range;
+      
+        
+        
+      var startAnchorNode = $scope.markdown_node_location(sel.anchorNode); //  - Returns the Node in which the selection begins.
      // console.log('location one', location1);
 
-      var location2 = $scope.markdown_node_location(selection.focusNode); // - Returns the Node in which the selection ends.
+      var endfocusNode = $scope.markdown_node_location(sel.focusNode); // - Returns the Node in which the selection ends.
      // console.log('location two', location2);
         
 
@@ -46,52 +86,60 @@ awp.controller('awpGridCtrl', function($scope, editor){
     /*
     This will only be Valid if there is HTML tags in between.
     */
-      if (location1.inside && location2.inside) {
-          console.log('gone inside');
-           console.log('location 1', location1.node);
-           console.log('location 2', location2.node);
-          
+      if (startAnchorNode.inside && endfocusNode.inside) {
+        //console.log('option one');
          // var selectionAncestor = $scope.get_common_ancestor(location1.node, location2.node);
-         var selectionAncestor = $scope.commonAncestor(location1.node, location2.node); // This works!
+          // check for common parents.
+        $scope.selectionAncestor = $scope.commonAncestor(startAnchorNode.node, endfocusNode.node); // This works!
           
+          
+          
+         console.log('should give me parrents',$scope.selectionAncestor);
+         // console.log(startAnchorNode.node ,endfocusNode.node );
+        //  console.log('found', selectionAncestor);
         // Need to pass to the service the parent with the salected content and user selection  
           
     
         // If there are no HTML tags than run the selection
-        if (selectionAncestor == null) { 
+        if ($scope.selectionAncestor == null) { 
             return []; // no tags found in selection
         }
-        console.log('run that far?');
-        return  $scope.getNodesBetween(selectionAncestor, location1.node, location2.node);
+        
+        // Inside the common parent we check what HTML are to not break the HTML 
+        $scope.nodesInsideAncestro = $scope.getNodesBetween($scope.selectionAncestor, startAnchorNode.node, endfocusNode.node);
+       
+        // Returing user selected and nearest pare with HTML tags
+        return  [ $scope.selectedContent ,$scope.nodesInsideAncestro, $scope.selectionAncestor]; 
           
-      } else if ((location1.before && location2.after) || (location2.before && location1.after)) {
           
-          console.log('statement two')
+      } else if ((startAnchorNode.before && endfocusNode.after) || (endfocusNode.before && startAnchorNode.after)) {
+          
+        console.log('statement two')
           
         return $scope.toArray(markdownbody().childNodes);
           
-      } else if (location1.outside && location2.outside) {
-           console.log('location 1 outside', location1.outside);
-           console.log('location2.outside', location2.outside);
+      } else if (startAnchorNode.outside && endfocusNode.outside) {
+           console.log('location 1 outside', startAnchorNode.outside);
+           console.log('location2.outside', endfocusNode.outside);
            console.log('statement 3')
         return [];
           
-      } else if (location1.before) {
+      } else if (startAnchorNode.before) {
            console.log('statement 4')
-        return $scope.getSelectedMarkdownNodesBefore(location2.node);
+        return $scope.getSelectedMarkdownNodesBefore(endfocusNode.node);
           
       } else if (location2.before) {
           console.log('statement 5')
-        return $scope.getSelectedMarkdownNodesBefore(location1.node);
+        return $scope.getSelectedMarkdownNodesBefore(startAnchorNode.node);
           
-      } else if (location1.after) {
+      } else if (startAnchorNode.after) {
            console.log('statement 6')
-        return $scope.getSelectedMarkdownNodesAfter(location2.node);
+        return $scope.getSelectedMarkdownNodesAfter(endfocusNode.node);
           
           
-      } else if (location2.after) {
+      } else if (endfocusNode.after) {
             console.log('statement 7')
-        return $scope.getSelectedMarkdownNodesAfter(location1.node);
+        return $scope.getSelectedMarkdownNodesAfter(startAnchorNode.node);
           
       }
     }
@@ -202,7 +250,7 @@ $scope.removeTextNode = function(nodes){
 }
     
 $scope.commonAncestor = function(node1, node2) {
-    console.log(node1);
+  
   var parents1 = $scope.parents(node1);
   var parents2 = $scope.parents(node2);
     
@@ -211,10 +259,43 @@ $scope.commonAncestor = function(node1, node2) {
     
     var reverseParents1 = onlyHTMLparent1.reverse();
     var reverseParents2 = onlyHTMLparent2.reverse();
+    
+    var found = null;
+    reverseParents1.forEach(function(item, i) {
+               var thisa = item; 
+              
+                reverseParents2.forEach(function(el, b) {
+                  //  console.log('a el', typeof thisa)
+                 //     console.log('b el', typeof el)
 
+                    if (thisa == el ){
+                         if (found == null) {
+                              found = el;
+                             // console.warn('hurrary', found);
+                              return found;
+                        }else{
+                           
+                        }
+                        //found = el;
+
+                       //return found;
+                        // return found;
+                    }
+                });
+
+                if (found) {
+                    return false;
+                }
+                
+    });
+    return found;
+    
+    
+/*
   if (reverseParents1[0] != reverseParents2[0]) {
       console.log("No common ancestor!")
   }
+  
  var found = null;
   for (var i = 0; i < reverseParents1.length; i++) {
     if (reverseParents1[i] != reverseParents2[i]) {
@@ -238,6 +319,7 @@ $scope.commonAncestor = function(node1, node2) {
         
     }
   }
+  */
    
 }
     
@@ -330,12 +412,12 @@ $scope.commonAncestor = function(node1, node2) {
     
     // get all HTML between the selection
     $scope.getNodesBetween = function(rootNode, node1, node2) {
-        console.log('Now lets understand what inside');
           var resultNodes = [];
           var isBetweenNodes = false;
         
           for (var i = 0; i < rootNode.childNodes.length; i+= 1) {
-            
+           // console.warn($scope.isDescendant(rootNode.childNodes[i], node1));
+              
             if ($scope.isDescendant(rootNode.childNodes[i], node1) || $scope.isDescendant(rootNode.childNodes[i], node2)) {
                   if (resultNodes.length == 0) {
                     isBetweenNodes = true;
@@ -402,7 +484,7 @@ $scope.commonAncestor = function(node1, node2) {
           }
           return [];
         }
-    
+   /* 
    // Get the Clean selected content
     $scope.getSelectionText = function(){
         var sel, range;
@@ -428,10 +510,11 @@ $scope.commonAncestor = function(node1, node2) {
              // console.log('second', range);
             //range.text = replacementText;
         }
-        console.log(tags);
+        //console.log(tags);
         return range;
         
     }  
+    */
    
     
   

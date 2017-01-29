@@ -1,6 +1,8 @@
 awp.service('editor', function(){
     return {
-            selectedContent: ''
+            selectedContent: '',
+            selectedParentNodes: '',
+            selectionAncestor: ''
     }
    
     

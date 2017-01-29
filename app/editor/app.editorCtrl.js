@@ -219,38 +219,136 @@ $scope.selectItem = selectedMenu;
 
 
 //onclick func that pass the selected tag to create HTML wrappers
-$scope.textToHtml = function(tag){
+$scope.textToHtml = function(htmlVarTag){
     
-    console.warn('this is what in range', editor.selectedContent);
-    if(tag){
-          $scope.createElement(editor.selectedContent,tag);
+    console.log('this is what in range', editor.selectedContent ); // user selected range
+    console.log('select item parent nodes', editor.selectedParentNodes ); // not needed
+      console.log('this is parents ',  editor.selectionAncestor );// parent wrapper
+    
+    
+    if(htmlVarTag){
+        // passing the content selected and it parents
+          $scope.createElement(editor.selectedContent,editor.selectionAncestor, editor.selectedParentNodes, htmlVarTag);
         
           editor.selectedContent = '';
-        console.warn(editor.selectedContent);
+         // console.warn(editor.selectedContent);
     }
     // $scope.currentlySelected = $scope.getSelectionText();
     //return $scope.getSelectionText()  
 }
+
+$scope.isElement =  function(obj) {
+  try {
+    //Using W3 DOM2 (works for FF, Opera and Chrom)
+    return obj instanceof HTMLElement;
+  }
+  catch(e){
+    //Browsers not supporting W3 DOM2 don't have HTMLElement and
+    //an exception is thrown and we end up here. Testing some
+    //properties that all elements have. (works on IE7)
+    return (typeof obj==="object") &&
+      (obj.nodeType===1) && (typeof obj.style === "object") &&
+      (typeof obj.ownerDocument ==="object");
+  }
+}
+
 //Create the HTML wrapper around the selected content
-$scope.createElement = function(range,htmlVarTag ){
-    var createTagVar = htmlVarTag;
-
-    var selectedContent = range.cloneContents(),
-    createTag = document.createElement(createTagVar);
+$scope.createElement = function( range, selectedContentParents,selectedParentNodes,  htmlVarTag ){
     
-   /*
-    if(htmlVarTag = 'a'){
-        
-        createTag.setAttribute('href', 'http://www.google.com');
-    }
+    
+   
+       var selectedContent = range.cloneContents();
+       var newNode = document.createElement(htmlVarTag);
+       newNode.appendChild(selectedContent);
+       var htmlContent = newNode.innerHTML;
+       range.deleteContents()
+       range.insertNode(newNode);
+    
+    /*
+    console.log('what the range', range);
+    console.log('what the range', selectedContentParents);
+    console.log('newNode' ,newNode );
+    console.log('selectedContentParents' ,selectedContentParents );
     */
-    
-    createTag.appendChild(selectedContent);
+    if( newNode.tagName ==  selectedContentParents.tagName){
+        
+        console.log(typeof newNode );
+        
+        console.log(typeof selectedContentParents );
 
-    var htmlContent = createTag.innerHTML;
-    range.insertNode(createTag);
+    }
+    
+    
+     //  var orginalNode = $scope.checkIfHTMLinside(selectedContentParents,selectedParentNodes, htmlVarTag );
+    // need to check if parent and child are not wrapped in the same thing. 
+    // for B, i,link, 
+    
+    
 
 }
+
+ $scope.checkIfHTMLinside = function(selectedContentParents,selectedParentNodes, htmlVarTag){
+     
+     /* shit does not work
+        var nodeOrgin = selectedContentParents.firstChild;
+        var child = selectedContentParents.firstChild;
+       console.log('child', child);
+        while (child) {
+          selectedContentParents.parentElement.insertBefore(child, selectedContentParents);
+              console.log('child', child);
+          child = child.nextSibling;
+        }
+    
+        selectedContentParents.parentElement.removeChild(selectedContentParents);
+       console.log('orginal node',nodeOrgin);
+     return nodeOrgin;
+     */
+     /*
+       for (item of selectedContentWrap) {
+           console.log('itme index of',item.innerHtml.indexOf(htmlVarTag));
+        if (item.innerHtml.indexOf(htmlVarTag)) {
+            console.log('true buddy');
+          return true;
+        }
+      }
+      return false;
+   */
+     
+     
+     if(selectedContentParents.nodeName == htmlVarTag){
+          //element.parentNode.replaceChild(element.firstChild, element);
+        
+         var cloneInside = selectedContentParents.innerHTML;
+         selectedContentParents.replaceWith(cloneInside);
+
+         return;
+         
+         console.warn(selectedContentParents.innerHTML);
+        console.warn(selectedContentParents);
+         console.warn(selectedContentParents.nodeName);
+        
+        
+     }
+     
+      var node = selectedParentNodes;
+      console.log('node that is selectedwrapper', selectedParentNodes)
+      for (var i = 0; i < selectedParentNodes.length; i++) {
+          console.log('tag name is ',selectedParentNodes[i].nodeName);
+          var temptagname = selectedParentNodes[i].nodeName;
+          if(selectedParentNodes[i].nodeName == htmlVarTag ){
+              //console.log('contains element B');
+              node.remove(htmlVarTag);
+              //selectedContentWrap[i].removeChild(selectedContentWrap);
+              console.log('clean node',node);
+          }
+          
+      }
+      
+
+     
+ }
+
+
 //Updated an existing html element
 $scope.updateElement = function(){
     
