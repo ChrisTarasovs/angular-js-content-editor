@@ -94,7 +94,7 @@ awp.controller('awpGridCtrl', function($scope, editor){
           
           
           
-         console.log('should give me parrents',$scope.selectionAncestor);
+        // console.log('should give me parrents',$scope.selectionAncestor);
          // console.log(startAnchorNode.node ,endfocusNode.node );
         //  console.log('found', selectionAncestor);
         // Need to pass to the service the parent with the salected content and user selection  

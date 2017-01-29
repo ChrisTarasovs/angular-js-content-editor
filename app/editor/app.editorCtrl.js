@@ -223,7 +223,7 @@ $scope.textToHtml = function(htmlVarTag){
     
     console.log('this is what in range', editor.selectedContent ); // user selected range
     console.log('select item parent nodes', editor.selectedParentNodes ); // not needed
-      console.log('this is parents ',  editor.selectionAncestor );// parent wrapper
+    //console.log('this is parents ',  editor.selectionAncestor );// parent wrapper
     
     
     if(htmlVarTag){
@@ -252,17 +252,39 @@ $scope.isElement =  function(obj) {
   }
 }
 
+$scope.unwrap =  function (wrapper) {
+    // place childNodes in document fragment
+    var docFrag = document.createDocumentFragment();
+    while (wrapper.firstChild) {
+        var child = wrapper.removeChild(wrapper.firstChild);
+        docFrag.appendChild(child);
+    }
+
+    // replace wrapper with document fragment
+    wrapper.parentNode.replaceChild(docFrag, wrapper);
+}
+    
 //Create the HTML wrapper around the selected content
 $scope.createElement = function( range, selectedContentParents,selectedParentNodes,  htmlVarTag ){
     
+       var selectedContent = editor.selectedContent;
+    //$scope.unwrap(selectedContentParents);
     
-   
+    console.log('selected before wrap', selectedContent);
+    console.log('', $scope.unwrap(selectedContentParents));
+    console.log('selected after wrap', selectedContent);
+    
+    
+    /*
        var selectedContent = range.cloneContents();
        var newNode = document.createElement(htmlVarTag);
        newNode.appendChild(selectedContent);
        var htmlContent = newNode.innerHTML;
        range.deleteContents()
        range.insertNode(newNode);
+    */
+    
+    
     
     /*
     console.log('what the range', range);
