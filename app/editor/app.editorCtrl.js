@@ -215,6 +215,9 @@ $scope.textToHtml = function(htmlVarTag){
    
     
     if(htmlVarTag){
+		
+		console.log(editor.actualRange, editor.selectedContent,editor.selectionAncestor,editor.selectedParentNodes, htmlVarTag);
+		
         // passing the content selected and it parents
           $scope.createElement(
               editor.actualRange,           // Setup the range object
@@ -274,6 +277,8 @@ $scope.createElement = function(
     
     var actualRangeObj = range.range;
     var cloneinnerHTML = actualRangeObj.cloneContents();
+	
+	
    
     var newNode = document.createElement(htmlVarTag);
    
@@ -281,8 +286,9 @@ $scope.createElement = function(
      if(newNode.tagName == selectionAncestor.tagName){
              var ele = document.getElementById('markdown-body');
              var myText = selectionAncestor.innerHTML;
-         
-         console.log(typeof selectionAncestor);
+				console.log('my text', myText);
+			 
+				//console.log(typeof selectionAncestor);
          
              var selectionStart =    actualRangeObj.startOffset; // get selection start from parent
              var selectionEnd =    actualRangeObj.endOffset; // get selection end from parent
@@ -292,19 +298,33 @@ $scope.createElement = function(
          
                // var newText = myText.substring(0, start) + '<b> whast up' + myText.substring(start, end) + '</span>' + myText.substring(end);
              selectionAncestor.removeChild[0];
-             var newText = myText.substring(0, selectionStart) + '<b>' + myText.substring(start, selectionStart) + '<b>' + myText.substring(selectionEnd);
-           
+			 
+
+	
+			 console.log(selectionStart,selectionEnd); 2/16
+			 console.log(start,end); 249 / 263
+			 var textEnd = selectionAncestor.length;
+             var newText = myText.substring(0, selectionStart) + '<b>' + myText.substring(selectionStart, selectionEnd) + '</b>' + myText.substring(selectionEnd,textEnd);
+			 
+    var str = document.getElementById("markdown-body").innerHTML;
+	var selectionAncestor = selectionAncestor.outerHTML;
+	
+	//var selectionAncestor = 'Phasellus egestas' 
+	//var newText = 'Test';
+	var res = str.replace(selectionAncestor, newText);
+	console.log(res);
+	document.getElementById("markdown-body").innerHTML = res;
          alert(newText);
-         removeContainers(selectionAncestor);
+         //removeContainers(selectionAncestor);
          
-         selectionAncestor.removeChild;
-         var newNode = document.createElement("span");
+         //selectionAncestor.removeChild;
+         //var newNode = document.createElement("span");
          
   // http://stackoverflow.com/questions/3352871/using-javascript-insertbefore-to-insert-before-a-textnode
   // This is where I am stuck, I am able to create the next Node above in newText, and remove the old node but can't insert it.
          // I can insert an span, that is on line 301 but not text 
          
-         ele.insertBefore(newNode, selectionAncestor)
+        // ele.insertBefore(newNode, selectionAncestor)
          //ele.insertBefore(newText, selectionAncestor)
          
         // I can remove the kids but not the tagname 
