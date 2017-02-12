@@ -14,7 +14,7 @@
     <script src="app/editor/app.editorCtrl.js"></script>
     
     <script src="app/grid/app.gridCtrl.js"></script>
-      <script src="app/grid/app.gridService.js"></script>
+    <script src="app/grid/app.gridService.js"></script>
     
      
     <link rel="stylesheet" href="app/grid/app.gridCSS.css">
@@ -24,7 +24,20 @@
     
     <script src="app/grid/app.gridTemporalBgGrid.js"></script>
     
-    <style></style>
+    
+    <!-- Color Picker -->
+    <link rel="stylesheet" href="external/color-picker/angularjs-color-picker.css" />
+    
+    <script src="external/tinycolor/tinycolor.js"></script>
+    <script src="external/color-picker/angularjs-color-picker.js"></script>
+   
+     
+     
+    <style>
+    /*Temporal CSS*/
+    /*remove coor picker wrapper*/
+   .color-picker-wrapper .input-group{display: none;}
+    </style>
   </head>
   <body >
   
@@ -35,7 +48,16 @@
       
 <div class="container" ng-controller="sidebarCtrl">
 
-       
+     <div class="row">
+                    <h2>HTML Options</h2>
+                   
+                    <label class="control-label">Color</label>
+                    
+                </div>
+                
+
+                
+  
      <div  ng-repeat="obj in draggableObjects" >
          <div class="objWrapper" ng-drag="true" ng-drag-data="obj" data-allow-transform="true"> 
              <div class="ssss">
@@ -143,7 +165,7 @@
                             <ul class="options" ng-class="{typographyColorHex:typographyColorHex}">
                               <li>
                                   <div style="background-color:red;">
-                                    <input type="text" placeholder="#fff" />
+                                    <input type="text" placeholder="{{color2}}" />
                                     <button class="Abtn-circle">OK</button>
                                   </div>
                               </li>
@@ -207,7 +229,7 @@
                             <ul class="options" ng-class="{bgColorHex:bgColorHex}">
                               <li>
                                   <div class="enterColor">
-                                    <input type="text" placeholder="#fff" />
+                                    <input type="text" placeholder="{{color2}}" />
                                     <button class="Abtn-circle">OK</button>
                                   </div>
                               </li>
@@ -237,7 +259,7 @@
                         <ul class="options" ng-class="{addLinkURL:addLinkURL}">
                           <li>
                               <div style="background-color:red;">
-                                <input type="text" placeholder="#fff" />
+                                <input type="text" placeholder="{{color2}}" />
                                 <button class="Abtn-circle">OK</button>
                               </div>
                            </li>
@@ -264,7 +286,18 @@
                 <span> WIll load all fonts in scroll</span>   
               </div>
               <div class="settings" ng-class="{set_typographyColorHex:set_typographyColorHex}">
-                  REX color
+              	
+                  <color-picker 
+                      api='api'
+                      class='col-sm-1' 
+                      ng-model="color2" 
+                      options="{'format':'hex8', 'placeholder': '#ffffff', 'round': false}">
+                 </color-picker>
+                 <div>
+                 	<ul class="colorDrops">
+                 		<li></li>
+                 	</ul>
+                 </div>
               </div>
               <div class="settings" ng-class="{set_setLinkhref:setLinkhref}">
                       <div class="rheight">
@@ -343,8 +376,13 @@
             </div>
             </div>
               <div class="settings" ng-class="{set_bgColor:set_bgColor}">
-                 HEX to set bg colors
-                </div>
+                  <color-picker 
+                      api='api'
+                      class='col-sm-1' 
+                      ng-model="color2" 
+                      options="{'format':'hex8', 'placeholder': '#fff', 'round': false}">
+                 </color-picker>
+              </div>
               <div class="settings" ng-class="{set_sectionOption:set_sectionOption}">
                 <ul class="sectionExamples">
                   <li><img src="demo/demo1.png"></li>

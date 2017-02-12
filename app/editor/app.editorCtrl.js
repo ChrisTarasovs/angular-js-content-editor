@@ -1,6 +1,11 @@
 awp.controller('awpCtrl', function($scope, editor ){
     
 
+
+
+
+
+/* Load Editor */
 $scope.typography = true; $scope.settings= true;
 $scope.addSections= true;$scope.addExtra= true;
 $scope.addLink= true;$scope.addSections = true;
@@ -390,9 +395,63 @@ $scope.createElement = function(
 
 
 // on keyup
-    $scope.keyUpEvent = function () {
-        console.log('use typing in');
-        
-    } 
+$scope.keyUpEvent = function () {
+    console.log('use typing in');
+    
+} 
+    
+/*Color Picker settings*/    
+   $scope.api = {};
+   console.log($scope.api);
+    $scope.eventApi = {
+        onChange: function() {
+            console.log('change', arguments);
+    },
+    onBlur: function() {
+        console.log('blur', arguments);
+    },
+    onOpen: function() {
+        console.info('open', arguments);
+    },
+    onClose: function() {
+        console.info('close', arguments);
+    },
+    onClear: function() {
+        console.info('clear', arguments);
+    },
+    onReset: function() {
+        console.info('reset', arguments);
+    },
+    onDestroy: function() {
+        console.info('destroy', arguments);
+    }
+};
+
+$scope.open = function() {
+    $scope.api.open();
+};
+
+$scope.close = function() {
+    $scope.api.close();
+};
+
+$scope.api = {
+            onChange: function(event, ngModel) {
+                console.log(event, ngModel);
+            }
+        };
+   
 })
-;
+.config(function($provide) {
+        $provide.decorator('ColorPickerOptions', function($delegate) {
+            var options = angular.copy($delegate);
+            options.round = true;
+            options.hue = true;
+            options.saturation = true;
+            options.lightness = false;
+            options.alpha = false;
+            options.inline = true;
+            options.format = 'HEX8';
+            return options;
+        });
+    });
