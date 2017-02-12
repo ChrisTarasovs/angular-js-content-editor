@@ -31,7 +31,19 @@
     <script src="external/tinycolor/tinycolor.js"></script>
     <script src="external/color-picker/angularjs-color-picker.js"></script>
    
-     
+    <style>
+ 		.colorPicker{ display: inline-block;}
+ 		.colorDrops	{display: inline-block;vertical-align: top;list-style:none;}
+ 		.colorDrops li {height: 28px;}
+ 		.colorDrops li span{
+ 			    width: 20px;
+			    height: 20px;
+			    display: block;
+			    border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
+			    -webkit-transform: rotate3d(0,0,1,-45deg);
+			    transform: rotate3d(0,0,1,-45deg);
+ 		}
+ 	</style>
      
     <style>
     /*Temporal CSS*/
@@ -48,13 +60,7 @@
       
 <div class="container" ng-controller="sidebarCtrl">
 
-     <div class="row">
-                    <h2>HTML Options</h2>
-                   
-                    <label class="control-label">Color</label>
-                    
-                </div>
-                
+ 
 
                 
   
@@ -145,7 +151,7 @@
                           </a>
                             <ul class="options" ng-class="{typographyLinkURL:typographyLinkURL}">
                               <li>
-                                  <div style="background-color:red;">
+                                  <div >
                                     <input type="text" placeholder="#fff" />
                                     <button class="Abtn-circle">OK</button>
                                   </div>
@@ -164,9 +170,9 @@
                           </a>
                             <ul class="options" ng-class="{typographyColorHex:typographyColorHex}">
                               <li>
-                                  <div style="background-color:red;">
-                                    <input type="text" placeholder="{{color2}}" />
-                                    <button class="Abtn-circle">OK</button>
+                                  <div style="background-color:white;">
+                                    <input type="text" placeholder="{{color2}}"  ng-model="color2 "/>
+                                    <button class="Abtn-circle" ng-click="getSelectedColor(color2)">OK</button>
                                   </div>
                               </li>
                             </ul>
@@ -258,7 +264,7 @@
                       </a>
                         <ul class="options" ng-class="{addLinkURL:addLinkURL}">
                           <li>
-                              <div style="background-color:red;">
+                              <div style="background-color:white;">
                                 <input type="text" placeholder="{{color2}}" />
                                 <button class="Abtn-circle">OK</button>
                               </div>
@@ -289,15 +295,18 @@
               	
                   <color-picker 
                       api='api'
-                      class='col-sm-1' 
+                     
+                      class='colorPicker' 
                       ng-model="color2" 
                       options="{'format':'hex8', 'placeholder': '#ffffff', 'round': false}">
                  </color-picker>
-                 <div>
+                
+               
+                
                  	<ul class="colorDrops">
-                 		<li></li>
+                 		<li  ng-repeat="n in colorDrops track by $index" ><span style="background-color:{{n}}"></span></li>
                  	</ul>
-                 </div>
+                 
               </div>
               <div class="settings" ng-class="{set_setLinkhref:setLinkhref}">
                       <div class="rheight">

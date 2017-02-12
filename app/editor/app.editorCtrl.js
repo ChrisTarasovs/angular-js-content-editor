@@ -439,7 +439,19 @@ $scope.api = {
             onChange: function(event, ngModel) {
                 console.log(event, ngModel);
             }
-        };
+};
+//Should pulled from DB
+$scope.colorDrops = ['#8F3A3AFF','#352525FF','#F0F0F0', '#1E5BE0FF'];
+
+/*Color selectd*/
+$scope.getSelectedColor = function(colorHex){
+	//alert(colorHex);
+	
+	console.log($scope.colorDrops);
+	$scope.colorDrops.push(colorHex);
+	console.log($scope.colorDrops);
+}
+
    
 })
 .config(function($provide) {
