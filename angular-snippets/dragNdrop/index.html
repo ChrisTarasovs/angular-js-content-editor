@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drag &amp; Drop Lists for angular.js</title>
+
+ 
+<style>
+	.col-md-10{ width: 80%;float: left;}
+	.col-md-2 { width: 20%;float: left;}
+	.col-md-6  { width: 50%;float: left;}
+	.container-element{border: solid 1px #000;}
+	/* Temporal CSS shit*/
+	.dropzone{border: solid 1px #000; width: 1366px !important; height: 300px;}
+	.nestedDemo .dropzone .container-element .column {
+   	 	float: left;
+  	 	width: 100% !important;
+	}
+	
+	.column div div{ display: inline-block;}
+	
+	
+</style>
+
+    <!-- angular is the only dependency! -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.min.js"></script>
+    <script src="angular-drag-and-drop-lists.js"></script>
+  <!--  <script src="dnd.js"></script>-->
+
+    <!-- Stuff that is only required in this demo (no need to copy) -->
+    <link rel="stylesheet" href="framework/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="framework/vendor/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="nested/nested.css" />
+   
+
+   
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-route.min.js"></script>
+
+    <script src="app.routing.js"></script>
+   <script src="app.demo.js"></script>
+
+    
+   
+
+</head>
+<body ng-app="demo">
+
+        <div ng-view></div>
+  
+
+</body>
+</html>

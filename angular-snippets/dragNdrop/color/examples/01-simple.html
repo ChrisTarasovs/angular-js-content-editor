@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>Example 1 - Simple</title>
+
+        <link rel="stylesheet" href="../dist/angularjs-color-picker.min.css" />
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.min.js"></script>
+        <script src="../tinycolor/tinycolor.js"></script>
+
+        <script src="external/color-picker/angularjs-color-picker.js"></script>
+
+        <script src="app.js"></script>
+    </head>
+    <body ng-app="app" ng-controller="AppCtrl">
+        <div class="col-sm-12">
+        
+                <h3>Examples</h3>
+
+                <div class="row">
+                    <label class="control-label">Color</label>
+                   
+                    <color-picker
+                        ng-model="color"
+                        options="options"
+                        api="apir"
+                        event-api="eventApi"
+                    ></color-picker>
+                </div>
+
+                <div class="row">
+                    Two Way Binding
+                    <!-- <color-picker ng-model="color"></color-picker> -->
+                    {{color}}
+                </div>
+
+				<div class="row">
+                    <h2>HTML Options</h2>
+                   
+                    <label class="control-label">Color</label>
+                    <color-picker 
+                      api='api'
+                      class='col-sm-1' 
+                      ng-model="color2" 
+                      options="{'format':'hex8', 'placeholder': '#fff', 'round': false}"></color-picker>
+                </div>
+                
+              
+
+                <div class="row">
+                    Two Way Binding
+                    {{color2}}
+                </div>
+
+                <div class="row">
+                    <h2>No Options</h2>
+                    <label class="control-label">Color</label>
+                    <color-picker class='col-sm-1' ng-model="color3"></color-picker>
+                </div>
+
+                <div class="row">
+                    Two Way Binding
+                    {{color3}}
+                </div>
+           
+        </div>
+    </body>
+</html>
