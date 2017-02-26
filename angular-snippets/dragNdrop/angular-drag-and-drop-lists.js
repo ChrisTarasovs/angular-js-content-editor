@@ -328,81 +328,109 @@
           element.append(placeholder);
         }
 
-        if (event.target != listNode) {
-          // Try to find the node direct directly below the list node.
+          
+// create objec range
+function getObjRange(el){
+    elDymations =[];
+    style = el.currentStyle || window.getComputedStyle(el);
+
+    elWidth = el.offsetWidth;
+    elMarginLenght = parseInt(style.marginLeft);
+
+    elStart = parseInt(el.offsetLeft);
+    elEnd	= parseInt(el.offsetLeft)  + parseInt(elWidth);
+
+    elMarginStart = parseInt(el.offsetLeft) - elMarginLenght;
+    elMarginEnd = parseInt(el.offsetLeft);
+    elobjectfirstpart = elMarginEnd + (el.offsetWidth/2);
+
+
+    elDymations.push.apply(elDymations, [{
+                                        elementRange: [elMarginStart, elEnd], 
+                                        marginsRange: [elMarginStart,elMarginEnd],
+                                        objfirst: [elMarginStart, elobjectfirstpart],
+                                        objsecond: [elobjectfirstpart, elEnd]
+        }])		
+    return elDymations;
+}
+          
+          
+var obj = [];
+arr = attr.$$element[0].children;
+var l = arr.length;         
+while(l--) {
+    var objrange =  getObjRange(arr[l]);
+   //	console.log(objrange);
+   obj.push.apply(obj,objrange);
+}	
+obj.reverse();	
+console.log(obj);          
+
+          
+// this tell me in what object it entered
+idx = obj.findIndex(({ elementRange: [low, high] }) => low <= event.clientY && event.clientY < high)         
+console.log('mouse is', event.clientY);
+console.log('element on top of ', idx);        
+     
+          
+          
+if (event.target != listNode  ) {
+    console.log('or')
+    
+    // Try to find the node direct directly below the list node.
           var listItemNode = event.target;
+    
           while (listItemNode.parentNode != listNode && listItemNode.parentNode) {
             listItemNode = listItemNode.parentNode;
           }
-	
-	var obj = [];
-	
-	arr = attr.$$element[0].children;
-	
-	
-	var l = arr.length;
-	
-	while(l--) {
-		var objrange =  getObjRange(arr[l]);
-	//	console.log(objrange);
-	 
-	obj.push.apply(obj,objrange);
-	 
-	
-	
-		//console.log(arr[l]);
-	  
-	  //someFn(arr[l]);
-	}	
-	obj.reverse();	
-	console.log(obj);	
-	
-	
-	function getObjRange(el){
-		
-		elDymations =[];
-		style = el.currentStyle || window.getComputedStyle(el);
-		 
-		elWidth = el.offsetWidth;
-		elMarginLenght = parseInt(style.marginLeft);
-		
-		
-		elStart = parseInt(el.offsetLeft);
-		console.log(elStart);
-		elEnd	= parseInt(el.offsetLeft)  + parseInt(elWidth);
-	
-		elMarginStart = parseInt(el.offsetLeft) - elMarginLenght;
-		elMarginEnd = parseInt(el.offsetLeft);
-	
-	
-	
-		elDymations.push.apply(elDymations, [{
-											elementRange: [elMarginStart, elEnd], 
-											marginsRange: [elMarginStart,elMarginEnd]
-			}])
-		
- //  console.log(elDymations);	
-    	return elDymations;
-		
-	}		
-  //console.log('c', typeof attr.$$element[0].children);
   
- 
+    
+    
 
           if (listItemNode.parentNode == listNode && listItemNode != placeholderNode) {
             // If the mouse pointer is in the upper half of the list item element,
             // we position the placeholder before the list item, otherwise after it.
             var rect = listItemNode.getBoundingClientRect();
+           
+           
             if (listSettings.horizontal) {
-            //	console.log( rect.left);
+                alert('hor');
+               console.log('event client x', event.clientX );
+                
+                
               var isFirstHalf = event.clientX < rect.left + rect.width / 2;
               
             } else {
-              var isFirstHalf = event.clientY < rect.top + rect.height / 2;
+             
+                if(event.clientX > obj[idx].objfirst[0] && event.clientX < obj[idx].objfirst[1]){
+                      console.log('first half  ');
+                    
+                    var isFirstHalf = true;
+                }else if((event.clientX > obj[idx].objsecond[0] && event.clientX < obj[idx].objsecond[1])){
+                     console.log('second half two ');
+                    var isFirstHalf = true;
+                }
+               
+                
+                // Now to figure out if entered in the margin or the remaining object on the right.
+                
+               
+          
+              
+               
+                
+                 //firstHalf =  elMarginStart - (elEnd - (rect.width/2));
+                
+            //    console.log('client Y is ', event.clientY);
+            //    console.log('rec top is ', rect );
+            //  var isFirstHalf = event.clientY < rect.top + rect.height / 2;
+              //  console.log('is half', isFirstHalf);
             }
             listNode.insertBefore(placeholderNode,
                 isFirstHalf ? listItemNode : listItemNode.nextSibling);
           }
+    
+   
         }
 
         // In IE we set a fake effectAllowed in dragstart to get the correct cursor, we therefore
