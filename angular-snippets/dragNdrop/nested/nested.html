@@ -10,6 +10,7 @@
 <script type="text/ng-template" id="list.html">
     <div dnd-list="list" class="items-drop page">
         <section ng-repeat="item in list"
+                 class="item"
             dnd-draggable="item"
             dnd-effect-allowed="move"
             dnd-moved="list.splice($index, 1)"
@@ -24,6 +25,7 @@
 	
 	    <div dnd-list="list"  class="temporal">
 	        <div 
+                class="item"
 	        	ng-repeat="item in list"
 	            dnd-draggable="item"
 	            dnd-effect-allowed="move"
@@ -91,8 +93,8 @@
 /**/
 .AWcontainer section { background-color: red; height: 200px;}
 .page{ background-color: green;}
-	.AWpageDropZone .items-drop {height: 300px;border:solid 1px black; }
-	.AWcolumn{ border: solid 2px red;}
+	.AWpageDropZone .items-drop {height: 300px;border:solid 0px black; }
+	.AWcolumn{ border: solid 0px red;}
 	.AWsoleitem{ background-color: yellow; width: 100%;}
 </Style>
 <!-- Main area with dropzones and source code -->

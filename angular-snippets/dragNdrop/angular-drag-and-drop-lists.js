@@ -8,7 +8,19 @@
  * License: MIT
  */
 (function(dndLists) {
-
+    window.getDevicePixelRatio = function () {
+    var ratio = 1;
+    // To account for zoom, change to use deviceXDPI instead of systemXDPI
+    if (window.screen.systemXDPI !== undefined && window.screen.logicalXDPI       !== undefined && window.screen.systemXDPI > window.screen.logicalXDPI) {
+        // Only allow for values > 1
+        ratio = window.screen.systemXDPI / window.screen.logicalXDPI;
+    }
+    else if (window.devicePixelRatio !== undefined) {
+        ratio = window.devicePixelRatio;
+    }
+    return ratio;
+};
+var DPR = getDevicePixelRatio();
   // In standard-compliant browsers we use a custom mime type and also encode the dnd-type in it.
   // However, IE and Edge only support a limited number of mime types. The workarounds are described
   // in https://github.com/marceljuenemann/angular-drag-and-drop-lists/wiki/Data-Transfer-Design
@@ -294,7 +306,7 @@
       element.on('dragenter', function (event) {
       
         event = event.originalEvent || event;
-		//console.log(event);
+		console.log('ee', event);
 		
         // Calculate list properties, so that we don't have to repeat this on every dragover event.
         var types = attr.dndAllowedTypes && scope.$eval(attr.dndAllowedTypes);
@@ -317,6 +329,7 @@
       element.on('dragover', function(event) {
         event = event.originalEvent || event;
 
+          
         // Check whether the drop is allowed and determine mime type.
         var mimeType = getMimeType(event.dataTransfer.types);
         var itemType = getItemType(mimeType);
@@ -328,54 +341,12 @@
           element.append(placeholder);
         }
 
-          
-// create objec range
-function getObjRange(el){
-    elDymations =[];
-    style = el.currentStyle || window.getComputedStyle(el);
 
-    elWidth = el.offsetWidth;
-    elMarginLenght = parseInt(style.marginLeft);
-
-    elStart = parseInt(el.offsetLeft);
-    elEnd	= parseInt(el.offsetLeft)  + parseInt(elWidth);
-
-    elMarginStart = parseInt(el.offsetLeft) - elMarginLenght;
-    elMarginEnd = parseInt(el.offsetLeft);
-    elobjectfirstpart = elMarginEnd + (el.offsetWidth/2);
-
-
-    elDymations.push.apply(elDymations, [{
-                                        elementRange: [elMarginStart, elEnd], 
-                                        marginsRange: [elMarginStart,elMarginEnd],
-                                        objfirst: [elMarginStart, elobjectfirstpart],
-                                        objsecond: [elobjectfirstpart, elEnd]
-        }])		
-    return elDymations;
-}
-          
-          
-var obj = [];
-arr = attr.$$element[0].children;
-var l = arr.length;         
-while(l--) {
-    var objrange =  getObjRange(arr[l]);
-   //	console.log(objrange);
-   obj.push.apply(obj,objrange);
-}	
-obj.reverse();	
-console.log(obj);          
-
-          
-// this tell me in what object it entered
-idx = obj.findIndex(({ elementRange: [low, high] }) => low <= event.clientY && event.clientY < high)         
-console.log('mouse is', event.clientY);
-console.log('element on top of ', idx);        
      
           
           
 if (event.target != listNode  ) {
-    console.log('or')
+  
     
     // Try to find the node direct directly below the list node.
           var listItemNode = event.target;
@@ -384,6 +355,81 @@ if (event.target != listNode  ) {
             listItemNode = listItemNode.parentNode;
           }
   
+            
+// create objec range
+function getObjRange(el){
+    elDymations =[];
+    style = el.currentStyle || window.getComputedStyle(el);
+    if(!angular.element(el).hasClass('dndPlaceholder')){
+        elWidth = el.offsetWidth;
+        elMarginLenght = parseInt(style.marginLeft);
+        elStart = parseInt(el.offsetLeft);
+        elEnd	= parseInt(el.offsetLeft)  + parseInt(elWidth);
+        elMarginStart = parseInt(el.offsetLeft) - elMarginLenght;
+        elMarginEnd = elMarginStart + elMarginLenght;
+        elobjectfirstpartStart = elMarginStart ;
+        elobjectfirstpartEnd = elMarginStart + (elWidth/2);
+        
+         elDymations.push.apply(elDymations, [{
+                                        elementRange: [elStart, elEnd], 
+                                        marginsRange: [elMarginStart,elMarginEnd],
+                                        objfirst: [elobjectfirstpartStart, elobjectfirstpartEnd],
+                                        objsecond: [elobjectfirstpartEnd, elEnd],
+                                        objectRange: [elMarginStart, elEnd]
+        }])		
+    //console.log(elDymations);
+    //console.log(elWidth,elMarginLenght,'stat',elStart,elEnd, 'margin start', elMarginStart,elMarginEnd,elobjectfirstpartStart,elobjectfirstpartEnd   );
+         return elDymations;
+        
+    }
+    
+    
+    /*
+   
+   
+
+    
+   // console.log('off set is', parseInt(el.offsetLeft));
+   
+    
+    
+
+
+    elDymations.push.apply(elDymations, [{
+                                        elementRange: [elMarginStart, elEnd], 
+                                        marginsRange: [elMarginStart,elMarginEnd],
+                                        objfirst: [elMarginStart, elobjectfirstpart],
+                                        objsecond: [elobjectfirstpart, elEnd]
+        }])		
+    
+    return elDymations;
+    */
+}
+          
+          
+var obj = [];
+arr = attr.$$element[0].children;
+          
+         // console.clear();
+        //  console.log(arr);
+var l = arr.length;         
+for( var i = 0; i< l; i++) {
+    var objrange =  getObjRange(arr[i]);
+   //	console.log(objrange);
+   obj.push.apply(obj,objrange);
+}	
+//obj.reverse();	
+console.log(obj);
+    
+    
+
+          
+// this tell me in what object it entered
+idx = obj.findIndex(({ objectRange: [low, high] }) => low <= event.clientX / DPR && event.clientX / DPR < high)         
+
+//console.log('mouse is', event.clientY);
+//console.log('element on top of ', idx);        
+    
     
     
 
@@ -392,26 +438,27 @@ if (event.target != listNode  ) {
             // we position the placeholder before the list item, otherwise after it.
             var rect = listItemNode.getBoundingClientRect();
            
-           
-            if (listSettings.horizontal) {
-                alert('hor');
-               console.log('event client x', event.clientX );
-                
-                
-              var isFirstHalf = event.clientX < rect.left + rect.width / 2;
-              
-            } else {
              
-                if(event.clientX > obj[idx].objfirst[0] && event.clientX < obj[idx].objfirst[1]){
+           console.log('first', event.clientX / DPR, obj[idx].objfirst[0], obj[idx].objfirst[1]);
+           
+           console.log('second', event.clientX / DPR, obj[idx].objsecond[0], obj[idx].objsecond[1]);
+              
+              
+            if (listSettings.horizontal) {
+              var isFirstHalf = event.clientX / DPR < rect.left + rect.width / 2;
+            } else {
+                
+              
+                
+                if(event.clientX / DPR > obj[idx].objfirst[0] && event.clientX / DPR < obj[idx].objfirst[1]){
                       console.log('first half  ');
-                    
                     var isFirstHalf = true;
-                }else if((event.clientX > obj[idx].objsecond[0] && event.clientX < obj[idx].objsecond[1])){
+                }else if((event.clientX / DPR > obj[idx].objsecond[0] && event.clientX / DPR < obj[idx].objsecond[1])){
                      console.log('second half two ');
                     var isFirstHalf = true;
                 }
+             
                
-                
                 // Now to figure out if entered in the margin or the remaining object on the right.
                 
                
@@ -426,6 +473,7 @@ if (event.target != listNode  ) {
             //  var isFirstHalf = event.clientY < rect.top + rect.height / 2;
               //  console.log('is half', isFirstHalf);
             }
+              console.log('developer', placeholderNode, listItemNode);
             listNode.insertBefore(placeholderNode,
                 isFirstHalf ? listItemNode : listItemNode.nextSibling);
           }
@@ -784,6 +832,7 @@ if (event.target != listNode  ) {
       return effectAllowed.toLowerCase().indexOf(effect) != -1;
     });
   }
+    
 
   /**
    * For some features we need to maintain global state. This is done here, with these fields:
