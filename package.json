@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ChrisTarasovs/autowp/issues"
   },
-  "homepage": "https://github.com/ChrisTarasovs/autowp#readme"
+  "homepage": "https://github.com/ChrisTarasovs/autowp#readme",
+  "devDependencies": {
+    "@angular/cli": "^1.0.0-rc.1"
+  }
 }

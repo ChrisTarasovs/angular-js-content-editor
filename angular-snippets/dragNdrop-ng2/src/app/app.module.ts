@@ -3,18 +3,21 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent } from './app.component';
+import {DndModule} from 'ng2-dnd';
+
+import { DndComponent } from './dnd/dnd.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    DndComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    DndModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [DndComponent]
 })
 export class AppModule { }
