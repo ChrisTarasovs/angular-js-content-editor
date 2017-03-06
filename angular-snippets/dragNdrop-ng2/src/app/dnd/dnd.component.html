@@ -1,36 +1,44 @@
-<h4>Simple sortable</h4>
-<div class="row">
-    <div class="col-sm-3">
-        <div class="panel panel-success"  >
-            <div class="panel-heading">
-                Widgets
-            </div>
-            <div class="panel-body" dnd-sortable-container [sortableData]="widgets"  [dropZones]="['canvas']">
-                <ul class="list-group">
-                  
-                     <li *ngFor="let widget of widgets; let x = index" class="list-group-item"
-                        dnd-sortable [sortableIndex]="x" [dragEnabled]="true"
-                        [dragData]="widget">{{widget.name}}</li>
-                </ul>
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    Widgets
+  </div>
+  <div class="panel-body" 
+       dnd-sortable-container 
+       [dropZones]="['widget-dropZone']"
+       
+       [sortableData]="widgets">
+            <div *ngFor="let widget of widgets; let i = index" 
+                 class="list-group-item" 
+                 
+                 dnd-sortable [sortableIndex]="i">
+                {{widget.name}}
+              </div>
+  </div>
+</div>
+
+<div class="panel panel-success">
+  <div class="panel-heading">
+    Builderssssss
+  </div>
+  <div class="panel-body" dnd-sortable-container   [sortableData]="containers" [dropZones]="['container-dropZone']">
+    <div *ngFor="let container of containers; let i = index" 
+         dnd-sortable [sortableIndex]="i" 
+         [dragEnabled]="dragOperation" 
+         (onDragSuccess)="onMouseUp($event)"
+           (onDragEnter)="onDragEnter(widget, $event)"
+         >
+        <div class="panel-heading">
+            {{container.id}} {{dragOperation}} <a (mousedown)="onMouseDown()">move</a>
+          </div>
+       <div dnd-sortable-container [sortableData]="container.widgets" [dropZones]="['widget-dropZone']">
+            <div *ngFor="let widget of container.widgets; let j = index" 
+                 class="list-group-item" 
+                 dnd-sortable [sortableIndex]="j" 
+                 [dragEnabled]="!dragOperation" 
+         (onDragEnter)="onDragEnter(widget, $event)" >
+                {{widget.name}}
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div  > 
-                <div class="panel-heading" >
-                    Canvas
-                </div>
-                <div class="panel-body"  dnd-sortable-container [sortableData]="widgets-two" dnd-droppable (onDropSuccess)="drop($event)" [dropZones]="['canvas']">
-                    <div *ngFor="let container of containers; let i = index" [attr.data-index]="i" class="row" >
- 
-                        <div *ngFor="let widget of container.widgets; let j = index"  class="col-md-2 item" dnd-sortable [sortableIndex]="j" [dragEnabled]="true">
-                            {{widget.name + '  ' + j}}
-                        </div>
-                          
-                        
-                    </div>
-                </div>
-        </div>     
-    </div>
-    
+  </div>
 </div>
