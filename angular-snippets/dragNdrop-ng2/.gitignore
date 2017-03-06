@@ -5,8 +5,8 @@
 /tmp
 
 # dependencies
-/node_modules
-!node_modules/ng2-dnd
+/node_modules/*
+!/node_modules/ng2-dnd/*
 
 
 # IDEs and editors
